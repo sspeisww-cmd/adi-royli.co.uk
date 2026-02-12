@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Basic Skills | ADI Ascent</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* --- 黃金模板 CSS 結構 (保持一致) --- */
+        :root {
+            --sidebar-bg: #10172a;
+            --main-bg: #f8fafc;
+            --text-dark: #1e293b;
+            --text-light: #f1f5f9;
+            --accent-blue: #2563eb;
+            --accent-green: #10b981;
+            --font-main: 'Poppins', sans-serif;
+        }
+
+        body { font-family: var(--font-main); margin: 0; display: flex; height: 100vh; overflow: hidden; }
+
+        /* 左側導航欄 (已修正) */
+        .sidebar { width: 300px; background-color: var(--sidebar-bg); color: var(--text-light); padding: 1.5rem; display: flex; flex-direction: column; box-shadow: 2px 0 10px rgba(0,0,0,0.1); overflow-y: auto; flex-shrink: 0; }
+        
+        .brand-container {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            color: white;
+            margin-bottom: 2.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #334155;
+        }
+        
+        .plane-icon {
+            font-size: 1.8rem;
+            color: white;
+            transform: rotate(35deg);
+            flex-shrink: 0;
+        }
+        
+        .brand-text {
+            font-size: 1.5rem;
+            font-weight: 700;
+            white-space: nowrap;
+        }
+        
+        .sidebar a { color: #cbd5e1; text-decoration: none; padding: 0.8rem 1rem; border-radius: 8px; display: flex; align-items: center; gap: 12px; margin-bottom: 0.5rem; transition: all 0.2s; font-weight: 500; }
+        .sidebar a:hover { background-color: #1e293b; color: white; }
+        .sidebar a.active { background-color: var(--accent-blue); color: white; font-weight: bold; }
+        
+        .profile { margin-top: auto; border-top: 1px solid #334155; padding-top: 1.5rem; font-size: 0.9rem; line-height: 1.5; color: #94a3b8; }
+        .profile strong { color: white; font-size: 1rem; display: block; margin-bottom: 0.3rem; }
+
+        /* 右側內容區 */
+        .main-content { flex: 1; background-color: var(--main-bg); padding: 3rem; overflow-y: auto; color: var(--text-dark); }
+        .container { max-width: 1000px; margin: 0 auto; }
+        
+        .hero-title { color: var(--text-dark); font-size: 2.5rem; margin-top: 0; font-weight: 700; }
+        .hero-subtitle { color: #64748b; font-size: 1.2rem; margin-bottom: 2rem; }
+        
+        .card { background: white; padding: 2.5rem; border-radius: 16px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); margin-bottom: 2rem; }
+        .card h2 { color: var(--accent-blue); margin-top: 0; display: flex; align-items: center; gap: 10px; }
+        
+        /* 佈局調整：圖片左，文字右 */
+        .content-wrapper { display: flex; gap: 2rem; align-items: flex-start; margin-top: 1.5rem; }
+        
+        .image-side { flex: 1; text-align: center; }
+        .image-side img { max-width: 100%; height: auto; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        
+        .text-side { flex: 1.5; }
+        
+        .importance-box { background-color: #e0f2fe; padding: 1rem; border-radius: 8px; border-left: 4px solid var(--accent-blue); color: #075985; font-size: 0.95rem; line-height: 1.6; }
+        .errors-box { background-color: #fef2f2; padding: 1rem; border-radius: 8px; border: 1px solid #fecaca; color: #991b1b; margin-top: 1rem; }
+        .errors-box h4 { margin: 0 0 0.5rem 0; color: #dc2626; display: flex; align-items: center; gap: 8px; }
+        .errors-box ul { padding-left: 1.2rem; margin: 0; }
+        .errors-box li { margin-bottom: 0.3rem; font-size: 0.9rem; }
+
+        /* --- 互動卡片樣式 --- */
+        .skills-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 2rem; }
+        
+        .skill-item { 
+            background: #f1f5f9; 
+            padding: 1.2rem;
+            border-radius: 12px; 
+            border-left: 4px solid var(--accent-green); 
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .skill-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 12px -3px rgba(0,0,0,0.1);
+            background-color: #e2e8f0;
+        }
+        
+        .skill-item h3 { 
+            margin: 0 0 0.5rem 0;
+            font-size: 1.1rem;
+            color: var(--text-dark); 
+            display: flex; 
+            align-items: center; 
+            justify-content: space-between;
+        }
+        
+        .chevron-icon {
+            font-size: 0.9rem;
+            color: #64748b;
+            transition: transform 0.3s ease;
+        }
+
+        .click-hint {
+            font-size: 0.75rem;
+            color: var(--accent-blue);
+            font-weight: 600;
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+        
+        .skill-item p { margin: 0; font-size: 0.9rem; line-height: 1.4; color: #475569; }
+
+        /* 隱藏的細節內容 */
+        .skill-details {
+            display: none;
+            margin-top: 0.8rem;
+            padding-top: 0.8rem;
+            border-top: 1px solid #cbd5e1;
+            font-size: 0.85rem;
+            line-height: 1.5;
+            animation: fadeIn 0.4s;
+        }
+        
+        .skill-details ul { padding-left: 1.1rem; margin: 0.5rem 0; }
+        .skill-details li { margin-bottom: 0.5rem; font-style: italic; color: #1e40af; font-weight: 500; }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* Footer 版權宣告樣式 */
+        .footer {
+            text-align: center;
+            padding: 2rem 0;
+            margin-top: 3rem;
+            border-top: 1px solid #e2e8f0;
+            color: #64748b;
+            font-size: 0.85rem;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="sidebar">
+        <div class="brand-container">
+            <i class="fas fa-paper-plane plane-icon"></i>
+            <span class="brand-text">ADI Ascent</span>
+        </div>
+        
+        <a href="index.html"><i class="fas fa-home"></i> Home</a>
+        <a href="philosophy.html"><i class="fas fa-user-tie"></i> Our Philosophy</a>
+        <a href="professionalism.html"><i class="fas fa-file-contract"></i> Professionalism</a>
+        <a href="ccl-opening.html"><i class="fas fa-comment-dots"></i> CCL Opening</a>
+        <a href="basic-skills.html" class="active"><i class="fas fa-cogs"></i> Basic Skills</a>
+        <a href="street-driving.html"><i class="fas fa-road"></i> Street Driving</a>
+        <a href="parking.html"><i class="fas fa-parking"></i> Parking</a>
+        <a href="risk-motorway.html"><i class="fas fa-exclamation-triangle"></i> Risk & Motorway</a>
+        <a href="scenarios.html"><i class="fas fa-tasks"></i> Scenarios</a>
+        <a href="business.html"><i class="fas fa-briefcase"></i> Business Services</a>
+        
+        <div class="profile">
+            <strong>Roy Li</strong>
+            Approved Driving Instructor<br>
+            Beans Driving School x AA Franchise
+        </div>
+    </div>
+
+    <div class="main-content">
+        <div class="container">
+            <h1 class="hero-title">Basic Car Control Skills</h1>
+            <p class="hero-subtitle">Click on a skill to reveal simple open-ended questions.</p>
+            
+            <div class="card">
+                <h2><i class="fas fa-user-graduate"></i> Foundation Skills & Knowledge</h2>
+                
+                <div class="content-wrapper">
+                    <div class="image-side">
+                        <img src="images/skills.png" alt="Basic Skills Illustration">
+                    </div>
+                    
+                    <div class="text-side">
+                        <div class="importance-box">
+                            <strong>Why Basic Skills Matter?</strong><br>
+                            Mastering car control is the foundation of safety. It allows the learner to focus on observation and hazard perception, rather than struggling with gears or steering, making driving intuitive and safe.
+                        </div>
+                        
+                        <div class="errors-box">
+                            <h4><i class="fas fa-exclamation-circle"></i> Common Learner Errors</h4>
+                            <ul>
+                                <li><strong>Poor Steering Control:</strong> Not keeping hands in correct position, causing erratic lane positioning.</li>
+                                <li><strong>Incorrect Gear Selection:</strong> Driving too fast in low gears or struggling to find the right gear, disrupting flow.</li>
+                                <li><strong>Lack of Mirror Usage:</strong> Not checking mirrors before changing speed or direction, failing to anticipate hazards.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="skills-grid">
+                    
+                    <div class="skill-item" onclick="toggleDetails(this)">
+                        <h3><i class="fas fa-chair"></i> Cockpit Drill <i class="fas fa-chevron-down chevron-icon"></i></h3>
+                        <span class="click-hint">Click for simple questions</span>
+                        <p>DSSSM: Doors, Seat, Steering, Seatbelt, Mirrors.</p>
+                        
+                        <div class="skill-details">
+                            <strong>Simple Open Questions:</strong>
+                            <ul>
+                                <li>"Why is setting your seat and mirrors first important?"</li>
+                                <li>"How do you check if your seatbelt is secure?"</li>
+                                <li>"What do you need to check before you start the engine?"</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="skill-item" onclick="toggleDetails(this)">
+                        <h3><i class="fas fa-play"></i> Moving Off <i class="fas fa-chevron-down chevron-icon"></i></h3>
+                        <span class="click-hint">Click for simple questions</span>
+                        <p>Checking mirrors, signaling, and checking blind spots.</p>
+                        
+                        <div class="skill-details">
+                            <strong>Simple Open Questions:</strong>
+                            <ul>
+                                <li>"What do you need to look for before moving off?"</li>
+                                <li>"How do you check your blind spots safely?"</li>
+                                <li>"Why is it important to move off slowly?"</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="skill-item" onclick="toggleDetails(this)">
+                        <h3><i class="fas fa-stop"></i> Stopping <i class="fas fa-chevron-down chevron-icon"></i></h3>
+                        <span class="click-hint">Click for simple questions</span>
+                        <p>Routine stop (MSM) and stopping in an emergency.</p>
+                        
+                        <div class="skill-details">
+                            <strong>Simple Open Questions:</strong>
+                            <ul>
+                                <li>"How do you decide where is a safe place to stop?"</li>
+                                <li>"What steps do you take to stop the car smoothly?"</li>
+                                <li>"What do you check before you open the door to get out?"</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="skill-item" onclick="toggleDetails(this)">
+                        <h3><i class="fas fa-steering-wheel"></i> Steering <i class="fas fa-chevron-down chevron-icon"></i></h3>
+                        <span class="click-hint">Click for simple questions</span>
+                        <p>Correct hand position and steering control.</p>
+                        
+                        <div class="skill-details">
+                            <strong>Simple Open Questions:</strong>
+                            <ul>
+                                <li>"Why is keeping both hands on the wheel important?"</li>
+                                <li>"How does looking further ahead help your steering?"</li>
+                                <li>"What happens if you turn the wheel too quickly?"</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer">
+                &copy; 2026 ADI Ascent. Developed by Roy Li. All rights reserved.
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function toggleDetails(element) {
+            var details = element.querySelector('.skill-details');
+            var icon = element.querySelector('.chevron-icon');
+            var hint = element.querySelector('.click-hint');
+            
+            // 切換顯示狀態
+            if (details.style.display === "block") {
+                details.style.display = "none";
+                icon.style.transform = "rotate(0deg)";
+                hint.textContent = "Click for simple questions";
+            } else {
+                details.style.display = "block";
+                icon.style.transform = "rotate(180deg)";
+                hint.textContent = "Click to hide";
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Business Services | ADI Ascent</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* --- 黃金模板 CSS 結構 (保持一致) --- */
+        :root {
+            --sidebar-bg: #10172a;
+            --main-bg: #f8fafc;
+            --text-dark: #1e293b;
+            --text-light: #f1f5f9;
+            --accent-blue: #2563eb;
+            --accent-green: #10b981;
+            --font-main: 'Poppins', sans-serif;
+        }
+
+        body { font-family: var(--font-main); margin: 0; display: flex; height: 100vh; overflow: hidden; }
+
+        /* 左側導航欄 */
+        .sidebar { width: 300px; background-color: var(--sidebar-bg); color: var(--text-light); padding: 1.5rem; display: flex; flex-direction: column; box-shadow: 2px 0 10px rgba(0,0,0,0.1); overflow-y: auto; flex-shrink: 0; }
+        
+        /* 修正品牌容器結構 */
+        .brand-container {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            color: white;
+            margin-bottom: 2.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #334155;
+        }
+        
+        .plane-icon {
+            font-size: 1.8rem;
+            color: white;
+            transform: rotate(35deg);
+            flex-shrink: 0;
+        }
+        
+        .brand-text {
+            font-size: 1.5rem;
+            font-weight: 700;
+            white-space: nowrap;
+        }
+        
+        .sidebar a { color: #cbd5e1; text-decoration: none; padding: 0.8rem 1rem; border-radius: 8px; display: flex; align-items: center; gap: 12px; margin-bottom: 0.5rem; transition: all 0.2s; font-weight: 500; }
+        .sidebar a:hover { background-color: #1e293b; color: white; }
+        .sidebar a.active { background-color: var(--accent-blue); color: white; font-weight: bold; }
+        
+        .profile { margin-top: auto; border-top: 1px solid #334155; padding-top: 1.5rem; font-size: 0.9rem; line-height: 1.5; color: #94a3b8; }
+        .profile strong { color: white; font-size: 1rem; display: block; margin-bottom: 0.3rem; }
+
+        /* 右側內容區 */
+        .main-content { flex: 1; background-color: var(--main-bg); padding: 3rem; overflow-y: auto; color: var(--text-dark); }
+        .container { max-width: 1000px; margin: 0 auto; }
+        
+        .hero-title { color: var(--text-dark); font-size: 2.5rem; margin-top: 0; font-weight: 700; }
+        .hero-subtitle { color: #64748b; font-size: 1.2rem; margin-bottom: 2rem; }
+        
+        .card { background: white; padding: 2.5rem; border-radius: 16px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); margin-bottom: 2rem; }
+        .card h2 { color: var(--accent-blue); margin-top: 0; display: flex; align-items: center; gap: 10px; }
+        
+        /* 商業頁面特有樣式 */
+        .service-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; margin-top: 1.5rem; }
+        .service-card { background: #f1f5f9; padding: 2rem; border-radius: 12px; text-align: center; border: 1px solid #e2e8f0; transition: all 0.3s; }
+        .service-card:hover { transform: translateY(-5px); box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1); }
+        .service-card i { font-size: 3rem; color: var(--accent-green); margin-bottom: 1rem; }
+        .service-card h3 { color: var(--text-dark); margin-top: 0; }
+        .service-card p { color: #475569; font-size: 0.95rem; }
+        
+        .cta-button { display: inline-flex; align-items: center; gap: 10px; background-color: #25D366; color: white; padding: 1rem 2rem; border-radius: 8px; text-decoration: none; font-weight: 600; margin-top: 1.5rem; transition: background 0.3s; font-size: 1.1rem; }
+        .cta-button:hover { background-color: #128C7E; }
+
+        .contact-info { margin-top: 1.5rem; font-size: 1rem; color: #334155; font-weight: 500; }
+        .contact-info i { color: #25D366; margin-right: 8px; }
+
+        /* Footer 樣式 (統一版權宣告) */
+        .footer {
+            text-align: center;
+            padding: 2rem 0;
+            margin-top: 3rem;
+            border-top: 1px solid #e2e8f0;
+            color: #64748b;
+            font-size: 0.85rem;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="sidebar">
+        <div class="brand-container">
+            <i class="fas fa-paper-plane plane-icon"></i>
+            <span class="brand-text">ADI Ascent</span>
+        </div>
+        
+        <a href="index.html"><i class="fas fa-home"></i> Home</a>
+        <a href="philosophy.html"><i class="fas fa-user-tie"></i> Our Philosophy</a>
+        <a href="professionalism.html"><i class="fas fa-file-contract"></i> Professionalism</a>
+        <a href="ccl-opening.html"><i class="fas fa-comment-dots"></i> CCL Opening</a>
+        <a href="basic-skills.html"><i class="fas fa-cogs"></i> Basic Skills</a>
+        <a href="street-driving.html"><i class="fas fa-road"></i> Street Driving</a>
+        <a href="parking.html"><i class="fas fa-parking"></i> Parking</a>
+        <a href="risk-motorway.html"><i class="fas fa-exclamation-triangle"></i> Risk & Motorway</a>
+        <a href="scenarios.html"><i class="fas fa-tasks"></i> Scenarios</a>
+        <a href="business.html" class="active"><i class="fas fa-briefcase"></i> Business Services</a>
+        
+        <div class="profile">
+            <strong>Roy Li</strong>
+            Approved Driving Instructor<br>
+            Beans Driving School x AA Franchise
+        </div>
+    </div>
+
+    <div class="main-content">
+        <div class="container">
+            <h1 class="hero-title">Professional Services</h1>
+            <p class="hero-subtitle">Private training and consultancy for prospective driving instructors.</p>
+            
+            <div class="card">
+                <h2><i class="fas fa-handshake"></i> How I Can Help You</h2>
+                <p>Looking for personalized guidance to pass your Standards Check or improve your coaching skills? I offer tailor-made sessions designed for your needs.</p>
+                
+                <div class="service-grid">
+                    <div class="service-card">
+                        <i class="fas fa-car-side"></i>
+                        <h3>In-Car Training</h3>
+                        <p>One-on-one practical training to boost your coaching techniques and safety awareness.</p>
+                    </div>
+                    <div class="service-card">
+                        <i class="fas fa-user-friends"></i>
+                        <h3>Sit-In Sessions</h3>
+                        <p>Observe my live lessons to see Client-Centred Learning in action.</p>
+                    </div>
+                    <div class="service-card">
+                        <i class="fas fa-video"></i>
+                        <h3>Video Commenting</h3>
+                        <p>Send me your recorded lessons for detailed feedback on your performance.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card" style="text-align: center;">
+                <h2><i class="fas fa-money-bill-wave"></i> Ready to Book?</h2>
+                <p>Invest in your career. Contact me for pricing and availability.</p>
+                
+                <a href="https://wa.me/447548386229" class="cta-button" target="_blank">
+                    <i class="fab fa-whatsapp"></i> Get a quote on WhatsApp
+                </a>
+                
+                <div class="contact-info">
+                    <i class="fas fa-phone-alt"></i> +44 (0) 7548 386229
+                </div>
+                
+                <p style="margin-top: 1rem; font-size: 0.85rem; color: #64748b;">
+                    Or email: roylicc@hotmail.com
+                </p>
+            </div>
+
+            <div class="footer">
+                &copy; 2026 ADI Ascent. Developed by Roy Li. All rights reserved.
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

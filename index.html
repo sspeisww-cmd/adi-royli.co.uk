@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home | ADI Ascent</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* --- 黃金模板 CSS 結構 --- */
+        :root {
+            --sidebar-bg: #10172a;
+            --main-bg: #f8fafc;
+            --text-dark: #1e293b;
+            --text-light: #f1f5f9;
+            --accent-blue: #2563eb;
+            --accent-green: #10b981;
+            --font-main: 'Poppins', sans-serif;
+        }
+
+        body { font-family: var(--font-main); margin: 0; display: flex; height: 100vh; overflow: hidden; }
+
+        /* 左側導航欄 */
+        .sidebar { width: 300px; background-color: var(--sidebar-bg); color: var(--text-light); padding: 1.5rem; display: flex; flex-direction: column; box-shadow: 2px 0 10px rgba(0,0,0,0.1); overflow-y: auto; flex-shrink: 0; }
+        
+        /* 🔴 更新後的品牌容器結構 (從左到右排列) */
+        .brand-container {
+            display: flex;
+            align-items: center; /* 垂直居中 */
+            justify-content: flex-start; /* 左對齊 */
+            gap: 10px; /* 元素之間的間距 */
+            color: white;
+            margin-bottom: 2.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #334155;
+            height: 60px;
+        }
+        
+        /* 飛機圖示 */
+        .plane-icon {
+            font-size: 1.8rem;
+            color: white;
+            transform: rotate(35deg);
+            flex-shrink: 0;
+        }
+        
+        /* 文字 ADI Ascent */
+        .brand-text {
+            font-size: 1.5rem;
+            font-weight: 700;
+            white-space: nowrap;
+        }
+        
+        /* 🔴 公司Logo圖片樣式 (限制大小，不蓋住文字) */
+        .brand-logo {
+            max-height: 120px; /* 根據需要調整圖片高度 */
+            width: auto;
+            object-fit: contain;
+        }
+        
+        .sidebar a { color: #cbd5e1; text-decoration: none; padding: 0.8rem 1rem; border-radius: 8px; display: flex; align-items: center; gap: 12px; margin-bottom: 0.5rem; transition: all 0.2s; font-weight: 500; }
+        .sidebar a:hover { background-color: #1e293b; color: white; }
+        .sidebar a.active { background-color: var(--accent-blue); color: white; font-weight: bold; }
+        
+        .profile { margin-top: auto; border-top: 1px solid #334155; padding-top: 1.5rem; font-size: 0.9rem; line-height: 1.5; color: #94a3b8; }
+        .profile strong { color: white; font-size: 1rem; display: block; margin-bottom: 0.3rem; }
+
+        /* 右側內容區 */
+        .main-content { flex: 1; background-color: var(--main-bg); padding: 3rem; overflow-y: auto; color: var(--text-dark); position: relative; }
+        .container { max-width: 1000px; margin: 0 auto; position: relative; }
+        
+        .hero-title { 
+            color: var(--text-dark); 
+            font-size: 2.5rem; 
+            margin-top: 0; 
+            font-weight: 700; 
+            line-height: 1.2;
+            position: relative;
+        }
+        
+        .card { background: white; padding: 2.5rem; border-radius: 16px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); margin-bottom: 2rem; position: relative; overflow: hidden; }
+        
+        /* 紫色設計增強 */
+        .about-card {
+            background: linear-gradient(135deg, #ffffff 60%, #eef2ff 100%);
+            border-left: 5px solid var(--accent-blue);
+        }
+        .about-card::after {
+            content: "\f201"; /* FontAwesome: chart-line */
+            font-family: "Font Awesome 6 Free";
+            font-weight: 900;
+            position: absolute;
+            font-size: 150px;
+            color: rgba(37, 99, 235, 0.05);
+            bottom: -30px;
+            right: 20px;
+        }
+
+        .card h2 { color: var(--accent-blue); margin-top: 0; display: flex; align-items: center; gap: 10px; }
+        .card h3 { color: var(--text-dark); margin-top: 1.5rem; }
+        
+        .highlight { color: var(--accent-blue); font-weight: 600; }
+        
+        .footer { text-align: center; padding: 2rem 0; margin-top: 3rem; border-top: 1px solid #e2e8f0; color: #64748b; font-size: 0.85rem; }
+    </style>
+</head>
+<body>
+
+    <div class="sidebar">
+        <div class="brand-container">
+            <i class="fas fa-paper-plane plane-icon"></i>
+            <span class="brand-text">ADI Ascent</span>
+            <img src="images/logo.png" alt="Logo" class="brand-logo">
+        </div>
+        
+        <a href="index.html" class="active"><i class="fas fa-home"></i> Home</a>
+        <a href="philosophy.html"><i class="fas fa-user-tie"></i> Our Philosophy</a>
+        <a href="professionalism.html"><i class="fas fa-file-contract"></i> Professionalism</a>
+        <a href="ccl-opening.html"><i class="fas fa-comment-dots"></i> CCL Opening</a>
+        <a href="basic-skills.html"><i class="fas fa-cogs"></i> Basic Skills</a>
+        <a href="street-driving.html"><i class="fas fa-road"></i> Street Driving</a>
+        <a href="parking.html"><i class="fas fa-parking"></i> Parking</a>
+        <a href="risk-motorway.html"><i class="fas fa-exclamation-triangle"></i> Risk & Motorway</a>
+        <a href="scenarios.html"><i class="fas fa-tasks"></i> Scenarios</a>
+        <a href="business.html"><i class="fas fa-briefcase"></i> Business Services</a>
+        
+        <div class="profile">
+            <strong>Roy Li</strong>
+            Approved Driving Instructor<br>
+            Beans Driving School x AA Franchise
+        </div>
+    </div>
+
+    <div class="main-content">
+        <div class="container">
+            
+            <h1 class="hero-title">Your Path to ADI Excellence Starts Here</h1>
+            <p style="color: #64748b; font-size: 1.1rem; margin-bottom: 2.5rem;">
+                Welcome to ADI Ascent, the dedicated platform designed to support PDI's through every twist and turn on the road to becoming a qualified instructor.
+            </p>
+            
+            <div class="card about-card">
+                <h2><i class="fas fa-award"></i> About Roy Li & Our Mission</h2>
+                <p>Hi, I'm <span class="highlight">Roy Li</span>. I believe that becoming a driving instructor is not just a job; it's a commitment to road safety and teaching excellence. It's a journey that requires patience, skill, and guidance.</p>
+                
+                <h3><i class="fas fa-lightbulb"></i> Our Philosophy</h3>
+                <p>ADI Ascent is built on the belief that every PDI can reach their full potential. Our goal is to provide a structured, encouraging environment where you can learn to ask the right questions, manage risks effectively, and foster a client-centred learning experience for your future pupils.</p>
+            </div>
+            
+            <div class="card" style="border-left: 5px solid var(--accent-green);">
+                <h2><i class="fas fa-map-signs"></i> How to Use This Platform</h2>
+                <p>Navigate through the sidebar to explore different road scenarios, understand the legal obligations, and prepare for your Standards Check with confidence.</p>
+                <p style="margin-top: 1rem; font-style: italic; color: #475569;">
+                    <i class="fas fa-comment-dots" style="color: var(--accent-green);"></i> 
+                    <strong>Remember:</strong> Every mistake is a learning opportunity. This library is evolving—if you have a unique scenario to share, please tell us! We update the site regularly to bridge knowledge gaps.
+                </p>
+            </div>
+
+            <div class="footer">
+                &copy; 2026 ADI Ascent. Developed by Roy Li. All rights reserved.
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
