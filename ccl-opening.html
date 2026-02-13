@@ -9,76 +9,183 @@
     <style>
         /* --- 黃金模板 CSS 結構 (請勿修改) --- */
         :root {
-            --sidebar-bg: #10172a; /* 深海藍 */
-            --main-bg: #f8fafc; /* 淺灰白 */
+            --sidebar-bg: #10172a;
+            --main-bg: #f8fafc;
             --text-dark: #1e293b;
             --text-light: #f1f5f9;
-            --accent-blue: #2563eb; /* 亮藍 */
-            --accent-green: #10b981; /* 清新綠 */
+            --accent-blue: #2563eb;
+            --accent-green: #10b981;
             --font-main: 'Poppins', sans-serif;
         }
 
         body { font-family: var(--font-main); margin: 0; display: flex; height: 100vh; overflow: hidden; }
 
-        /* 左側導航欄 (已修正) */
-        .sidebar { width: 300px; background-color: var(--sidebar-bg); color: var(--text-light); padding: 1.5rem; display: flex; flex-direction: column; box-shadow: 2px 0 10px rgba(0,0,0,0.1); overflow-y: auto; flex-shrink: 0; }
-        
+        /* 左側導航欄 (H 版格式) */
+        .sidebar {
+            width: 300px;
+            background-color: var(--sidebar-bg);
+            color: var(--text-light);
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+            overflow-y: auto;
+            flex-shrink: 0;
+        }
+
+        /* 🔴 品牌容器結構 (跟 H 版一致：含 logo、矮身、左對齊) */
         .brand-container {
             display: flex;
             align-items: center;
-            gap: 15px;
+            justify-content: flex-start;
+            gap: 10px;
             color: white;
             margin-bottom: 2.5rem;
             padding-bottom: 1rem;
             border-bottom: 1px solid #334155;
+            height: 60px;
         }
-        
+
+        /* 飛機圖示 (H 版) */
         .plane-icon {
             font-size: 1.8rem;
             color: white;
             transform: rotate(35deg);
             flex-shrink: 0;
         }
-        
+
+        /* 文字 ADI Ascent (H 版) */
         .brand-text {
             font-size: 1.5rem;
             font-weight: 700;
             white-space: nowrap;
         }
-        
-        .sidebar a { color: #cbd5e1; text-decoration: none; padding: 0.8rem 1rem; border-radius: 8px; display: flex; align-items: center; gap: 12px; margin-bottom: 0.5rem; transition: all 0.2s; font-weight: 500; }
+
+        /* 公司 Logo（H 版同款 class，方便全站一致） */
+        .brand-logo {
+            max-height: 120px;
+            width: auto;
+            object-fit: contain;
+        }
+
+        .sidebar a {
+            color: #cbd5e1;
+            text-decoration: none;
+            padding: 0.8rem 1rem;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 0.5rem;
+            transition: all 0.2s;
+            font-weight: 500;
+        }
+
         .sidebar a:hover { background-color: #1e293b; color: white; }
         .sidebar a.active { background-color: var(--accent-blue); color: white; font-weight: bold; }
-        
-        .profile { margin-top: auto; border-top: 1px solid #334155; padding-top: 1.5rem; font-size: 0.9rem; line-height: 1.5; color: #94a3b8; }
-        .profile strong { color: white; font-size: 1rem; display: block; margin-bottom: 0.3rem; }
 
-        /* 右側內容區 */
-        .main-content { flex: 1; background-color: var(--main-bg); padding: 3rem; overflow-y: auto; color: var(--text-dark); }
-        .container { max-width: 1000px; margin: 0 auto; }
-        
-        .hero-title { color: var(--text-dark); font-size: 2.5rem; margin-top: 0; font-weight: 700; }
+        .profile {
+            margin-top: auto;
+            border-top: 1px solid #334155;
+            padding-top: 1.5rem;
+            font-size: 0.9rem;
+            line-height: 1.5;
+            color: #94a3b8;
+        }
+
+        .profile strong {
+            color: white;
+            font-size: 1rem;
+            display: block;
+            margin-bottom: 0.3rem;
+        }
+
+        /* 右側內容區 (H 版格式) */
+        .main-content {
+            flex: 1;
+            background-color: var(--main-bg);
+            padding: 3rem;
+            overflow-y: auto;
+            color: var(--text-dark);
+            position: relative;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .hero-title {
+            color: var(--text-dark);
+            font-size: 2.5rem;
+            margin-top: 0;
+            font-weight: 700;
+            line-height: 1.2;
+            position: relative;
+        }
+
+        /* 保持內容不變：subtitle 仍用你原本 class */
         .hero-subtitle { color: #64748b; font-size: 1.2rem; margin-bottom: 2rem; }
-        
-        .card { background: white; padding: 2.5rem; border-radius: 16px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06); margin-bottom: 2rem; }
+
+        .card {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 16px;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06);
+            margin-bottom: 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
         .card h2 { color: var(--accent-blue); margin-top: 0; display: flex; align-items: center; gap: 10px; }
         .card p { line-height: 1.7; }
 
-        /* 特殊內容樣式 */
-        .mission-box { background-color: #dbeafe; padding: 1.5rem; border-radius: 12px; border-left: 5px solid var(--accent-blue); color: #1e40af; margin-top: 1.5rem; }
+        /* 特殊內容樣式（保持你原本內容與視覺） */
+        .mission-box {
+            background-color: #dbeafe;
+            padding: 1.5rem;
+            border-radius: 12px;
+            border-left: 5px solid var(--accent-blue);
+            color: #1e40af;
+            margin-top: 1.5rem;
+        }
+
         .mission-box h3 { margin-top: 0; display: flex; align-items: center; gap: 10px; }
-        
-        /* 圖片區域樣式 (位置已修正) */
+
         .image-container { text-align: center; margin: 2rem 0; }
         .image-container img { max-width: 100%; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
-        
+
         .steps-list { counter-reset: step; list-style: none; padding: 0; }
         .steps-list li { position: relative; padding-left: 50px; margin-bottom: 1.5rem; }
-        .steps-list li::before { content: counter(step); counter-increment: step; position: absolute; left: 0; top: 0; width: 35px; height: 35px; background: var(--accent-blue); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; }
+        .steps-list li::before {
+            content: counter(step);
+            counter-increment: step;
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 35px;
+            height: 35px;
+            background: var(--accent-blue);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
         .steps-list strong { color: var(--text-dark); display: block; margin-bottom: 0.3rem; }
-        
-        /* 增加話術格樣式 */
-        .phrases-box { background-color: #f0fdf4; padding: 1.5rem; border-radius: 12px; border: 1px solid #bbf7d0; color: #065f46; margin-top: 1rem; }
+
+        .phrases-box {
+            background-color: #f0fdf4;
+            padding: 1.5rem;
+            border-radius: 12px;
+            border: 1px solid #bbf7d0;
+            color: #065f46;
+            margin-top: 1rem;
+        }
+
         .phrases-box h4 { margin-top: 0; color: #059669; }
         .phrases-box ul { padding-left: 1.2rem; }
         .phrases-box li { margin-bottom: 0.5rem; }
@@ -90,8 +197,9 @@
         <div class="brand-container">
             <i class="fas fa-paper-plane plane-icon"></i>
             <span class="brand-text">ADI Ascent</span>
+            <img src="images/logo.png" alt="Logo" class="brand-logo">
         </div>
-        
+
         <a href="index.html"><i class="fas fa-home"></i> Home</a>
         <a href="philosophy.html"><i class="fas fa-user-tie"></i> Our Philosophy</a>
         <a href="professionalism.html"><i class="fas fa-file-contract"></i> Professionalism</a>
@@ -102,7 +210,7 @@
         <a href="risk-motorway.html"><i class="fas fa-exclamation-triangle"></i> Risk & Motorway</a>
         <a href="scenarios.html"><i class="fas fa-tasks"></i> Scenarios</a>
         <a href="business.html"><i class="fas fa-briefcase"></i> Business Services</a>
-        
+
         <div class="profile">
             <strong>Roy Li</strong>
             Approved Driving Instructor<br>
@@ -114,15 +222,15 @@
         <div class="container">
             <h1 class="hero-title">The Art of the Lesson Opening (CCL)</h1>
             <p class="hero-subtitle">Setting the stage for a successful, pupil-led learning experience from the very first minute.</p>
-            
+
             <div class="card">
                 <h2><i class="fas fa-door-open"></i> Why the First 5 Minutes Matter</h2>
                 <p>The lesson opening is not just casual chat; it's the foundation of a Client-Centred Learning (CCL) approach. It's where we shift from "telling" to "collaborating," ensuring the pupil takes ownership of their learning goals and understands the shared responsibility for safety.</p>
-                
+
                 <div class="image-container">
                     <img src="images/ccl.png" alt="CCL Lesson Opening discussion in car">
                 </div>
-                
+
                 <div class="mission-box">
                     <h3><i class="fas fa-list-ol"></i> The 3-Step CCL Framework</h3>
                     <p>Use this structure to ensure a focused and Standards Check-compliant start:</p>
@@ -146,7 +254,7 @@
             <div class="card">
                 <h2><i class="fas fa-balance-scale-right"></i> Shared Responsibility Strategy</h2>
                 <p>A key part of the opening is explicitly agreeing on the "level of instruction" and who is responsible for what. This prevents confusion and increases safety.</p>
-                
+
                 <div class="phrases-box">
                     <h4><i class="fas fa-comment-dots"></i> Simple English Phrases to Use:</h4>
                     <ul>
@@ -157,6 +265,7 @@
                     </ul>
                 </div>
             </div>
+
         </div>
     </div>
 </body>
