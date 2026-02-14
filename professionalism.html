@@ -1,134 +1,209 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Professionalism | ADI Ascent</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Professionalism | ADI Ascent</title>
 
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
-  <!-- ✅ Global styles (desktop + mobile) -->
-  <link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="styles.css?v=999">
 
-  <!-- ✅ Page-only styles: keep Professionalism special layout -->
-  <style>
-    /* 圖片插圖樣式（保持你原設定） */
-    .image-container {
-      text-align: center;
-      margin: 1.5rem 0;
-      padding: 1rem;
-      border-bottom: 2px solid #e2e8f0;
-      margin-top: 2rem;
-    }
+<style>
+/* Page-only styles: keep your Professionalism special layout */
+.image-container{
+  text-align:center;
+  margin:1.5rem 0;
+  padding:1rem;
+  border-bottom:2px solid #e2e8f0;
+  margin-top:2rem;
+}
+.image-container img{
+  max-width:100%;
+  height:auto;
+  border-radius:12px;
+  box-shadow:0 4px 10px rgba(0,0,0,0.1);
+}
 
-    .image-container img {
-      max-width: 100%;
-      height: auto;
-      border-radius: 12px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-    }
+/* Checklist */
+.checklist{ list-style:none; padding:0; margin-top:1rem; }
+.checklist li{
+  background:#fff;
+  margin-bottom:0.5rem;
+  padding:0.8rem;
+  border-radius:8px;
+  border:1px solid #bfdbfe;
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+.checklist i{ color:var(--accent-green); }
 
-    /* Checklist（保持你原設定） */
-    .checklist { list-style: none; padding: 0; margin-top: 1rem; }
-    .checklist li {
-      background: white;
-      margin-bottom: 0.5rem;
-      padding: 0.8rem;
-      border-radius: 8px;
-      border: 1px solid #bfdbfe;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-    .checklist i { color: var(--accent-green); }
-
-    /* Mission box（保持你原設定） */
-    .mission-box {
-      background-color: #dbeafe;
-      padding: 1.5rem;
-      border-radius: 12px;
-      border-left: 5px solid var(--accent-blue);
-      color: #1e40af;
-      margin-top: 1.5rem;
-    }
-    .mission-box h3 { margin-top: 0; display: flex; align-items: center; gap: 10px; }
-  </style>
+/* Mission box */
+.mission-box{
+  background-color:#dbeafe;
+  padding:1.5rem;
+  border-radius:12px;
+  border-left:5px solid var(--accent-blue);
+  color:#1e40af;
+  margin-top:1.5rem;
+}
+.mission-box h3{
+  margin-top:0;
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+</style>
 </head>
 
 <body>
 
-  <div class="sidebar">
-    <div class="brand-container">
-      <i class="fas fa-paper-plane plane-icon"></i>
-      <span class="brand-text">ADI Ascent</span>
-      <img src="images/logo.png" alt="Logo" class="brand-logo">
-    </div>
+<!-- Mobile Overlay -->
+<div class="menu-overlay" onclick="toggleMenu(false)" aria-hidden="true"></div>
 
-    <a href="index.html"><i class="fas fa-home"></i> Home</a>
-    <a href="philosophy.html"><i class="fas fa-user-tie"></i> Our Philosophy</a>
-    <a href="professionalism.html" class="active"><i class="fas fa-file-contract"></i> Professionalism</a>
-    <a href="ccl-opening.html"><i class="fas fa-comment-dots"></i> CCL Opening</a>
-    <a href="basic-skills.html"><i class="fas fa-cogs"></i> Basic Skills</a>
-    <a href="street-driving.html"><i class="fas fa-road"></i> Street Driving</a>
-    <a href="parking.html"><i class="fas fa-parking"></i> Parking</a>
-    <a href="risk-motorway.html"><i class="fas fa-exclamation-triangle"></i> Risk & Motorway</a>
-    <a href="scenarios.html"><i class="fas fa-tasks"></i> Scenarios</a>
-    <a href="business.html"><i class="fas fa-briefcase"></i> Business Services</a>
+<!-- Mobile Menu Button -->
+<button
+  class="mobile-menu-btn"
+  onclick="toggleMenu()"
+  aria-label="Open menu"
+  aria-expanded="false"
+  aria-controls="sidebar"
+>
+  <i class="fas fa-bars" aria-hidden="true"></i>
+</button>
 
-    <div class="profile">
-      <strong>Roy Li</strong>
-      Approved Driving Instructor<br>
-      Beans Driving School x AA Franchise
-    </div>
+<!-- Sidebar -->
+<div class="sidebar" id="sidebar" role="navigation" aria-label="Site navigation">
+  <div class="brand-container">
+    <i class="fas fa-paper-plane plane-icon" aria-hidden="true"></i>
+    <span class="brand-text">ADI Ascent</span>
+    <img src="images/logo.png" alt="ADI Ascent Logo" class="brand-logo">
   </div>
 
-  <div class="main-content">
-    <div class="container">
+  <a href="index.html"><i class="fas fa-home" aria-hidden="true"></i> Home</a>
+  <a href="philosophy.html"><i class="fas fa-user-tie" aria-hidden="true"></i> Our Philosophy</a>
+  <a href="professionalism.html" class="active"><i class="fas fa-file-contract" aria-hidden="true"></i> Professionalism</a>
+  <a href="ccl-opening.html"><i class="fas fa-comment-dots" aria-hidden="true"></i> CCL Opening</a>
+  <a href="basic-skills.html"><i class="fas fa-cogs" aria-hidden="true"></i> Basic Skills</a>
+  <a href="street-driving.html"><i class="fas fa-road" aria-hidden="true"></i> Street Driving</a>
+  <a href="parking.html"><i class="fas fa-parking" aria-hidden="true"></i> Parking</a>
+  <a href="risk-motorway.html"><i class="fas fa-exclamation-triangle" aria-hidden="true"></i> Risk &amp; Motorway</a>
+  <a href="scenarios.html"><i class="fas fa-tasks" aria-hidden="true"></i> Scenarios</a>
+  <a href="business.html"><i class="fas fa-briefcase" aria-hidden="true"></i> Business Services</a>
 
-      <h1 class="hero-title">Professionalism in Instruction</h1>
-      <p style="color: #64748b; font-size: 1.1rem; margin-bottom: 2.5rem;">
-        Professionalism is the bedrock of trust between an instructor and a pupil.
+  <div class="profile">
+    <strong>Roy Li</strong>
+    Approved Driving Instructor<br>
+    Beans Driving School x AA Franchise
+  </div>
+</div>
+
+<!-- Main Content -->
+<div class="main-content">
+  <div class="container">
+
+    <h1 class="hero-title">Professionalism in Instruction</h1>
+    <p style="color:#64748b;font-size:1.1rem;margin-bottom:2.5rem;">
+      Professionalism is the bedrock of trust between an instructor and a pupil — especially when you’re being assessed.
+    </p>
+
+    <div class="card">
+      <h2><i class="fas fa-user-check" aria-hidden="true"></i> More Than Just Driving</h2>
+
+      <div class="image-container">
+        <img src="images/professionalism-instructor.png" alt="Instructor Professionalism Illustration">
+      </div>
+
+      <p>
+        Being a professional ADI is not only about technical driving.
+        It’s your consistency, preparation, boundaries, and how you represent the profession in public.
+        On a Standards Check, professionalism often shows up in the small moments: calm tone, clear structure,
+        and safe decision-making under pressure.
       </p>
 
-      <div class="card">
-        <h2><i class="fas fa-user-check"></i> More Than Just Driving</h2>
+      <h3><i class="fas fa-tshirt" aria-hidden="true"></i> Professional Appearance</h3>
+      <p>
+        Your appearance sets the tone. Aim for smart, practical, and comfortable clothing suitable for driving.
+        Avoid overly casual wear — you want pupils (and parents) to feel confident from the first minute.
+      </p>
 
-        <div class="image-container">
-          <img src="images/professionalism-instructor.png" alt="Instructor Professionalism Illustration">
-        </div>
-
-        <p>
-          Being a professional ADI means maintaining high standards in every aspect of your work.
-          It’s not only about driving ability — it’s your consistency, preparation, boundaries,
-          and how you represent the profession in public.
-        </p>
-
-        <h3><i class="fas fa-tshirt"></i> Professional Appearance</h3>
-        <p>
-          Your attire sets the tone. Aim for smart, practical, and comfortable clothing suitable for driving.
-          Avoid overly casual wear — you want pupils and parents to feel confident and reassured from the first minute.
-        </p>
-
-        <div class="mission-box">
-          <h3><i class="fas fa-clipboard-list"></i> Essential Documents Checklist</h3>
-          <p>Always ensure the following are valid and available during lessons and the Standards Check:</p>
-          <ul class="checklist">
-            <li><i class="fas fa-check-circle"></i> Valid Driving Licence (Original)</li>
-            <li><i class="fas fa-check-circle"></i> ADI/PDI Badge (Correctly Displayed)</li>
-            <li><i class="fas fa-check-circle"></i> Insurance with Instruction Cover</li>
-            <li><i class="fas fa-check-circle"></i> MOT & Service Records (for car safety)</li>
-            <li><i class="fas fa-check-circle"></i> Pupil Progress Records (Logbooks)</li>
-          </ul>
-        </div>
+      <div class="importance-box" style="margin-top:1.2rem;">
+        <strong>Coaching prompt:</strong> “If a parent watched the first 3 minutes of your lesson, what impression would they get?”
       </div>
 
-      <div class="footer">
-        &copy; 2026 ADI Ascent. Developed by Roy Li. All rights reserved.
+      <div class="mission-box">
+        <h3><i class="fas fa-clipboard-list" aria-hidden="true"></i> Essential Documents Checklist</h3>
+        <p>Always ensure the following are valid and available during lessons and the Standards Check:</p>
+        <ul class="checklist">
+          <li><i class="fas fa-check-circle" aria-hidden="true"></i> Valid Driving Licence (Original)</li>
+          <li><i class="fas fa-check-circle" aria-hidden="true"></i> ADI/PDI Badge (Correctly Displayed)</li>
+          <li><i class="fas fa-check-circle" aria-hidden="true"></i> Insurance with Instruction Cover</li>
+          <li><i class="fas fa-check-circle" aria-hidden="true"></i> MOT &amp; Service Records (for car safety)</li>
+          <li><i class="fas fa-check-circle" aria-hidden="true"></i> Pupil Progress Records (Logbooks)</li>
+        </ul>
       </div>
 
+      <div class="errors-box" style="margin-top:1.5rem;">
+        <h4><i class="fas fa-triangle-exclamation" aria-hidden="true"></i> Common Professional Slips</h4>
+        <ul>
+          <li>Turning up rushed: no lesson structure, no goal agreement.</li>
+          <li>Over-talking: giving instructions instead of coaching decisions.</li>
+          <li>Blurry boundaries: “mates” vibe that reduces authority and safety.</li>
+          <li>Ignoring reflection: not debriefing errors into learning points.</li>
+        </ul>
+      </div>
+
+      <div class="importance-box" style="margin-top:1.2rem;">
+        <strong>Examiner lens:</strong> Are you demonstrating a professional, safe, and structured approach — even when the pupil makes a mistake?
+      </div>
     </div>
+
+    <div class="footer">
+      &copy; 2026 ADI Ascent. Developed by Roy Li. All rights reserved.
+    </div>
+
   </div>
+</div>
+
+<script>
+(function(){
+  const sidebar = document.querySelector('.sidebar');
+  const overlay = document.querySelector('.menu-overlay');
+  const btn = document.querySelector('.mobile-menu-btn');
+
+  function setOpen(isOpen){
+    sidebar?.classList.toggle('active', isOpen);
+    overlay?.classList.toggle('active', isOpen);
+    document.body.style.overflow = isOpen ? 'hidden' : '';
+
+    if(btn){
+      btn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+      btn.setAttribute('aria-label', isOpen ? 'Close menu' : 'Open menu');
+    }
+  }
+
+  window.toggleMenu = function(force){
+    const isOpen = sidebar?.classList.contains('active');
+    if(typeof force === 'boolean'){
+      setOpen(force);
+      return;
+    }
+    setOpen(!isOpen);
+  };
+
+  // Close after clicking a nav link (mobile-friendly)
+  document.querySelectorAll('.sidebar a').forEach(a=>{
+    a.addEventListener('click', ()=> setOpen(false));
+  });
+
+  // ESC to close
+  document.addEventListener('keydown', (e)=>{
+    if(e.key === 'Escape') setOpen(false);
+  });
+})();
+</script>
 
 </body>
 </html>
