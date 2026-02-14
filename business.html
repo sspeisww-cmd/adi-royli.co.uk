@@ -151,16 +151,16 @@
 
 <body>
 
-  <!-- ✅ Mobile Overlay -->
-  <div class="menu-overlay" onclick="toggleMenu(false)" aria-hidden="true"></div>
+  <!-- ✅ Mobile Overlay (same pattern as your other pages) -->
+  <div class="menu-overlay" onclick="toggleMenu()"></div>
 
-  <!-- ✅ Mobile Menu Button -->
-  <button class="mobile-menu-btn" onclick="toggleMenu()" aria-label="Open menu" aria-expanded="false" aria-controls="sidebar">
-    <i class="fas fa-bars" aria-hidden="true"></i>
+  <!-- ✅ Mobile Menu Button (same pattern as your other pages) -->
+  <button class="mobile-menu-btn" onclick="toggleMenu()">
+    <i class="fas fa-bars"></i>
   </button>
 
   <!-- Sidebar -->
-  <div class="sidebar" id="sidebar">
+  <div class="sidebar">
     <div class="brand-container">
       <i class="fas fa-paper-plane plane-icon"></i>
       <span class="brand-text">ADI Ascent</span>
@@ -266,37 +266,12 @@
     </div>
   </div>
 
-  <!-- ✅ Mobile drawer script (same behaviour as other pages) -->
+  <!-- ✅ EXACT same toggle as your other pages (NO body overflow changes) -->
   <script>
-    (function(){
-      const sidebar = document.querySelector('.sidebar');
-      const overlay = document.querySelector('.menu-overlay');
-      const btn = document.querySelector('.mobile-menu-btn');
-
-      function setOpen(isOpen){
-        sidebar?.classList.toggle('active', isOpen);
-        overlay?.classList.toggle('active', isOpen);
-        document.body.style.overflow = isOpen ? 'hidden' : '';
-        if(btn){
-          btn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
-          btn.setAttribute('aria-label', isOpen ? 'Close menu' : 'Open menu');
-        }
-      }
-
-      window.toggleMenu = function(force){
-        const isOpen = sidebar?.classList.contains('active');
-        if(typeof force === 'boolean'){ setOpen(force); return; }
-        setOpen(!isOpen);
-      };
-
-      document.querySelectorAll('.sidebar a').forEach(a=>{
-        a.addEventListener('click', ()=> setOpen(false));
-      });
-
-      document.addEventListener('keydown', (e)=>{
-        if(e.key === 'Escape') setOpen(false);
-      });
-    })();
+    function toggleMenu(){
+      document.querySelector('.sidebar')?.classList.toggle('active');
+      document.querySelector('.menu-overlay')?.classList.toggle('active');
+    }
   </script>
 
   <!-- ✅ Mailto builder -->
