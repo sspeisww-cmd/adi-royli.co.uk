@@ -1,348 +1,355 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Parking | ADI Ascent</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Parking | ADI Ascent</title>
 
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
-  <!-- ✅ Global styles (desktop + mobile) -->
-  <link rel="stylesheet" href="styles.css">
+<!-- Global CSS (加版本號避免 cache) -->
+<link rel="stylesheet" href="styles.css?v=999">
 
-  <!-- ✅ Page-only styles (Parking page only) -->
-  <style>
-    .hero-subtitle { color: #64748b; font-size: 1.2rem; margin-bottom: 2rem; }
+<style>
+/* Page-only styles (Parking page only) */
+/* ✅ 只保留 Parking 獨有嘅視覺：exam-card / exam-points / coach-box 等。
+   其餘 layout / content-wrapper / skills-grid / skill-item / details 等由 global styles.css 控制，避免手機出事。 */
 
-    .content-wrapper { display: flex; gap: 2rem; align-items: flex-start; margin-top: 1.5rem; }
-    .image-side { flex: 1; text-align: center; }
-    .image-side img { max-width: 100%; height: auto; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
-    .text-side { flex: 1.5; }
+.exam-card{
+  background: linear-gradient(135deg,#ffffff 60%,#eef2ff 100%);
+  border-left:5px solid var(--accent-blue);
+  position:relative;
+  overflow:hidden;
+}
+.exam-card::after{
+  content:"\f540"; /* FontAwesome: parking */
+  font-family:"Font Awesome 6 Free";
+  font-weight:900;
+  position:absolute;
+  font-size:150px;
+  color:rgba(37,99,235,0.05);
+  bottom:-30px;
+  right:18px;
+  pointer-events:none;
+}
 
-    .importance-box {
-      background-color: #e0f2fe;
-      padding: 1rem;
-      border-radius: 8px;
-      border-left: 4px solid var(--accent-blue);
-      color: #075985;
-      font-size: 0.95rem;
-      line-height: 1.6;
-    }
+.skill-details .mini-title{
+  font-weight:700;
+  color:#0f172a;
+  margin-bottom:0.4rem;
+  display:block;
+}
+.skill-details ul{ padding-left:1.1rem; margin:0.5rem 0; }
+.skill-details li{ margin-bottom:0.5rem; color:#1e40af; font-weight:500; }
 
-    .errors-box {
-      background-color: #fef2f2;
-      padding: 1rem;
-      border-radius: 8px;
-      border: 1px solid #fecaca;
-      color: #991b1b;
-      margin-top: 1rem;
-    }
-    .errors-box h4 { margin: 0 0 0.5rem 0; color: #dc2626; display: flex; align-items: center; gap: 8px; }
-    .errors-box ul { padding-left: 1.2rem; margin: 0; }
-    .errors-box li { margin-bottom: 0.3rem; font-size: 0.9rem; }
+.coach-box{
+  margin-top:0.8rem;
+  background:#eef2ff;
+  border:1px solid #c7d2fe;
+  border-radius:10px;
+  padding:0.9rem;
+  color:#1e3a8a;
+}
+.coach-box strong{ display:inline-block; margin-bottom:0.3rem; }
 
-    .skills-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 2rem; }
-
-    .skill-item {
-      background: #f1f5f9;
-      padding: 1.2rem;
-      border-radius: 12px;
-      border-left: 4px solid var(--accent-green);
-      cursor: pointer;
-      transition: all 0.3s ease;
-      display: flex;
-      flex-direction: column;
-    }
-
-    .skill-item:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 8px 12px -3px rgba(0,0,0,0.1);
-      background-color: #e2e8f0;
-    }
-
-    .skill-item h3 {
-      margin: 0 0 0.5rem 0;
-      font-size: 1.1rem;
-      color: var(--text-dark);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    .chevron-icon { font-size: 0.9rem; color: #64748b; transition: transform 0.3s ease; }
-
-    .click-hint {
-      font-size: 0.75rem;
-      color: var(--accent-blue);
-      font-weight: 600;
-      display: block;
-      margin-bottom: 0.5rem;
-    }
-
-    .skill-item p { margin: 0; font-size: 0.9rem; line-height: 1.4; color: #475569; }
-
-    .skill-details {
-      display: none;
-      margin-top: 0.8rem;
-      padding-top: 0.8rem;
-      border-top: 1px solid #cbd5e1;
-      font-size: 0.85rem;
-      line-height: 1.5;
-      animation: fadeIn 0.35s;
-    }
-
-    .skill-details .mini-title { font-weight: 700; color: #0f172a; margin-bottom: 0.4rem; display: block; }
-    .skill-details ul { padding-left: 1.1rem; margin: 0.5rem 0; }
-    .skill-details li { margin-bottom: 0.5rem; color: #1e40af; font-weight: 500; }
-
-    .coach-box {
-      margin-top: 0.8rem;
-      background: #eef2ff;
-      border: 1px solid #c7d2fe;
-      border-radius: 10px;
-      padding: 0.9rem;
-      color: #1e3a8a;
-    }
-    .coach-box strong { display: inline-block; margin-bottom: 0.3rem; }
-
-    .exam-card {
-      background: linear-gradient(135deg, #ffffff 60%, #eef2ff 100%);
-      border-left: 5px solid var(--accent-blue);
-    }
-
-    .exam-points {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 1rem;
-      margin-top: 1rem;
-    }
-
-    .exam-point {
-      background: #f8fafc;
-      border: 1px solid #e2e8f0;
-      border-radius: 12px;
-      padding: 1rem;
-    }
-    .exam-point h4 { margin: 0 0 0.5rem 0; display: flex; align-items: center; gap: 8px; color: #0f172a; }
-    .exam-point p { margin: 0; color: #475569; font-size: 0.92rem; line-height: 1.6; }
-
-    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-
-    @media (max-width: 900px) {
-      .content-wrapper { flex-direction: column; }
-      .exam-points { grid-template-columns: 1fr; }
-      .skills-grid { grid-template-columns: 1fr; }
-    }
-  </style>
+.exam-points{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:1rem;
+  margin-top:1rem;
+}
+.exam-point{
+  background:#f8fafc;
+  border:1px solid #e2e8f0;
+  border-radius:12px;
+  padding:1rem;
+}
+.exam-point h4{
+  margin:0 0 0.5rem 0;
+  display:flex;
+  align-items:center;
+  gap:8px;
+  color:#0f172a;
+}
+.exam-point p{
+  margin:0;
+  color:#475569;
+  font-size:0.92rem;
+  line-height:1.6;
+}
+@media (max-width:900px){
+  .exam-points{ grid-template-columns:1fr; }
+}
+</style>
 </head>
 
 <body>
 
-  <div class="sidebar">
-    <div class="brand-container">
-      <i class="fas fa-paper-plane plane-icon"></i>
-      <span class="brand-text">ADI Ascent</span>
-      <img src="images/logo.png" alt="Logo" class="brand-logo">
-    </div>
+<!-- Mobile Overlay -->
+<div class="menu-overlay" onclick="toggleMenu(false)" aria-hidden="true"></div>
 
-    <a href="index.html"><i class="fas fa-home"></i> Home</a>
-    <a href="philosophy.html"><i class="fas fa-user-tie"></i> Our Philosophy</a>
-    <a href="professionalism.html"><i class="fas fa-file-contract"></i> Professionalism</a>
-    <a href="ccl-opening.html"><i class="fas fa-comment-dots"></i> CCL Opening</a>
-    <a href="basic-skills.html"><i class="fas fa-cogs"></i> Basic Skills</a>
-    <a href="street-driving.html"><i class="fas fa-road"></i> Street Driving</a>
-    <a href="parking.html" class="active"><i class="fas fa-parking"></i> Parking</a>
-    <a href="risk-motorway.html"><i class="fas fa-exclamation-triangle"></i> Risk & Motorway</a>
-    <a href="scenarios.html"><i class="fas fa-tasks"></i> Scenarios</a>
-    <a href="business.html"><i class="fas fa-briefcase"></i> Business Services</a>
+<!-- Mobile Menu Button -->
+<button
+  class="mobile-menu-btn"
+  onclick="toggleMenu()"
+  aria-label="Open menu"
+  aria-expanded="false"
+  aria-controls="sidebar"
+>
+  <i class="fas fa-bars" aria-hidden="true"></i>
+</button>
 
-    <div class="profile">
-      <strong>Roy Li</strong>
-      Approved Driving Instructor<br>
-      Beans Driving School x AA Franchise
-    </div>
+<!-- Sidebar -->
+<div class="sidebar" id="sidebar" role="navigation" aria-label="Site navigation">
+  <div class="brand-container">
+    <i class="fas fa-paper-plane plane-icon" aria-hidden="true"></i>
+    <span class="brand-text">ADI Ascent</span>
+    <img src="images/logo.png" alt="ADI Ascent Logo" class="brand-logo">
   </div>
 
-  <div class="main-content">
-    <div class="container">
+  <a href="index.html"><i class="fas fa-home" aria-hidden="true"></i> Home</a>
+  <a href="philosophy.html"><i class="fas fa-user-tie" aria-hidden="true"></i> Our Philosophy</a>
+  <a href="professionalism.html"><i class="fas fa-file-contract" aria-hidden="true"></i> Professionalism</a>
+  <a href="ccl-opening.html"><i class="fas fa-comment-dots" aria-hidden="true"></i> CCL Opening</a>
+  <a href="basic-skills.html"><i class="fas fa-cogs" aria-hidden="true"></i> Basic Skills</a>
+  <a href="street-driving.html"><i class="fas fa-road" aria-hidden="true"></i> Street Driving</a>
+  <a href="parking.html" class="active"><i class="fas fa-parking" aria-hidden="true"></i> Parking</a>
+  <a href="risk-motorway.html"><i class="fas fa-exclamation-triangle" aria-hidden="true"></i> Risk &amp; Motorway</a>
+  <a href="scenarios.html"><i class="fas fa-tasks" aria-hidden="true"></i> Scenarios</a>
+  <a href="business.html"><i class="fas fa-briefcase" aria-hidden="true"></i> Business Services</a>
 
-      <h1 class="hero-title">Parking & Manoeuvres</h1>
-      <p class="hero-subtitle">Click a manoeuvre to reveal simple open questions + coaching prompts.</p>
-
-      <div class="card">
-        <h2><i class="fas fa-parking"></i> Parking Techniques</h2>
-
-        <div class="content-wrapper">
-          <div class="image-side">
-            <img src="images/parking.png" alt="Parking Technique Illustration">
-          </div>
-
-          <div class="text-side">
-            <div class="importance-box">
-              <strong>Why Parking Matters?</strong><br>
-              Manoeuvres are not “tricks”. They are slow-speed risk management:
-              observation, planning, control, and safe decision-making.
-            </div>
-
-            <div class="errors-box">
-              <h4><i class="fas fa-exclamation-circle"></i> Common Learner Errors</h4>
-              <ul>
-                <li><strong>Late Observation:</strong> checking only at the start, not during the whole manoeuvre.</li>
-                <li><strong>Too Fast:</strong> rushing the reverse, losing time to correct.</li>
-                <li><strong>Poor Plan:</strong> no pause points, no “stop-and-look” habit.</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-
-        <div class="skills-grid">
-
-          <div class="skill-item" onclick="toggleDetails(this)">
-            <h3><i class="fas fa-square"></i> Bay Parking <i class="fas fa-chevron-down chevron-icon"></i></h3>
-            <span class="click-hint">Click for questions + coaching prompts</span>
-            <p>Forward or reverse into a bay (planning + accuracy).</p>
-
-            <div class="skill-details">
-              <span class="mini-title">Simple Open Questions</span>
-              <ul>
-                <li>"What is your plan before you start?"</li>
-                <li>"Where is your main risk right now?"</li>
-                <li>"What will you do if you are not happy with the angle?"</li>
-              </ul>
-
-              <div class="coach-box">
-                <strong>Coaching prompt (Part 3):</strong><br>
-                “Slow speed gives you time. Pause, observe, then move.”
-              </div>
-            </div>
-          </div>
-
-          <div class="skill-item" onclick="toggleDetails(this)">
-            <h3><i class="fas fa-equals"></i> Parallel Parking <i class="fas fa-chevron-down chevron-icon"></i></h3>
-            <span class="click-hint">Click for questions + coaching prompts</span>
-            <p>Behind a parked vehicle (control + reference + observation).</p>
-
-            <div class="skill-details">
-              <span class="mini-title">Simple Open Questions</span>
-              <ul>
-                <li>"Is the space big enough? How do you know?"</li>
-                <li>"What are you checking while you reverse?"</li>
-                <li>"When will you stop and re-check?"</li>
-              </ul>
-
-              <div class="coach-box">
-                <strong>Coaching prompt (Part 3):</strong><br>
-                “If you feel busy, STOP. Safety first, then continue.”
-              </div>
-            </div>
-          </div>
-
-          <div class="skill-item" onclick="toggleDetails(this)">
-            <h3><i class="fas fa-arrow-right"></i> Pull Up on the Right <i class="fas fa-chevron-down chevron-icon"></i></h3>
-            <span class="click-hint">Click for questions + coaching prompts</span>
-            <p>Safe stop + reverse two car lengths (control + scanning).</p>
-
-            <div class="skill-details">
-              <span class="mini-title">Simple Open Questions</span>
-              <ul>
-                <li>"What hazards do you expect behind you?"</li>
-                <li>"How do you keep the car straight in reverse?"</li>
-                <li>"What will make you stop early?"</li>
-              </ul>
-
-              <div class="coach-box">
-                <strong>Coaching prompt (Part 3):</strong><br>
-                “Reverse is slow. Observation is continuous.”
-              </div>
-            </div>
-          </div>
-
-          <div class="skill-item" onclick="toggleDetails(this)">
-            <h3><i class="fas fa-undo"></i> Turn in the Road <i class="fas fa-chevron-down chevron-icon"></i></h3>
-            <span class="click-hint">Click for questions + coaching prompts</span>
-            <p>Change direction safely (planning + space + awareness).</p>
-
-            <div class="skill-details">
-              <span class="mini-title">Simple Open Questions</span>
-              <ul>
-                <li>"Why is this place safe for the turn?"</li>
-                <li>"What are you checking before each move?"</li>
-                <li>"How do you keep it smooth and controlled?"</li>
-              </ul>
-
-              <div class="coach-box">
-                <strong>Coaching prompt (Part 3):</strong><br>
-                “Every move is a mini ‘move off’. Check first.”
-              </div>
-            </div>
-          </div>
-
-        </div>
-      </div>
-
-      <div class="card exam-card">
-        <h2><i class="fas fa-clipboard-check"></i> Examiner Lens (Standards Check)</h2>
-        <p>
-          Manoeuvres are a perfect place to show CCL. The examiner is not scoring your “reference point”.
-          They are scoring your teaching quality: risk, clarity, pupil thinking, and calm control.
-        </p>
-
-        <div class="exam-points">
-          <div class="exam-point">
-            <h4><i class="fas fa-eye"></i> Observation Strategy</h4>
-            <p>
-              Not “Did you check once?” — but “Did you keep checking and stop when needed?”
-            </p>
-          </div>
-
-          <div class="exam-point">
-            <h4><i class="fas fa-comments"></i> Pupil Thinking</h4>
-            <p>
-              Use questions, not commands. Let pupil explain the plan. You guide with prompts.
-            </p>
-          </div>
-
-          <div class="exam-point">
-            <h4><i class="fas fa-shield-alt"></i> Shared Responsibility</h4>
-            <p>
-              Agree the support level: “I will watch the rear. You focus on control.”
-            </p>
-          </div>
-
-          <div class="exam-point">
-            <h4><i class="fas fa-hand-paper"></i> Stop is a Skill</h4>
-            <p>
-              A safe stop is not failure. It shows judgement. Encourage “stop-and-reset”.
-            </p>
-          </div>
-        </div>
-      </div>
-
-      <div class="footer">
-        &copy; 2026 ADI Ascent. Developed by Roy Li. All rights reserved.
-      </div>
-
-    </div>
+  <div class="profile">
+    <strong>Roy Li</strong>
+    Approved Driving Instructor<br>
+    Beans Driving School x AA Franchise
   </div>
+</div>
 
-  <script>
-    function toggleDetails(element) {
-      var details = element.querySelector('.skill-details');
-      var icon = element.querySelector('.chevron-icon');
-      var hint = element.querySelector('.click-hint');
+<!-- Main Content -->
+<div class="main-content">
+  <div class="container">
 
-      if (details.style.display === "block") {
-        details.style.display = "none";
-        if (icon) icon.style.transform = "rotate(0deg)";
-        if (hint) hint.textContent = "Click for questions + coaching prompts";
-      } else {
-        details.style.display = "block";
-        if (icon) icon.style.transform = "rotate(180deg)";
-        if (hint) hint.textContent = "Click to hide";
-      }
+    <h1 class="hero-title">Parking &amp; Manoeuvres</h1>
+    <p class="hero-subtitle">Click a manoeuvre to reveal simple open questions + coaching prompts.</p>
+
+    <div class="card">
+      <h2><i class="fas fa-parking" aria-hidden="true"></i> Parking Techniques</h2>
+
+      <div class="content-wrapper">
+        <div class="image-side">
+          <img src="images/parking.png" alt="Parking technique illustration">
+        </div>
+
+        <div class="text-side">
+          <div class="importance-box">
+            <strong>Why Parking Matters?</strong><br>
+            Manoeuvres are not “tricks”. They are slow-speed risk management:
+            observation, planning, control, and safe decision-making.
+          </div>
+
+          <div class="errors-box">
+            <h4><i class="fas fa-exclamation-circle" aria-hidden="true"></i> Common Learner Errors</h4>
+            <ul>
+              <li><strong>Late Observation:</strong> checking only at the start, not during the whole manoeuvre.</li>
+              <li><strong>Too Fast:</strong> rushing the reverse, losing time to correct.</li>
+              <li><strong>Poor Plan:</strong> no pause points, no “stop-and-look” habit.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="skills-grid">
+
+        <div class="skill-item" data-collapsible onclick="toggleDetails(this)">
+          <h3>
+            <span><i class="fas fa-square" aria-hidden="true"></i> Bay Parking</span>
+            <i class="fas fa-chevron-down chevron-icon" aria-hidden="true"></i>
+          </h3>
+          <span class="click-hint">Click for questions + coaching prompts</span>
+          <p>Forward or reverse into a bay (planning + accuracy).</p>
+
+          <div class="skill-details">
+            <span class="mini-title">Simple Open Questions</span>
+            <ul>
+              <li>"What is your plan before you start?"</li>
+              <li>"Where is your main risk right now?"</li>
+              <li>"What will you do if you are not happy with the angle?"</li>
+            </ul>
+
+            <div class="coach-box">
+              <strong>Coaching prompt (Part 3):</strong><br>
+              “Slow speed gives you time. Pause, observe, then move.”
+            </div>
+          </div>
+        </div>
+
+        <div class="skill-item" data-collapsible onclick="toggleDetails(this)">
+          <h3>
+            <span><i class="fas fa-equals" aria-hidden="true"></i> Parallel Parking</span>
+            <i class="fas fa-chevron-down chevron-icon" aria-hidden="true"></i>
+          </h3>
+          <span class="click-hint">Click for questions + coaching prompts</span>
+          <p>Behind a parked vehicle (control + reference + observation).</p>
+
+          <div class="skill-details">
+            <span class="mini-title">Simple Open Questions</span>
+            <ul>
+              <li>"Is the space big enough? How do you know?"</li>
+              <li>"What are you checking while you reverse?"</li>
+              <li>"When will you stop and re-check?"</li>
+            </ul>
+
+            <div class="coach-box">
+              <strong>Coaching prompt (Part 3):</strong><br>
+              “If you feel busy, STOP. Safety first, then continue.”
+            </div>
+          </div>
+        </div>
+
+        <div class="skill-item" data-collapsible onclick="toggleDetails(this)">
+          <h3>
+            <span><i class="fas fa-arrow-right" aria-hidden="true"></i> Pull Up on the Right</span>
+            <i class="fas fa-chevron-down chevron-icon" aria-hidden="true"></i>
+          </h3>
+          <span class="click-hint">Click for questions + coaching prompts</span>
+          <p>Safe stop + reverse two car lengths (control + scanning).</p>
+
+          <div class="skill-details">
+            <span class="mini-title">Simple Open Questions</span>
+            <ul>
+              <li>"What hazards do you expect behind you?"</li>
+              <li>"How do you keep the car straight in reverse?"</li>
+              <li>"What will make you stop early?"</li>
+            </ul>
+
+            <div class="coach-box">
+              <strong>Coaching prompt (Part 3):</strong><br>
+              “Reverse is slow. Observation is continuous.”
+            </div>
+          </div>
+        </div>
+
+        <div class="skill-item" data-collapsible onclick="toggleDetails(this)">
+          <h3>
+            <span><i class="fas fa-undo" aria-hidden="true"></i> Turn in the Road</span>
+            <i class="fas fa-chevron-down chevron-icon" aria-hidden="true"></i>
+          </h3>
+          <span class="click-hint">Click for questions + coaching prompts</span>
+          <p>Change direction safely (planning + space + awareness).</p>
+
+          <div class="skill-details">
+            <span class="mini-title">Simple Open Questions</span>
+            <ul>
+              <li>"Why is this place safe for the turn?"</li>
+              <li>"What are you checking before each move?"</li>
+              <li>"How do you keep it smooth and controlled?"</li>
+            </ul>
+
+            <div class="coach-box">
+              <strong>Coaching prompt (Part 3):</strong><br>
+              “Every move is a mini ‘move off’. Check first.”
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="card exam-card">
+      <h2><i class="fas fa-clipboard-check" aria-hidden="true"></i> Examiner Lens (Standards Check)</h2>
+      <p>
+        Manoeuvres are a perfect place to show CCL. The examiner is not scoring your “reference point”.
+        They are scoring your teaching quality: risk, clarity, pupil thinking, and calm control.
+      </p>
+
+      <div class="exam-points">
+        <div class="exam-point">
+          <h4><i class="fas fa-eye" aria-hidden="true"></i> Observation Strategy</h4>
+          <p>Not “Did you check once?” — but “Did you keep checking and stop when needed?”</p>
+        </div>
+
+        <div class="exam-point">
+          <h4><i class="fas fa-comments" aria-hidden="true"></i> Pupil Thinking</h4>
+          <p>Use questions, not commands. Let pupil explain the plan. You guide with prompts.</p>
+        </div>
+
+        <div class="exam-point">
+          <h4><i class="fas fa-shield-alt" aria-hidden="true"></i> Shared Responsibility</h4>
+          <p>Agree the support level: “I will watch the rear. You focus on control.”</p>
+        </div>
+
+        <div class="exam-point">
+          <h4><i class="fas fa-hand-paper" aria-hidden="true"></i> Stop is a Skill</h4>
+          <p>A safe stop is not failure. It shows judgement. Encourage “stop-and-reset”.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer">
+      &copy; 2026 ADI Ascent. Developed by Roy Li. All rights reserved.
+    </div>
+
+  </div>
+</div>
+
+<script>
+(function(){
+  // --- Mobile drawer (same behaviour across pages) ---
+  const sidebar = document.querySelector('.sidebar');
+  const overlay = document.querySelector('.menu-overlay');
+  const btn = document.querySelector('.mobile-menu-btn');
+
+  function setOpen(isOpen){
+    sidebar?.classList.toggle('active', isOpen);
+    overlay?.classList.toggle('active', isOpen);
+    document.body.style.overflow = isOpen ? 'hidden' : '';
+
+    if(btn){
+      btn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+      btn.setAttribute('aria-label', isOpen ? 'Close menu' : 'Open menu');
     }
-  </script>
+  }
+
+  window.toggleMenu = function(force){
+    const isOpen = sidebar?.classList.contains('active');
+    if(typeof force === 'boolean'){
+      setOpen(force);
+      return;
+    }
+    setOpen(!isOpen);
+  };
+
+  document.querySelectorAll('.sidebar a').forEach(a=>{
+    a.addEventListener('click', ()=> setOpen(false));
+  });
+
+  document.addEventListener('keydown', (e)=>{
+    if(e.key === 'Escape') setOpen(false);
+  });
+
+  // --- Collapsible items (chevron + hint) ---
+  window.toggleDetails = function(element){
+    const details = element.querySelector('.skill-details');
+    const icon = element.querySelector('.chevron-icon');
+    const hint = element.querySelector('.click-hint');
+
+    const isOpen = details && (details.style.display === 'block');
+
+    if(!details) return;
+
+    if(isOpen){
+      details.style.display = 'none';
+      if(icon) icon.style.transform = 'rotate(0deg)';
+      if(hint) hint.textContent = 'Click for questions + coaching prompts';
+    }else{
+      details.style.display = 'block';
+      if(icon) icon.style.transform = 'rotate(180deg)';
+      if(hint) hint.textContent = 'Click to hide';
+    }
+  };
+})();
+</script>
 
 </body>
 </html>

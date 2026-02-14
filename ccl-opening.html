@@ -1,294 +1,366 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>CCL Opening | ADI Ascent</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CCL Opening | ADI Ascent</title>
 
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
-  <!-- ✅ Global styles (desktop + mobile) -->
-  <link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="styles.css?v=999">
 
-  <!-- ✅ Page-only styles (CCL Opening 專用) -->
-  <style>
-    /* 保持內容不變：subtitle */
-    .hero-subtitle { color: #64748b; font-size: 1.2rem; margin-bottom: 2rem; }
+<style>
+/* Page-only styles (CCL Opening 專用) */
 
-    /* 特殊內容樣式（你原本嘅視覺語言保留） */
-    .mission-box {
-      background-color: #dbeafe;
-      padding: 1.5rem;
-      border-radius: 12px;
-      border-left: 5px solid var(--accent-blue);
-      color: #1e40af;
-      margin-top: 1.5rem;
-    }
-    .mission-box h3 { margin-top: 0; display: flex; align-items: center; gap: 10px; }
+/* Mission box */
+.mission-box{
+  background-color:#dbeafe;
+  padding:1.5rem;
+  border-radius:12px;
+  border-left:5px solid var(--accent-blue);
+  color:#1e40af;
+  margin-top:1.5rem;
+}
+.mission-box h3{
+  margin-top:0;
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
 
-    .image-container { text-align: center; margin: 2rem 0; }
-    .image-container img { max-width: 100%; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+/* Image */
+.image-container{
+  text-align:center;
+  margin:2rem 0;
+}
+.image-container img{
+  max-width:100%;
+  height:auto;
+  border-radius:12px;
+  box-shadow:0 4px 15px rgba(0,0,0,0.1);
+}
 
-    .steps-list { counter-reset: step; list-style: none; padding: 0; margin: 1rem 0 0 0; }
-    .steps-list li { position: relative; padding-left: 50px; margin-bottom: 1.5rem; }
-    .steps-list li::before {
-      content: counter(step);
-      counter-increment: step;
-      position: absolute;
-      left: 0;
-      top: 0;
-      width: 35px;
-      height: 35px;
-      background: var(--accent-blue);
-      color: white;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: bold;
-    }
-    .steps-list strong { color: var(--text-dark); display: block; margin-bottom: 0.3rem; }
+/* Steps list */
+.steps-list{ counter-reset:step; list-style:none; padding:0; margin:1rem 0 0 0; }
+.steps-list li{ position:relative; padding-left:50px; margin-bottom:1.5rem; }
+.steps-list li::before{
+  content:counter(step);
+  counter-increment:step;
+  position:absolute;
+  left:0;
+  top:0;
+  width:35px;
+  height:35px;
+  background:var(--accent-blue);
+  color:#fff;
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-weight:800;
+}
+.steps-list strong{ color:var(--text-dark); display:block; margin-bottom:0.3rem; }
 
-    .phrases-box {
-      background-color: #f0fdf4;
-      padding: 1.5rem;
-      border-radius: 12px;
-      border: 1px solid #bbf7d0;
-      color: #065f46;
-      margin-top: 1rem;
-    }
-    .phrases-box h4 { margin-top: 0; color: #059669; }
-    .phrases-box ul { padding-left: 1.2rem; margin: 0.5rem 0 0 0; }
-    .phrases-box li { margin-bottom: 0.5rem; }
+/* Phrases box */
+.phrases-box{
+  background-color:#f0fdf4;
+  padding:1.5rem;
+  border-radius:12px;
+  border:1px solid #bbf7d0;
+  color:#065f46;
+  margin-top:1rem;
+}
+.phrases-box h4{ margin-top:0; color:#059669; }
+.phrases-box ul{ padding-left:1.2rem; margin:0.5rem 0 0 0; }
+.phrases-box li{ margin-bottom:0.5rem; }
 
-    /* ✅ 新增：Exam Insight 工具書卡（30秒開場） */
-    .exam-card {
-      background: linear-gradient(135deg, #ffffff 60%, #eef2ff 100%);
-      border-left: 5px solid var(--accent-green);
-      position: relative;
-      overflow: hidden;
-    }
-    .exam-card::after{
-      content: "\f0e7"; /* FontAwesome: bolt */
-      font-family: "Font Awesome 6 Free";
-      font-weight: 900;
-      position: absolute;
-      font-size: 140px;
-      color: rgba(16, 185, 129, 0.06);
-      bottom: -35px;
-      right: 18px;
-      pointer-events: none;
-    }
+/* Exam Insight card */
+.exam-card{
+  background:linear-gradient(135deg,#ffffff 60%,#eef2ff 100%);
+  border-left:5px solid var(--accent-green);
+  position:relative;
+  overflow:hidden;
+}
+.exam-card::after{
+  content:"\f0e7"; /* bolt */
+  font-family:"Font Awesome 6 Free";
+  font-weight:900;
+  position:absolute;
+  font-size:140px;
+  color:rgba(16,185,129,0.06);
+  bottom:-35px;
+  right:18px;
+  pointer-events:none;
+}
 
-    .script-box{
-      background: #0f172a;
-      color: #f8fafc;
-      border-radius: 12px;
-      padding: 1.2rem 1.2rem;
-      margin-top: 1rem;
-      border: 1px solid rgba(148,163,184,0.25);
-    }
-    .script-box p{
-      margin: 0.6rem 0;
-      line-height: 1.7;
-      font-size: 0.98rem;
-    }
-    .script-tag{
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      font-weight: 700;
-      color: #0f172a;
-      background: #e2e8f0;
-      padding: 6px 10px;
-      border-radius: 999px;
-      font-size: 0.85rem;
-      margin-top: 0.2rem;
-    }
+.script-box{
+  background:#0f172a;
+  color:#f8fafc;
+  border-radius:12px;
+  padding:1.2rem;
+  margin-top:1rem;
+  border:1px solid rgba(148,163,184,0.25);
+}
+.script-box p{
+  margin:0.6rem 0;
+  line-height:1.7;
+  font-size:0.98rem;
+}
+.script-tag{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  font-weight:800;
+  color:#0f172a;
+  background:#e2e8f0;
+  padding:6px 10px;
+  border-radius:999px;
+  font-size:0.85rem;
+  margin-top:0.2rem;
+}
 
-    .score-grid{
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 0.8rem;
-      margin-top: 1rem;
-    }
-    .score-item{
-      background: white;
-      border: 1px solid #e2e8f0;
-      border-radius: 12px;
-      padding: 1rem;
-      display: flex;
-      gap: 12px;
-      align-items: flex-start;
-    }
-    .score-badge{
-      flex-shrink: 0;
-      width: 34px;
-      height: 34px;
-      border-radius: 10px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: 800;
-      color: white;
-      background: var(--accent-blue);
-    }
-    .score-item p{ margin: 0; line-height: 1.6; }
-    .score-item strong{ color: var(--text-dark); }
+/* Score grid */
+.score-grid{
+  display:grid;
+  grid-template-columns:1fr;
+  gap:0.8rem;
+  margin-top:1rem;
+}
+.score-item{
+  background:#fff;
+  border:1px solid #e2e8f0;
+  border-radius:12px;
+  padding:1rem;
+  display:flex;
+  gap:12px;
+  align-items:flex-start;
+}
+.score-badge{
+  flex-shrink:0;
+  width:34px;
+  height:34px;
+  border-radius:10px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-weight:900;
+  color:#fff;
+  background:var(--accent-blue);
+}
+.score-item p{ margin:0; line-height:1.6; }
+.score-item strong{ color:var(--text-dark); }
 
-    .one-line{
-      margin-top: 1rem;
-      padding: 1rem;
-      border-radius: 12px;
-      background: #fff7ed;
-      border: 1px solid #fed7aa;
-      color: #9a3412;
-    }
-    .one-line i{ margin-right: 8px; color: #f97316; }
-  </style>
+/* One-line */
+.one-line{
+  margin-top:1rem;
+  padding:1rem;
+  border-radius:12px;
+  background:#fff7ed;
+  border:1px solid #fed7aa;
+  color:#9a3412;
+}
+.one-line i{ margin-right:8px; color:#f97316; }
+</style>
 </head>
 
 <body>
 
-  <div class="sidebar">
-    <div class="brand-container">
-      <i class="fas fa-paper-plane plane-icon"></i>
-      <span class="brand-text">ADI Ascent</span>
-      <img src="images/logo.png" alt="Logo" class="brand-logo">
-    </div>
+<!-- Mobile Overlay -->
+<div class="menu-overlay" onclick="toggleMenu(false)" aria-hidden="true"></div>
 
-    <a href="index.html"><i class="fas fa-home"></i> Home</a>
-    <a href="philosophy.html"><i class="fas fa-user-tie"></i> Our Philosophy</a>
-    <a href="professionalism.html"><i class="fas fa-file-contract"></i> Professionalism</a>
-    <a href="ccl-opening.html" class="active"><i class="fas fa-comment-dots"></i> CCL Opening</a>
-    <a href="basic-skills.html"><i class="fas fa-cogs"></i> Basic Skills</a>
-    <a href="street-driving.html"><i class="fas fa-road"></i> Street Driving</a>
-    <a href="parking.html"><i class="fas fa-parking"></i> Parking</a>
-    <a href="risk-motorway.html"><i class="fas fa-exclamation-triangle"></i> Risk & Motorway</a>
-    <a href="scenarios.html"><i class="fas fa-tasks"></i> Scenarios</a>
-    <a href="business.html"><i class="fas fa-briefcase"></i> Business Services</a>
+<!-- Mobile Menu Button -->
+<button
+  class="mobile-menu-btn"
+  onclick="toggleMenu()"
+  aria-label="Open menu"
+  aria-expanded="false"
+  aria-controls="sidebar"
+>
+  <i class="fas fa-bars" aria-hidden="true"></i>
+</button>
 
-    <div class="profile">
-      <strong>Roy Li</strong>
-      Approved Driving Instructor<br>
-      Beans Driving School x AA Franchise
-    </div>
+<!-- Sidebar -->
+<div class="sidebar" id="sidebar" role="navigation" aria-label="Site navigation">
+  <div class="brand-container">
+    <i class="fas fa-paper-plane plane-icon" aria-hidden="true"></i>
+    <span class="brand-text">ADI Ascent</span>
+    <img src="images/logo.png" alt="ADI Ascent Logo" class="brand-logo">
   </div>
 
-  <div class="main-content">
-    <div class="container">
+  <a href="index.html"><i class="fas fa-home" aria-hidden="true"></i> Home</a>
+  <a href="philosophy.html"><i class="fas fa-user-tie" aria-hidden="true"></i> Our Philosophy</a>
+  <a href="professionalism.html"><i class="fas fa-file-contract" aria-hidden="true"></i> Professionalism</a>
+  <a href="ccl-opening.html" class="active"><i class="fas fa-comment-dots" aria-hidden="true"></i> CCL Opening</a>
+  <a href="basic-skills.html"><i class="fas fa-cogs" aria-hidden="true"></i> Basic Skills</a>
+  <a href="street-driving.html"><i class="fas fa-road" aria-hidden="true"></i> Street Driving</a>
+  <a href="parking.html"><i class="fas fa-parking" aria-hidden="true"></i> Parking</a>
+  <a href="risk-motorway.html"><i class="fas fa-exclamation-triangle" aria-hidden="true"></i> Risk &amp; Motorway</a>
+  <a href="scenarios.html"><i class="fas fa-tasks" aria-hidden="true"></i> Scenarios</a>
+  <a href="business.html"><i class="fas fa-briefcase" aria-hidden="true"></i> Business Services</a>
 
-      <h1 class="hero-title">The Art of the Lesson Opening (CCL)</h1>
-      <p class="hero-subtitle">Setting the stage for a successful, pupil-led learning experience from the very first minute.</p>
-
-      <div class="card">
-        <h2><i class="fas fa-door-open"></i> Why the First 5 Minutes Matter</h2>
-        <p>
-          The lesson opening is not just casual chat; it's the foundation of a Client-Centred Learning (CCL) approach.
-          It's where we shift from "telling" to "collaborating," ensuring the pupil takes ownership of their learning goals
-          and understands the shared responsibility for safety.
-        </p>
-
-        <div class="image-container">
-          <img src="images/ccl.png" alt="CCL Lesson Opening discussion in car">
-        </div>
-
-        <div class="mission-box">
-          <h3><i class="fas fa-list-ol"></i> The 3-Step CCL Framework</h3>
-          <p>Use this structure to ensure a focused and Standards Check-compliant start:</p>
-
-          <ol class="steps-list">
-            <li>
-              <strong>Recap & Reflect (Checking Understanding)</strong>
-              "How did you feel about our last session on roundabouts? What went well, and what are you still unsure about?"
-            </li>
-            <li>
-              <strong>Set the Goal (Pupil-Led)</strong>
-              "Based on that, what would you like to achieve by the end of today's lesson? What do you want to feel more confident doing?"
-            </li>
-            <li>
-              <strong>Agree the Plan & Risk Management</strong>
-              "Okay, to practice that safely, let's head to [Location]. For the first few junctions, I'll take full responsibility for checking gaps,
-              and you focus on car control. Does that sound like a safe plan?"
-            </li>
-          </ol>
-        </div>
-      </div>
-
-      <!-- ✅ 新增：30秒開場腳本 + 高分拆解 -->
-      <div class="card exam-card">
-        <h2><i class="fas fa-stopwatch"></i> Exam Insight: 30-Second Opening Script</h2>
-        <p>
-          呢一段唔係「背稿」，而係一個 <strong>高分結構</strong>：用最短時間做齊
-          <strong>反思 → 需要 → 目標 → 安全分工 → 支援語言</strong>。
-        </p>
-
-        <span class="script-tag"><i class="fas fa-bolt"></i> 30-second version (Simple English)</span>
-
-        <div class="script-box" aria-label="30-second opening script">
-          <p><strong>1)</strong> “Quick recap: what was the best part last lesson?”</p>
-          <p><strong>2)</strong> “What was the hardest part?”</p>
-          <p><strong>3)</strong> “So today, what’s your main goal?”</p>
-          <p><strong>4)</strong> “My safety plan: for the first few junctions, I’ll help with gaps/mirrors — you focus on steering and speed.”</p>
-          <p><strong>5)</strong> “If you feel unsure, just say ‘Help’ and we’ll slow it down.”</p>
-        </div>
-
-        <h3 style="margin-top: 1.5rem;"><i class="fas fa-trophy"></i> Why this scores well (5 key factors)</h3>
-
-        <div class="score-grid">
-          <div class="score-item">
-            <div class="score-badge">1</div>
-            <p><strong>Reflection:</strong> 先問「best part」，逼學生講返自己表現 → pupil-led opening。</p>
-          </div>
-          <div class="score-item">
-            <div class="score-badge">2</div>
-            <p><strong>Needs analysis:</strong> 問「hardest part」＝搵學習需要，唔係你預設今日教咩。</p>
-          </div>
-          <div class="score-item">
-            <div class="score-badge">3</div>
-            <p><strong>Agreed objective:</strong> 由學生講「main goal」，你先跟住整理 → 目標清晰、共同同意。</p>
-          </div>
-          <div class="score-item">
-            <div class="score-badge">4</div>
-            <p><strong>Risk management plan:</strong> 明確分工（你幫 gaps/mirrors）＝安全策略，不是放任。</p>
-          </div>
-          <div class="score-item">
-            <div class="score-badge">5</div>
-            <p><strong>Support language:</strong> “Say ‘Help’” 建立安全網同共同語言 → 減壓、提升可控度。</p>
-          </div>
-        </div>
-
-        <div class="one-line">
-          <i class="fas fa-lightbulb"></i>
-          <strong>One-line memory:</strong> “Reflect → Need → Goal → Safety Plan → ‘Help’ word.”
-        </div>
-      </div>
-
-      <div class="card">
-        <h2><i class="fas fa-balance-scale-right"></i> Shared Responsibility Strategy</h2>
-        <p>
-          A key part of the opening is explicitly agreeing on the "level of instruction" and who is responsible for what.
-          This prevents confusion and increases safety.
-        </p>
-
-        <div class="phrases-box">
-          <h4><i class="fas fa-comment-dots"></i> Simple English Phrases to Use:</h4>
-          <ul>
-            <li><strong>For Mirrors:</strong> "For this roundabout, I will check the mirrors. You focus on steering and speed."</li>
-            <li><strong>For Observation:</strong> "I need you to look far ahead. If I don't say anything, you are safe."</li>
-            <li><strong>For Decision Making:</strong> "At this junction, I want you to decide when to go. If you are unsure, tell me 'Help'."</li>
-            <li><strong>For Safety:</strong> "I am here to keep us safe. I will use the dual controls if needed, but I want you to try first."</li>
-          </ul>
-        </div>
-      </div>
-
-      <div class="footer">
-        &copy; 2026 ADI Ascent. Developed by Roy Li. All rights reserved.
-      </div>
-
-    </div>
+  <div class="profile">
+    <strong>Roy Li</strong>
+    Approved Driving Instructor<br>
+    Beans Driving School x AA Franchise
   </div>
+</div>
+
+<!-- Main Content -->
+<div class="main-content">
+  <div class="container">
+
+    <h1 class="hero-title">The Art of the Lesson Opening (CCL)</h1>
+    <p class="hero-subtitle">Setting the stage for a successful, pupil-led learning experience from the very first minute.</p>
+
+    <div class="card">
+      <h2><i class="fas fa-door-open" aria-hidden="true"></i> Why the First 5 Minutes Matter</h2>
+      <p>
+        The lesson opening is not just casual chat; it's the foundation of a Client-Centred Learning (CCL) approach.
+        It's where we shift from "telling" to "collaborating," ensuring the pupil takes ownership of their learning goals
+        and understands the shared responsibility for safety.
+      </p>
+
+      <div class="image-container">
+        <img src="images/ccl.png" alt="CCL Lesson Opening discussion in car">
+      </div>
+
+      <div class="mission-box">
+        <h3><i class="fas fa-list-ol" aria-hidden="true"></i> The 3-Step CCL Framework</h3>
+        <p>Use this structure to ensure a focused and Standards Check-compliant start:</p>
+
+        <ol class="steps-list">
+          <li>
+            <strong>Recap &amp; Reflect (Checking Understanding)</strong>
+            “How did you feel about our last session on roundabouts? What went well, and what are you still unsure about?”
+          </li>
+          <li>
+            <strong>Set the Goal (Pupil-Led)</strong>
+            “Based on that, what would you like to achieve by the end of today's lesson? What do you want to feel more confident doing?”
+          </li>
+          <li>
+            <strong>Agree the Plan &amp; Risk Management</strong>
+            “Okay, to practice that safely, let's head to [Location]. For the first few junctions, I’ll take responsibility for checking gaps,
+            and you focus on car control. Does that sound like a safe plan?”
+          </li>
+        </ol>
+      </div>
+    </div>
+
+    <div class="card exam-card">
+      <h2><i class="fas fa-stopwatch" aria-hidden="true"></i> Exam Insight: 30-Second Opening Script</h2>
+      <p>
+        呢一段唔係「背稿」，而係一個 <strong>高分結構</strong>：用最短時間做齊
+        <strong>反思 → 需要 → 目標 → 安全分工 → 支援語言</strong>。
+      </p>
+
+      <span class="script-tag"><i class="fas fa-bolt" aria-hidden="true"></i> 30-second version (Simple English)</span>
+
+      <div class="script-box" aria-label="30-second opening script">
+        <p><strong>1)</strong> “Quick recap: what was the best part last lesson?”</p>
+        <p><strong>2)</strong> “What was the hardest part?”</p>
+        <p><strong>3)</strong> “So today, what’s your main goal?”</p>
+        <p><strong>4)</strong> “My safety plan: for the first few junctions, I’ll help with gaps/mirrors — you focus on steering and speed.”</p>
+        <p><strong>5)</strong> “If you feel unsure, just say ‘Help’ and we’ll slow it down.”</p>
+      </div>
+
+      <h3 style="margin-top:1.5rem;"><i class="fas fa-trophy" aria-hidden="true"></i> Why this scores well (5 key factors)</h3>
+
+      <div class="score-grid">
+        <div class="score-item">
+          <div class="score-badge">1</div>
+          <p><strong>Reflection:</strong> 先問「best part」，逼學生講返自己表現 → pupil-led opening。</p>
+        </div>
+        <div class="score-item">
+          <div class="score-badge">2</div>
+          <p><strong>Needs analysis:</strong> 問「hardest part」＝搵學習需要，唔係你預設今日教咩。</p>
+        </div>
+        <div class="score-item">
+          <div class="score-badge">3</div>
+          <p><strong>Agreed objective:</strong> 由學生講「main goal」，你先跟住整理 → 目標清晰、共同同意。</p>
+        </div>
+        <div class="score-item">
+          <div class="score-badge">4</div>
+          <p><strong>Risk management plan:</strong> 明確分工（你幫 gaps/mirrors）＝安全策略，不是放任。</p>
+        </div>
+        <div class="score-item">
+          <div class="score-badge">5</div>
+          <p><strong>Support language:</strong> “Say ‘Help’” 建立安全網同共同語言 → 減壓、提升可控度。</p>
+        </div>
+      </div>
+
+      <div class="one-line">
+        <i class="fas fa-lightbulb" aria-hidden="true"></i>
+        <strong>One-line memory:</strong> “Reflect → Need → Goal → Safety Plan → ‘Help’ word.”
+      </div>
+    </div>
+
+    <div class="card">
+      <h2><i class="fas fa-balance-scale-right" aria-hidden="true"></i> Shared Responsibility Strategy</h2>
+      <p>
+        A key part of the opening is explicitly agreeing on the level of instruction and who is responsible for what.
+        This prevents confusion and increases safety.
+      </p>
+
+      <div class="phrases-box">
+        <h4><i class="fas fa-comment-dots" aria-hidden="true"></i> Simple English Phrases to Use:</h4>
+        <ul>
+          <li><strong>For Mirrors:</strong> “For this roundabout, I will check the mirrors. You focus on steering and speed.”</li>
+          <li><strong>For Observation:</strong> “I need you to look far ahead. If I don’t say anything, you are safe.”</li>
+          <li><strong>For Decision Making:</strong> “At this junction, I want you to decide when to go. If you are unsure, tell me ‘Help’.”</li>
+          <li><strong>For Safety:</strong> “I am here to keep us safe. I will use the dual controls if needed, but I want you to try first.”</li>
+        </ul>
+      </div>
+
+      <div class="importance-box" style="margin-top:1.2rem;">
+        <strong>Examiner lens:</strong> Are you agreeing the goal and safety plan clearly — in a way the pupil understands and buys into?
+      </div>
+    </div>
+
+    <div class="footer">
+      &copy; 2026 ADI Ascent. Developed by Roy Li. All rights reserved.
+    </div>
+
+  </div>
+</div>
+
+<script>
+(function(){
+  const sidebar = document.querySelector('.sidebar');
+  const overlay = document.querySelector('.menu-overlay');
+  const btn = document.querySelector('.mobile-menu-btn');
+
+  function setOpen(isOpen){
+    sidebar?.classList.toggle('active', isOpen);
+    overlay?.classList.toggle('active', isOpen);
+    document.body.style.overflow = isOpen ? 'hidden' : '';
+
+    if(btn){
+      btn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+      btn.setAttribute('aria-label', isOpen ? 'Close menu' : 'Open menu');
+    }
+  }
+
+  window.toggleMenu = function(force){
+    const isOpen = sidebar?.classList.contains('active');
+    if(typeof force === 'boolean'){
+      setOpen(force);
+      return;
+    }
+    setOpen(!isOpen);
+  };
+
+  // close after clicking any nav link
+  document.querySelectorAll('.sidebar a').forEach(a=>{
+    a.addEventListener('click', ()=> setOpen(false));
+  });
+
+  // ESC to close
+  document.addEventListener('keydown', (e)=>{
+    if(e.key === 'Escape') setOpen(false);
+  });
+})();
+</script>
 
 </body>
 </html>

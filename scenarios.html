@@ -8,8 +8,8 @@
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
 
-  <!-- ✅ Global styles (desktop + mobile) -->
-  <link rel="stylesheet" href="styles.css" />
+  <!-- ✅ Global styles (desktop + mobile)  加版本號避免 cache -->
+  <link rel="stylesheet" href="styles.css?v=999" />
 
   <!-- ✅ Page-only styles -->
   <style>
@@ -26,7 +26,7 @@
 
     .intro-card{ border-left:5px solid var(--accent-blue); }
 
-    /* ===== Toolbar (NEW) ===== */
+    /* ===== Toolbar ===== */
     .tool-bar{
       background:white;
       border:1px solid var(--line);
@@ -242,7 +242,6 @@
       transition:transform .25s ease;
     }
 
-    /* Tags (NEW) */
     .tags{
       display:flex;
       gap:8px;
@@ -303,7 +302,6 @@
       to{ opacity:1; transform:translateY(0); }
     }
 
-    /* FISH rows (your requirement) */
     .fish-row{
       display:flex;
       align-items:flex-start;
@@ -340,7 +338,6 @@
 
     .fish-text strong{ font-weight:900; }
 
-    /* “Practised” (NEW) */
     .practice{
       margin-top:0.75rem;
       display:flex;
@@ -352,14 +349,11 @@
     }
     .practice input{ width:18px; height:18px; }
 
-    .scenario-item.is-done{
-      opacity:0.92;
-    }
+    .scenario-item.is-done{ opacity:0.92; }
     .scenario-item.is-done::before{
       background:linear-gradient(180deg, var(--accent-green), #059669);
     }
 
-    /* Responsive */
     @media (max-width: 900px){
       .fish-explain-grid{ grid-template-columns:1fr 1fr; }
       .search-wrap{ min-width:220px; }
@@ -378,7 +372,15 @@
 
 <body>
 
-  <div class="sidebar">
+  <!-- ✅ Mobile Overlay + Button (必須) -->
+  <div class="menu-overlay" onclick="toggleMenu(false)" aria-hidden="true"></div>
+
+  <button class="mobile-menu-btn" onclick="toggleMenu()" aria-label="Open menu" aria-expanded="false" aria-controls="sidebar">
+    <i class="fas fa-bars" aria-hidden="true"></i>
+  </button>
+
+  <!-- Sidebar -->
+  <div class="sidebar" id="sidebar" role="navigation" aria-label="Site navigation">
     <div class="brand-container">
       <i class="fas fa-paper-plane plane-icon"></i>
       <span class="brand-text">ADI Ascent</span>
@@ -417,7 +419,6 @@
         </p>
       </div>
 
-      <!-- ✅ NEW: Tool bar -->
       <div class="tool-bar">
         <div class="tool-row">
           <div class="tool-left">
@@ -857,28 +858,63 @@
   </div>
 
   <script>
-    // ===== Core open/close =====
-    function toggleDetails(element) {
+  (function(){
+    // ===== Mobile drawer (一致化用法) =====
+    const sidebar = document.querySelector('.sidebar');
+    const overlay = document.querySelector('.menu-overlay');
+    const btn = document.querySelector('.mobile-menu-btn');
+
+    function setOpen(isOpen){
+      sidebar?.classList.toggle('active', isOpen);
+      overlay?.classList.toggle('active', isOpen);
+      document.body.style.overflow = isOpen ? 'hidden' : '';
+      if(btn){
+        btn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+        btn.setAttribute('aria-label', isOpen ? 'Close menu' : 'Open menu');
+      }
+    }
+
+    window.toggleMenu = function(force){
+      const isOpen = sidebar?.classList.contains('active');
+      if(typeof force === 'boolean'){
+        setOpen(force);
+        return;
+      }
+      setOpen(!isOpen);
+    };
+
+    document.querySelectorAll('.sidebar a').forEach(a=>{
+      a.addEventListener('click', ()=> setOpen(false));
+    });
+
+    document.addEventListener('keydown', (e)=>{
+      if(e.key === 'Escape') setOpen(false);
+    });
+
+    // ===== Core open/close scenario (避免 click checkbox 都開合) =====
+    window.toggleDetails = function(element) {
       var details = element.querySelector(".scenario-details");
       var icon = element.querySelector(".chevron-icon");
       var hint = element.querySelector(".click-hint");
+
+      if(!details) return;
 
       var isOpen = details.style.display === "block";
 
       if (isOpen) {
         details.style.display = "none";
-        icon.style.transform = "rotate(0deg)";
+        if(icon) icon.style.transform = "rotate(0deg)";
         if (hint) hint.textContent = "Click for F.I.S.H. Analysis";
         element.classList.remove("is-open");
       } else {
         details.style.display = "block";
-        icon.style.transform = "rotate(180deg)";
+        if(icon) icon.style.transform = "rotate(180deg)";
         if (hint) hint.textContent = "Click to hide";
         element.classList.add("is-open");
       }
-    }
+    };
 
-    // ===== NEW: Expand/Collapse all =====
+    // ===== Expand/Collapse all =====
     function setAll(open) {
       var items = document.querySelectorAll(".scenario-item");
       items.forEach(function (el) {
@@ -897,7 +933,7 @@
     document.getElementById("expandAllBtn").addEventListener("click", function () { setAll(true); });
     document.getElementById("collapseAllBtn").addEventListener("click", function () { setAll(false); });
 
-    // ===== NEW: Search + Filter =====
+    // ===== Search + Filter =====
     var searchInput = document.getElementById("searchInput");
     var filterSelect = document.getElementById("filterSelect");
 
@@ -919,7 +955,7 @@
     searchInput.addEventListener("input", applyFilters);
     filterSelect.addEventListener("change", applyFilters);
 
-    // ===== NEW: Practised tracking (localStorage) =====
+    // ===== Practised tracking (localStorage) =====
     var STORAGE_KEY = "adi_ascent_scenarios_practice";
 
     function loadProgress(){
@@ -942,7 +978,7 @@
         check.checked = !!progress[id];
         item.classList.toggle("is-done", check.checked);
 
-        // prevent toggle scenario when clicking checkbox
+        // ✅ 點 checkbox 唔會觸發 scenario toggle
         check.addEventListener("click", function(ev){ ev.stopPropagation(); });
 
         check.addEventListener("change", function(){
@@ -960,6 +996,7 @@
     });
 
     initPractice();
+  })();
   </script>
 </body>
 </html>

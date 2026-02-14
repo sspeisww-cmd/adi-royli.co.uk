@@ -1,120 +1,90 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Street Driving | ADI Ascent</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Street Driving | ADI Ascent</title>
 
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
-  <!-- ✅ Global CSS -->
-  <link rel="stylesheet" href="styles.css">
+<!-- Global CSS -->
+<link rel="stylesheet" href="styles.css?v=999">
 
-  <style>
+<style>
+/* Page-only styles: Street Driving 專用（移除與 global 重複的 layout / grid / cards 等） */
 
-    .hero-subtitle { color: #64748b; font-size: 1.2rem; margin-bottom: 2rem; }
+.exam-card{
+  background: linear-gradient(135deg,#ffffff 60%,#eef2ff 100%);
+  border-left: 5px solid var(--accent-blue);
+  position: relative;
+  overflow: hidden;
+}
+.exam-card::after{
+  content:"\f5fd"; /* FontAwesome: route */
+  font-family:"Font Awesome 6 Free";
+  font-weight:900;
+  position:absolute;
+  font-size:150px;
+  color:rgba(37,99,235,0.05);
+  bottom:-30px;
+  right:18px;
+  pointer-events:none;
+}
 
-    .content-wrapper { display: flex; gap: 2rem; align-items: flex-start; margin-top: 1.5rem; }
+.tip-box{
+  background-color:#f0fdf4;
+  border:1px solid #bbf7d0;
+  border-radius:12px;
+  padding:1.2rem;
+  margin-top:1rem;
+  color:#065f46;
+  line-height:1.7;
+}
+.tip-box p{ margin:0.6rem 0; }
 
-    .image-side { flex: 1; text-align: center; }
-    .image-side img { max-width: 100%; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
-
-    .text-side { flex: 1.5; }
-
-    .importance-box {
-      background-color: #e0f2fe;
-      padding: 1rem;
-      border-radius: 8px;
-      border-left: 4px solid var(--accent-blue);
-      color: #075985;
-      font-size: 0.95rem;
-      line-height: 1.6;
-    }
-
-    .errors-box {
-      background-color: #fef2f2;
-      padding: 1rem;
-      border-radius: 8px;
-      border: 1px solid #fecaca;
-      color: #991b1b;
-      margin-top: 1rem;
-    }
-
-    .skills-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 1rem;
-      margin-top: 2rem;
-    }
-
-    .skill-item {
-      background: #f1f5f9;
-      padding: 1.2rem;
-      border-radius: 12px;
-      border-left: 4px solid var(--accent-green);
-      cursor: pointer;
-      transition: all 0.3s ease;
-    }
-
-    .skill-item:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 8px 12px -3px rgba(0,0,0,0.1);
-      background-color: #e2e8f0;
-    }
-
-    .skill-item h3 {
-      margin: 0 0 0.5rem 0;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .skill-details {
-      display: none;
-      margin-top: 0.8rem;
-      padding-top: 0.8rem;
-      border-top: 1px solid #cbd5e1;
-      font-size: 0.85rem;
-    }
-
-    /* 🔥 新增工具書升級區 */
-    .exam-card {
-      background: linear-gradient(135deg, #ffffff 60%, #eef2ff 100%);
-      border-left: 5px solid var(--accent-blue);
-    }
-
-    .tip-box {
-      background-color: #f0fdf4;
-      border: 1px solid #bbf7d0;
-      border-radius: 12px;
-      padding: 1.2rem;
-      margin-top: 1rem;
-      color: #065f46;
-    }
-
-  </style>
+.errors-box ul{
+  padding-left:1.2rem;
+  margin:0.5rem 0 0 0;
+}
+.errors-box li{ margin-bottom:0.3rem; }
+</style>
 </head>
 
 <body>
 
-<div class="sidebar">
+<!-- Mobile Overlay -->
+<div class="menu-overlay" onclick="toggleMenu(false)" aria-hidden="true"></div>
+
+<!-- Mobile Menu Button -->
+<button
+  class="mobile-menu-btn"
+  onclick="toggleMenu()"
+  aria-label="Open menu"
+  aria-expanded="false"
+  aria-controls="sidebar"
+>
+  <i class="fas fa-bars" aria-hidden="true"></i>
+</button>
+
+<!-- Sidebar -->
+<div class="sidebar" id="sidebar" role="navigation" aria-label="Site navigation">
   <div class="brand-container">
-    <i class="fas fa-paper-plane plane-icon"></i>
+    <i class="fas fa-paper-plane plane-icon" aria-hidden="true"></i>
     <span class="brand-text">ADI Ascent</span>
-    <img src="images/logo.png" class="brand-logo">
+    <img src="images/logo.png" alt="ADI Ascent Logo" class="brand-logo">
   </div>
 
-  <a href="index.html"><i class="fas fa-home"></i> Home</a>
-  <a href="philosophy.html"><i class="fas fa-user-tie"></i> Our Philosophy</a>
-  <a href="professionalism.html"><i class="fas fa-file-contract"></i> Professionalism</a>
-  <a href="ccl-opening.html"><i class="fas fa-comment-dots"></i> CCL Opening</a>
-  <a href="basic-skills.html"><i class="fas fa-cogs"></i> Basic Skills</a>
-  <a href="street-driving.html" class="active"><i class="fas fa-road"></i> Street Driving</a>
-  <a href="parking.html"><i class="fas fa-parking"></i> Parking</a>
-  <a href="risk-motorway.html"><i class="fas fa-exclamation-triangle"></i> Risk & Motorway</a>
-  <a href="scenarios.html"><i class="fas fa-tasks"></i> Scenarios</a>
-  <a href="business.html"><i class="fas fa-briefcase"></i> Business Services</a>
+  <a href="index.html"><i class="fas fa-home" aria-hidden="true"></i> Home</a>
+  <a href="philosophy.html"><i class="fas fa-user-tie" aria-hidden="true"></i> Our Philosophy</a>
+  <a href="professionalism.html"><i class="fas fa-file-contract" aria-hidden="true"></i> Professionalism</a>
+  <a href="ccl-opening.html"><i class="fas fa-comment-dots" aria-hidden="true"></i> CCL Opening</a>
+  <a href="basic-skills.html"><i class="fas fa-cogs" aria-hidden="true"></i> Basic Skills</a>
+  <a href="street-driving.html" class="active"><i class="fas fa-road" aria-hidden="true"></i> Street Driving</a>
+  <a href="parking.html"><i class="fas fa-parking" aria-hidden="true"></i> Parking</a>
+  <a href="risk-motorway.html"><i class="fas fa-exclamation-triangle" aria-hidden="true"></i> Risk &amp; Motorway</a>
+  <a href="scenarios.html"><i class="fas fa-tasks" aria-hidden="true"></i> Scenarios</a>
+  <a href="business.html"><i class="fas fa-briefcase" aria-hidden="true"></i> Business Services</a>
 
   <div class="profile">
     <strong>Roy Li</strong>
@@ -123,132 +93,198 @@
   </div>
 </div>
 
+<!-- Main Content -->
 <div class="main-content">
-<div class="container">
+  <div class="container">
 
-<h1 class="hero-title">Street Driving & Real-World Risk</h1>
-<p class="hero-subtitle">Urban driving is where Part 3 lives or dies.</p>
+    <h1 class="hero-title">Street Driving &amp; Real-World Risk</h1>
+    <p class="hero-subtitle">Urban driving is where Part 3 lives or dies.</p>
 
-<div class="card">
-  <h2><i class="fas fa-map-marked-alt"></i> Urban & Residential Driving</h2>
+    <div class="card">
+      <h2><i class="fas fa-map-marked-alt" aria-hidden="true"></i> Urban &amp; Residential Driving</h2>
 
-  <div class="content-wrapper">
-    <div class="image-side">
-      <img src="images/street.png">
-    </div>
+      <div class="content-wrapper">
+        <div class="image-side">
+          <img src="images/street.png" alt="Street driving illustration">
+        </div>
 
-    <div class="text-side">
-      <div class="importance-box">
-        Street driving is not about junction technique.
-        It is about anticipation, scanning, planning and shared responsibility.
+        <div class="text-side">
+          <div class="importance-box">
+            Street driving is not about junction technique.<br>
+            It is about anticipation, scanning, planning and shared responsibility.
+          </div>
+
+          <div class="errors-box">
+            <h4 style="margin:0 0 0.5rem 0; color:#dc2626; display:flex; align-items:center; gap:8px;">
+              <i class="fas fa-exclamation-triangle" aria-hidden="true"></i> Common Teaching Failures (Part 3)
+            </h4>
+            <ul>
+              <li>Instructor spotting hazards instead of pupil.</li>
+              <li>No verbalised risk discussion.</li>
+              <li>No responsibility agreement before junction.</li>
+            </ul>
+          </div>
+        </div>
       </div>
 
-      <div class="errors-box">
-        <strong>Common Teaching Failures (Part 3):</strong>
-        <ul>
-          <li>Instructor spotting hazards instead of pupil.</li>
-          <li>No verbalised risk discussion.</li>
-          <li>No responsibility agreement before junction.</li>
-        </ul>
+      <div class="skills-grid">
+
+        <div class="skill-item" data-collapsible onclick="toggleDetails(this)">
+          <h3>
+            Junctions
+            <i class="fas fa-chevron-down chevron-icon" aria-hidden="true"></i>
+          </h3>
+          <span class="click-hint">Click to expand</span>
+          <p>Speed → Position → Observation → Decision</p>
+          <div class="skill-details">
+            <ul>
+              <li>What can you see developing?</li>
+              <li>What is your biggest risk?</li>
+              <li>Who is responsible here?</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="skill-item" data-collapsible onclick="toggleDetails(this)">
+          <h3>
+            Roundabouts
+            <i class="fas fa-chevron-down chevron-icon" aria-hidden="true"></i>
+          </h3>
+          <span class="click-hint">Click to expand</span>
+          <p>Lane planning &amp; gap judgement</p>
+          <div class="skill-details">
+            <ul>
+              <li>What information do you need first?</li>
+              <li>What is your safe gap?</li>
+              <li>If unsure, what will you say?</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="skill-item" data-collapsible onclick="toggleDetails(this)">
+          <h3>
+            Pedestrians
+            <i class="fas fa-chevron-down chevron-icon" aria-hidden="true"></i>
+          </h3>
+          <span class="click-hint">Click to expand</span>
+          <p>Scanning &amp; anticipation</p>
+          <div class="skill-details">
+            <ul>
+              <li>Where are your eyes now?</li>
+              <li>Who might step out?</li>
+              <li>What is your backup plan?</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="skill-item" data-collapsible onclick="toggleDetails(this)">
+          <h3>
+            Speed Management
+            <i class="fas fa-chevron-down chevron-icon" aria-hidden="true"></i>
+          </h3>
+          <span class="click-hint">Click to expand</span>
+          <p>Matching conditions &amp; flow</p>
+          <div class="skill-details">
+            <ul>
+              <li>Is this speed safe or legal?</li>
+              <li>What changes ahead?</li>
+              <li>What does the road tell you?</li>
+            </ul>
+          </div>
+        </div>
+
       </div>
     </div>
+
+    <div class="card exam-card">
+      <h2><i class="fas fa-lightbulb" aria-hidden="true"></i> Live Risk Commentary Framework</h2>
+      <p>
+        Instead of giving instructions, try structured risk language. Your job is to make the pupil
+        <strong>see → explain → decide</strong>.
+      </p>
+
+      <div class="tip-box" aria-label="Coaching phrases">
+        <p><strong>Scan prompt:</strong> “We have parked cars left, pedestrian right, junction ahead. What is your plan?”</p>
+        <p><strong>Support word:</strong> “If you feel unsure, say ‘Help’ early.”</p>
+        <p><strong>Responsibility split:</strong> “For this one, I will check mirrors. You manage speed.”</p>
+      </div>
+
+      <h3 style="margin-top:1.2rem;"><i class="fas fa-eye" aria-hidden="true"></i> Examiner is looking for…</h3>
+      <ul style="margin-top:0.6rem;">
+        <li>Shared responsibility (clear safety plan, not silent hope)</li>
+        <li>Encouraging pupil thinking (questions, not commands)</li>
+        <li>Clear risk discussion (what / why / what-if)</li>
+      </ul>
+
+      <div class="importance-box" style="margin-top:1rem;">
+        <strong>One-line memory:</strong><br>
+        “Name the hazard → ask for the plan → agree the safety split → let them decide.”
+      </div>
+    </div>
+
+    <div class="footer">
+      &copy; 2026 ADI Ascent. Developed by Roy Li. All rights reserved.
+    </div>
+
   </div>
-
-  <div class="skills-grid">
-
-    <div class="skill-item" onclick="toggleDetails(this)">
-      <h3>Junctions <i class="fas fa-chevron-down"></i></h3>
-      <p>Speed → Position → Observation → Decision</p>
-      <div class="skill-details">
-        <ul>
-          <li>What can you see developing?</li>
-          <li>What is your biggest risk?</li>
-          <li>Who is responsible here?</li>
-        </ul>
-      </div>
-    </div>
-
-    <div class="skill-item" onclick="toggleDetails(this)">
-      <h3>Roundabouts <i class="fas fa-chevron-down"></i></h3>
-      <p>Lane planning & gap judgement</p>
-      <div class="skill-details">
-        <ul>
-          <li>What information do you need first?</li>
-          <li>What is your safe gap?</li>
-          <li>If unsure, what will you say?</li>
-        </ul>
-      </div>
-    </div>
-
-    <div class="skill-item" onclick="toggleDetails(this)">
-      <h3>Pedestrians <i class="fas fa-chevron-down"></i></h3>
-      <p>Scanning & anticipation</p>
-      <div class="skill-details">
-        <ul>
-          <li>Where are your eyes now?</li>
-          <li>Who might step out?</li>
-          <li>What is your backup plan?</li>
-        </ul>
-      </div>
-    </div>
-
-    <div class="skill-item" onclick="toggleDetails(this)">
-      <h3>Speed Management <i class="fas fa-chevron-down"></i></h3>
-      <p>Matching conditions & flow</p>
-      <div class="skill-details">
-        <ul>
-          <li>Is this speed safe or legal?</li>
-          <li>What changes ahead?</li>
-          <li>What does the road tell you?</li>
-        </ul>
-      </div>
-    </div>
-
-  </div>
-</div>
-
-<!-- 🔥 Instructor Insight 區 -->
-<div class="card exam-card">
-  <h2><i class="fas fa-lightbulb"></i> Live Risk Commentary Framework</h2>
-  <p>
-    Instead of giving instructions, try structured risk language:
-  </p>
-
-  <div class="tip-box">
-    “We have parked cars left, pedestrian right, junction ahead.  
-    What is your plan?”  
-
-    “If you feel unsure, say ‘Help’ early.”  
-
-    “For this one, I will check mirrors. You manage speed.”
-  </div>
-
-  <p style="margin-top:1rem;">
-    Examiner is looking for:
-  </p>
-  <ul>
-    <li>Shared responsibility</li>
-    <li>Encouraging pupil thinking</li>
-    <li>Clear risk discussion</li>
-  </ul>
-</div>
-
-<div class="footer">
-  &copy; 2026 ADI Ascent. Developed by Roy Li.
-</div>
-
-</div>
 </div>
 
 <script>
-function toggleDetails(element) {
-  var details = element.querySelector('.skill-details');
-  if (details.style.display === "block") {
-    details.style.display = "none";
-  } else {
-    details.style.display = "block";
+(function(){
+  // --- Mobile drawer (same behaviour across pages) ---
+  const sidebar = document.querySelector('.sidebar');
+  const overlay = document.querySelector('.menu-overlay');
+  const btn = document.querySelector('.mobile-menu-btn');
+
+  function setOpen(isOpen){
+    sidebar?.classList.toggle('active', isOpen);
+    overlay?.classList.toggle('active', isOpen);
+    document.body.style.overflow = isOpen ? 'hidden' : '';
+
+    if(btn){
+      btn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+      btn.setAttribute('aria-label', isOpen ? 'Close menu' : 'Open menu');
+    }
   }
-}
+
+  window.toggleMenu = function(force){
+    const isOpen = sidebar?.classList.contains('active');
+    if(typeof force === 'boolean'){
+      setOpen(force);
+      return;
+    }
+    setOpen(!isOpen);
+  };
+
+  document.querySelectorAll('.sidebar a').forEach(a=>{
+    a.addEventListener('click', ()=> setOpen(false));
+  });
+
+  document.addEventListener('keydown', (e)=>{
+    if(e.key === 'Escape') setOpen(false);
+  });
+
+  // --- Collapsible skill items (consistent with chevron + hint) ---
+  window.toggleDetails = function(element){
+    const details = element.querySelector('.skill-details');
+    const icon = element.querySelector('.chevron-icon');
+    const hint = element.querySelector('.click-hint');
+
+    const isOpen = details && (details.style.display === 'block');
+
+    if(!details) return;
+
+    if(isOpen){
+      details.style.display = 'none';
+      if(icon) icon.style.transform = 'rotate(0deg)';
+      if(hint) hint.textContent = 'Click to expand';
+    }else{
+      details.style.display = 'block';
+      if(icon) icon.style.transform = 'rotate(180deg)';
+      if(hint) hint.textContent = 'Click to hide';
+    }
+  };
+})();
 </script>
 
 </body>

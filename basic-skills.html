@@ -1,122 +1,75 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Basic Skills | ADI Ascent</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Basic Skills | ADI Ascent</title>
 
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
-  <!-- ✅ Global styles -->
-  <link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="styles.css?v=999">
 
-  <!-- ✅ Page-only styles -->
-  <style>
+<style>
+/* Page-only styles: Basic Skills 專用（保留你既視覺語言，但移除同 global 重複的） */
 
-    .hero-subtitle { color: #64748b; font-size: 1.2rem; margin-bottom: 2rem; }
+.exam-card{
+  background: linear-gradient(135deg,#ffffff 60%,#eef2ff 100%);
+  border-left: 5px solid var(--accent-blue);
+}
 
-    .content-wrapper { display: flex; gap: 2rem; align-items: flex-start; margin-top: 1.5rem; }
-    .image-side { flex: 1; text-align: center; }
-    .image-side img { max-width: 100%; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
-    .text-side { flex: 1.5; }
+.tip-box{
+  background-color:#f0fdf4;
+  border:1px solid #bbf7d0;
+  border-radius:12px;
+  padding:1.2rem;
+  margin-top:1rem;
+  color:#065f46;
+}
 
-    .importance-box {
-      background-color: #e0f2fe;
-      padding: 1rem;
-      border-radius: 8px;
-      border-left: 4px solid var(--accent-blue);
-      color: #075985;
-      font-size: 0.95rem;
-      line-height: 1.6;
-    }
-
-    .errors-box {
-      background-color: #fef2f2;
-      padding: 1rem;
-      border-radius: 8px;
-      border: 1px solid #fecaca;
-      color: #991b1b;
-      margin-top: 1rem;
-    }
-
-    .errors-box h4 { margin: 0 0 0.5rem 0; color: #dc2626; }
-
-    .skills-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 1rem;
-      margin-top: 2rem;
-    }
-
-    .skill-item {
-      background: #f1f5f9;
-      padding: 1.2rem;
-      border-radius: 12px;
-      border-left: 4px solid var(--accent-green);
-      cursor: pointer;
-      transition: all 0.3s ease;
-    }
-
-    .skill-item:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 8px 12px -3px rgba(0,0,0,0.1);
-      background-color: #e2e8f0;
-    }
-
-    .skill-item h3 {
-      margin: 0 0 0.5rem 0;
-      font-size: 1.1rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .skill-details {
-      display: none;
-      margin-top: 0.8rem;
-      padding-top: 0.8rem;
-      border-top: 1px solid #cbd5e1;
-      font-size: 0.85rem;
-    }
-
-    /* ✅ 新增工具書卡 */
-    .exam-card {
-      background: linear-gradient(135deg, #ffffff 60%, #eef2ff 100%);
-      border-left: 5px solid var(--accent-blue);
-    }
-
-    .tip-box {
-      background-color: #f0fdf4;
-      border: 1px solid #bbf7d0;
-      border-radius: 12px;
-      padding: 1.2rem;
-      margin-top: 1rem;
-      color: #065f46;
-    }
-
-  </style>
+/* 只補回你呢頁用到、但 global 未必有嘅細節（例如 checklist / ul spacing） */
+.errors-box ul{
+  padding-left:1.2rem;
+  margin:0.5rem 0 0 0;
+}
+.errors-box li{ margin-bottom:0.3rem; }
+</style>
 </head>
 
 <body>
 
-<div class="sidebar">
+<!-- Mobile Overlay -->
+<div class="menu-overlay" onclick="toggleMenu(false)" aria-hidden="true"></div>
+
+<!-- Mobile Menu Button -->
+<button
+  class="mobile-menu-btn"
+  onclick="toggleMenu()"
+  aria-label="Open menu"
+  aria-expanded="false"
+  aria-controls="sidebar"
+>
+  <i class="fas fa-bars" aria-hidden="true"></i>
+</button>
+
+<!-- Sidebar -->
+<div class="sidebar" id="sidebar" role="navigation" aria-label="Site navigation">
   <div class="brand-container">
-    <i class="fas fa-paper-plane plane-icon"></i>
+    <i class="fas fa-paper-plane plane-icon" aria-hidden="true"></i>
     <span class="brand-text">ADI Ascent</span>
-    <img src="images/logo.png" alt="Logo" class="brand-logo">
+    <img src="images/logo.png" alt="ADI Ascent Logo" class="brand-logo">
   </div>
 
-  <a href="index.html"><i class="fas fa-home"></i> Home</a>
-  <a href="philosophy.html"><i class="fas fa-user-tie"></i> Our Philosophy</a>
-  <a href="professionalism.html"><i class="fas fa-file-contract"></i> Professionalism</a>
-  <a href="ccl-opening.html"><i class="fas fa-comment-dots"></i> CCL Opening</a>
-  <a href="basic-skills.html" class="active"><i class="fas fa-cogs"></i> Basic Skills</a>
-  <a href="street-driving.html"><i class="fas fa-road"></i> Street Driving</a>
-  <a href="parking.html"><i class="fas fa-parking"></i> Parking</a>
-  <a href="risk-motorway.html"><i class="fas fa-exclamation-triangle"></i> Risk & Motorway</a>
-  <a href="scenarios.html"><i class="fas fa-tasks"></i> Scenarios</a>
-  <a href="business.html"><i class="fas fa-briefcase"></i> Business Services</a>
+  <a href="index.html"><i class="fas fa-home" aria-hidden="true"></i> Home</a>
+  <a href="philosophy.html"><i class="fas fa-user-tie" aria-hidden="true"></i> Our Philosophy</a>
+  <a href="professionalism.html"><i class="fas fa-file-contract" aria-hidden="true"></i> Professionalism</a>
+  <a href="ccl-opening.html"><i class="fas fa-comment-dots" aria-hidden="true"></i> CCL Opening</a>
+  <a href="basic-skills.html" class="active"><i class="fas fa-cogs" aria-hidden="true"></i> Basic Skills</a>
+  <a href="street-driving.html"><i class="fas fa-road" aria-hidden="true"></i> Street Driving</a>
+  <a href="parking.html"><i class="fas fa-parking" aria-hidden="true"></i> Parking</a>
+  <a href="risk-motorway.html"><i class="fas fa-exclamation-triangle" aria-hidden="true"></i> Risk &amp; Motorway</a>
+  <a href="scenarios.html"><i class="fas fa-tasks" aria-hidden="true"></i> Scenarios</a>
+  <a href="business.html"><i class="fas fa-briefcase" aria-hidden="true"></i> Business Services</a>
 
   <div class="profile">
     <strong>Roy Li</strong>
@@ -125,127 +78,190 @@
   </div>
 </div>
 
+<!-- Main Content -->
 <div class="main-content">
-<div class="container">
+  <div class="container">
 
-<h1 class="hero-title">Basic Car Control Skills</h1>
-<p class="hero-subtitle">These are not just “learner skills” — these are Part 3 assessment foundations.</p>
+    <h1 class="hero-title">Basic Car Control Skills</h1>
+    <p class="hero-subtitle">These are not just “learner skills” — these are Part 3 assessment foundations.</p>
 
-<div class="card">
-  <h2><i class="fas fa-user-graduate"></i> Foundation Skills & Knowledge</h2>
+    <div class="card">
+      <h2><i class="fas fa-user-graduate" aria-hidden="true"></i> Foundation Skills &amp; Knowledge</h2>
 
-  <div class="content-wrapper">
-    <div class="image-side">
-      <img src="images/skills.png" alt="Basic Skills Illustration">
-    </div>
+      <div class="content-wrapper">
+        <div class="image-side">
+          <img src="images/skills.png" alt="Basic Skills Illustration">
+        </div>
 
-    <div class="text-side">
-      <div class="importance-box">
-        <strong>Why Basic Skills Matter?</strong><br>
-        If car control is weak, observation collapses.  
-        If observation collapses, risk management collapses.
+        <div class="text-side">
+          <div class="importance-box">
+            <strong>Why Basic Skills Matter?</strong><br>
+            If car control is weak, observation collapses.<br>
+            If observation collapses, risk management collapses.
+          </div>
+
+          <div class="errors-box">
+            <h4><i class="fas fa-exclamation-circle" aria-hidden="true"></i> Common Part 3 Teaching Errors</h4>
+            <ul>
+              <li>Instructor talks too much instead of questioning.</li>
+              <li>No clear responsibility split for safety.</li>
+              <li>Teaching clutch control without linking to hazard awareness.</li>
+            </ul>
+          </div>
+        </div>
       </div>
 
-      <div class="errors-box">
-        <h4><i class="fas fa-exclamation-circle"></i> Common Part 3 Teaching Errors</h4>
-        <ul>
-          <li>Instructor talks too much instead of questioning.</li>
-          <li>No clear responsibility split for safety.</li>
-          <li>Teaching clutch control without linking to hazard awareness.</li>
-        </ul>
+      <div class="skills-grid">
+
+        <div class="skill-item" data-collapsible onclick="toggleDetails(this)">
+          <h3>
+            Cockpit Drill
+            <i class="fas fa-chevron-down chevron-icon" aria-hidden="true"></i>
+          </h3>
+          <span class="click-hint">Click to expand</span>
+          <p>DSSSM routine and reasoning.</p>
+          <div class="skill-details">
+            <ul>
+              <li>Why adjust before engine start?</li>
+              <li>What happens if mirrors are wrong?</li>
+              <li>Who is responsible for safety before moving?</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="skill-item" data-collapsible onclick="toggleDetails(this)">
+          <h3>
+            Moving Off
+            <i class="fas fa-chevron-down chevron-icon" aria-hidden="true"></i>
+          </h3>
+          <span class="click-hint">Click to expand</span>
+          <p>Observation → Decision → Control</p>
+          <div class="skill-details">
+            <ul>
+              <li>What is the biggest risk when moving off?</li>
+              <li>How do you check blind spots safely?</li>
+              <li>When should I help you?</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="skill-item" data-collapsible onclick="toggleDetails(this)">
+          <h3>
+            Stopping
+            <i class="fas fa-chevron-down chevron-icon" aria-hidden="true"></i>
+          </h3>
+          <span class="click-hint">Click to expand</span>
+          <p>MSM routine and smooth braking.</p>
+          <div class="skill-details">
+            <ul>
+              <li>Where is safe to stop?</li>
+              <li>What mirror first and why?</li>
+              <li>When is it unsafe to stop?</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="skill-item" data-collapsible onclick="toggleDetails(this)">
+          <h3>
+            Steering
+            <i class="fas fa-chevron-down chevron-icon" aria-hidden="true"></i>
+          </h3>
+          <span class="click-hint">Click to expand</span>
+          <p>Vision controls direction.</p>
+          <div class="skill-details">
+            <ul>
+              <li>Where are you looking?</li>
+              <li>Why does the car follow your eyes?</li>
+              <li>What happens if you look too close?</li>
+            </ul>
+          </div>
+        </div>
+
       </div>
     </div>
+
+    <div class="card exam-card">
+      <h2><i class="fas fa-lightbulb" aria-hidden="true"></i> Instructor Insight</h2>
+      <p>
+        Basic skills teaching is not about clutch or gears.<br>
+        It is about developing:
+      </p>
+      <ul style="margin-top:0.6rem;">
+        <li>Risk awareness</li>
+        <li>Shared responsibility</li>
+        <li>Independent decision making</li>
+      </ul>
+
+      <div class="tip-box">
+        <strong>Part 3 Reminder:</strong><br>
+        If you are “explaining everything”, you are probably over-instructing.<br>
+        If the pupil is thinking, answering and reflecting — you are scoring.
+      </div>
+    </div>
+
+    <div class="footer">
+      &copy; 2026 ADI Ascent. Developed by Roy Li. All rights reserved.
+    </div>
+
   </div>
-
-  <div class="skills-grid">
-
-    <div class="skill-item" onclick="toggleDetails(this)">
-      <h3>Cockpit Drill <i class="fas fa-chevron-down"></i></h3>
-      <p>DSSSM routine and reasoning.</p>
-      <div class="skill-details">
-        <ul>
-          <li>Why adjust before engine start?</li>
-          <li>What happens if mirrors are wrong?</li>
-          <li>Who is responsible for safety before moving?</li>
-        </ul>
-      </div>
-    </div>
-
-    <div class="skill-item" onclick="toggleDetails(this)">
-      <h3>Moving Off <i class="fas fa-chevron-down"></i></h3>
-      <p>Observation → Decision → Control</p>
-      <div class="skill-details">
-        <ul>
-          <li>What is the biggest risk when moving off?</li>
-          <li>How do you check blind spots safely?</li>
-          <li>When should I help you?</li>
-        </ul>
-      </div>
-    </div>
-
-    <div class="skill-item" onclick="toggleDetails(this)">
-      <h3>Stopping <i class="fas fa-chevron-down"></i></h3>
-      <p>MSM routine and smooth braking.</p>
-      <div class="skill-details">
-        <ul>
-          <li>Where is safe to stop?</li>
-          <li>What mirror first and why?</li>
-          <li>When is it unsafe to stop?</li>
-        </ul>
-      </div>
-    </div>
-
-    <div class="skill-item" onclick="toggleDetails(this)">
-      <h3>Steering <i class="fas fa-chevron-down"></i></h3>
-      <p>Vision controls direction.</p>
-      <div class="skill-details">
-        <ul>
-          <li>Where are you looking?</li>
-          <li>Why does the car follow your eyes?</li>
-          <li>What happens if you look too close?</li>
-        </ul>
-      </div>
-    </div>
-
-  </div>
-</div>
-
-<!-- ✅ Instructor Insight -->
-<div class="card exam-card">
-  <h2><i class="fas fa-lightbulb"></i> Instructor Insight</h2>
-  <p>
-    Basic skills teaching is not about clutch or gears.  
-    It is about developing:
-  </p>
-  <ul>
-    <li>Risk awareness</li>
-    <li>Shared responsibility</li>
-    <li>Independent decision making</li>
-  </ul>
-
-  <div class="tip-box">
-    <strong>Part 3 Reminder:</strong><br>
-    If you are “explaining everything”, you are probably over-instructing.  
-    If the pupil is thinking, answering and reflecting — you are scoring.
-  </div>
-</div>
-
-<div class="footer">
-  &copy; 2026 ADI Ascent. Developed by Roy Li.
-</div>
-
-</div>
 </div>
 
 <script>
-function toggleDetails(element) {
-  var details = element.querySelector('.skill-details');
-  if (details.style.display === "block") {
-    details.style.display = "none";
-  } else {
-    details.style.display = "block";
+(function(){
+  // --- Mobile drawer (same behaviour across pages) ---
+  const sidebar = document.querySelector('.sidebar');
+  const overlay = document.querySelector('.menu-overlay');
+  const btn = document.querySelector('.mobile-menu-btn');
+
+  function setOpen(isOpen){
+    sidebar?.classList.toggle('active', isOpen);
+    overlay?.classList.toggle('active', isOpen);
+    document.body.style.overflow = isOpen ? 'hidden' : '';
+
+    if(btn){
+      btn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+      btn.setAttribute('aria-label', isOpen ? 'Close menu' : 'Open menu');
+    }
   }
-}
+
+  window.toggleMenu = function(force){
+    const isOpen = sidebar?.classList.contains('active');
+    if(typeof force === 'boolean'){
+      setOpen(force);
+      return;
+    }
+    setOpen(!isOpen);
+  };
+
+  document.querySelectorAll('.sidebar a').forEach(a=>{
+    a.addEventListener('click', ()=> setOpen(false));
+  });
+
+  document.addEventListener('keydown', (e)=>{
+    if(e.key === 'Escape') setOpen(false);
+  });
+
+  // --- Collapsible skill items (consistent with chevron + hint) ---
+  window.toggleDetails = function(element){
+    const details = element.querySelector('.skill-details');
+    const icon = element.querySelector('.chevron-icon');
+    const hint = element.querySelector('.click-hint');
+
+    const isOpen = details && (details.style.display === 'block');
+
+    if(!details) return;
+
+    if(isOpen){
+      details.style.display = 'none';
+      if(icon) icon.style.transform = 'rotate(0deg)';
+      if(hint) hint.textContent = 'Click to expand';
+    }else{
+      details.style.display = 'block';
+      if(icon) icon.style.transform = 'rotate(180deg)';
+      if(hint) hint.textContent = 'Click to hide';
+    }
+  };
+})();
 </script>
 
 </body>
