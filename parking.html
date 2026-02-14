@@ -1,373 +1,348 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Parking | ADI Ascent</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <style>
-        /* --- 黃金模板 CSS 結構 (保持一致) --- */
-        :root {
-            --sidebar-bg: #10172a;
-            --main-bg: #f8fafc;
-            --text-dark: #1e293b;
-            --text-light: #f1f5f9;
-            --accent-blue: #2563eb;
-            --accent-green: #10b981;
-            --font-main: 'Poppins', sans-serif;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Parking | ADI Ascent</title>
 
-        body { font-family: var(--font-main); margin: 0; display: flex; height: 100vh; overflow: hidden; }
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
-        /* 左側導航欄 (H 版格式) */
-        .sidebar {
-            width: 300px;
-            background-color: var(--sidebar-bg);
-            color: var(--text-light);
-            padding: 1.5rem;
-            display: flex;
-            flex-direction: column;
-            box-shadow: 2px 0 10px rgba(0,0,0,0.1);
-            overflow-y: auto;
-            flex-shrink: 0;
-        }
+  <!-- ✅ Global styles (desktop + mobile) -->
+  <link rel="stylesheet" href="styles.css">
 
-        /* 🔴 品牌容器結構 (跟 H 版一致：含 logo、矮身、左對齊) */
-        .brand-container {
-            display: flex;
-            align-items: center;
-            justify-content: flex-start;
-            gap: 10px;
-            color: white;
-            margin-bottom: 2.5rem;
-            padding-bottom: 1rem;
-            border-bottom: 1px solid #334155;
-            height: 60px;
-        }
+  <!-- ✅ Page-only styles (Parking page only) -->
+  <style>
+    .hero-subtitle { color: #64748b; font-size: 1.2rem; margin-bottom: 2rem; }
 
-        /* 飛機圖示 (H 版) */
-        .plane-icon {
-            font-size: 1.8rem;
-            color: white;
-            transform: rotate(35deg);
-            flex-shrink: 0;
-        }
+    .content-wrapper { display: flex; gap: 2rem; align-items: flex-start; margin-top: 1.5rem; }
+    .image-side { flex: 1; text-align: center; }
+    .image-side img { max-width: 100%; height: auto; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+    .text-side { flex: 1.5; }
 
-        /* 文字 ADI Ascent (H 版) */
-        .brand-text {
-            font-size: 1.5rem;
-            font-weight: 700;
-            white-space: nowrap;
-        }
+    .importance-box {
+      background-color: #e0f2fe;
+      padding: 1rem;
+      border-radius: 8px;
+      border-left: 4px solid var(--accent-blue);
+      color: #075985;
+      font-size: 0.95rem;
+      line-height: 1.6;
+    }
 
-        /* 公司 Logo（H 版同款 class，方便全站一致） */
-        .brand-logo {
-            max-height: 120px;
-            width: auto;
-            object-fit: contain;
-        }
+    .errors-box {
+      background-color: #fef2f2;
+      padding: 1rem;
+      border-radius: 8px;
+      border: 1px solid #fecaca;
+      color: #991b1b;
+      margin-top: 1rem;
+    }
+    .errors-box h4 { margin: 0 0 0.5rem 0; color: #dc2626; display: flex; align-items: center; gap: 8px; }
+    .errors-box ul { padding-left: 1.2rem; margin: 0; }
+    .errors-box li { margin-bottom: 0.3rem; font-size: 0.9rem; }
 
-        .sidebar a {
-            color: #cbd5e1;
-            text-decoration: none;
-            padding: 0.8rem 1rem;
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            margin-bottom: 0.5rem;
-            transition: all 0.2s;
-            font-weight: 500;
-        }
+    .skills-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 2rem; }
 
-        .sidebar a:hover { background-color: #1e293b; color: white; }
-        .sidebar a.active { background-color: var(--accent-blue); color: white; font-weight: bold; }
+    .skill-item {
+      background: #f1f5f9;
+      padding: 1.2rem;
+      border-radius: 12px;
+      border-left: 4px solid var(--accent-green);
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      flex-direction: column;
+    }
 
-        .profile {
-            margin-top: auto;
-            border-top: 1px solid #334155;
-            padding-top: 1.5rem;
-            font-size: 0.9rem;
-            line-height: 1.5;
-            color: #94a3b8;
-        }
+    .skill-item:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 12px -3px rgba(0,0,0,0.1);
+      background-color: #e2e8f0;
+    }
 
-        .profile strong {
-            color: white;
-            font-size: 1rem;
-            display: block;
-            margin-bottom: 0.3rem;
-        }
+    .skill-item h3 {
+      margin: 0 0 0.5rem 0;
+      font-size: 1.1rem;
+      color: var(--text-dark);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
 
-        /* 右側內容區 (H 版格式) */
-        .main-content {
-            flex: 1;
-            background-color: var(--main-bg);
-            padding: 3rem;
-            overflow-y: auto;
-            color: var(--text-dark);
-            position: relative;
-        }
+    .chevron-icon { font-size: 0.9rem; color: #64748b; transition: transform 0.3s ease; }
 
-        .container {
-            max-width: 1000px;
-            margin: 0 auto;
-            position: relative;
-        }
+    .click-hint {
+      font-size: 0.75rem;
+      color: var(--accent-blue);
+      font-weight: 600;
+      display: block;
+      margin-bottom: 0.5rem;
+    }
 
-        .hero-title {
-            color: var(--text-dark);
-            font-size: 2.5rem;
-            margin-top: 0;
-            font-weight: 700;
-            line-height: 1.2;
-            position: relative;
-        }
+    .skill-item p { margin: 0; font-size: 0.9rem; line-height: 1.4; color: #475569; }
 
-        /* 保持內容不變 */
-        .hero-subtitle { color: #64748b; font-size: 1.2rem; margin-bottom: 2rem; }
+    .skill-details {
+      display: none;
+      margin-top: 0.8rem;
+      padding-top: 0.8rem;
+      border-top: 1px solid #cbd5e1;
+      font-size: 0.85rem;
+      line-height: 1.5;
+      animation: fadeIn 0.35s;
+    }
 
-        .card {
-            background: white;
-            padding: 2.5rem;
-            border-radius: 16px;
-            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
-            margin-bottom: 2rem;
-            position: relative;
-            overflow: hidden;
-        }
+    .skill-details .mini-title { font-weight: 700; color: #0f172a; margin-bottom: 0.4rem; display: block; }
+    .skill-details ul { padding-left: 1.1rem; margin: 0.5rem 0; }
+    .skill-details li { margin-bottom: 0.5rem; color: #1e40af; font-weight: 500; }
 
-        .card h2 { color: var(--accent-blue); margin-top: 0; display: flex; align-items: center; gap: 10px; }
+    .coach-box {
+      margin-top: 0.8rem;
+      background: #eef2ff;
+      border: 1px solid #c7d2fe;
+      border-radius: 10px;
+      padding: 0.9rem;
+      color: #1e3a8a;
+    }
+    .coach-box strong { display: inline-block; margin-bottom: 0.3rem; }
 
-        /* 💡 佈局調整：圖片左，文字右 (保持一致) */
-        .content-wrapper { display: flex; gap: 2rem; align-items: flex-start; margin-top: 1.5rem; }
+    .exam-card {
+      background: linear-gradient(135deg, #ffffff 60%, #eef2ff 100%);
+      border-left: 5px solid var(--accent-blue);
+    }
 
-        .image-side { flex: 1; text-align: center; }
-        .image-side img { max-width: 100%; height: auto; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+    .exam-points {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
 
-        .text-side { flex: 1.5; }
+    .exam-point {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 1rem;
+    }
+    .exam-point h4 { margin: 0 0 0.5rem 0; display: flex; align-items: center; gap: 8px; color: #0f172a; }
+    .exam-point p { margin: 0; color: #475569; font-size: 0.92rem; line-height: 1.6; }
 
-        .importance-box { background-color: #e0f2fe; padding: 1rem; border-radius: 8px; border-left: 4px solid var(--accent-blue); color: #075985; font-size: 0.95rem; line-height: 1.6; }
-        .errors-box { background-color: #fef2f2; padding: 1rem; border-radius: 8px; border: 1px solid #fecaca; color: #991b1b; margin-top: 1rem; }
-        .errors-box h4 { margin: 0 0 0.5rem 0; color: #dc2626; display: flex; align-items: center; gap: 8px; }
-        .errors-box ul { padding-left: 1.2rem; margin: 0; }
-        .errors-box li { margin-bottom: 0.3rem; font-size: 0.9rem; }
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
-        /* --- 互動卡片樣式 --- */
-        .skills-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 2rem; }
-
-        .skill-item {
-            background: #f1f5f9;
-            padding: 1.2rem;
-            border-radius: 12px;
-            border-left: 4px solid var(--accent-green);
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .skill-item:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 12px -3px rgba(0,0,0,0.1);
-            background-color: #e2e8f0;
-        }
-
-        .skill-item h3 {
-            margin: 0 0 0.5rem 0;
-            font-size: 1.1rem;
-            color: var(--text-dark);
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-
-        .chevron-icon { font-size: 0.9rem; color: #64748b; transition: transform 0.3s ease; }
-
-        .click-hint {
-            font-size: 0.75rem;
-            color: var(--accent-blue);
-            font-weight: 600;
-            display: block;
-            margin-bottom: 0.5rem;
-        }
-
-        .skill-item p { margin: 0; font-size: 0.9rem; line-height: 1.4; color: #475569; }
-
-        .skill-details {
-            display: none;
-            margin-top: 0.8rem;
-            padding-top: 0.8rem;
-            border-top: 1px solid #cbd5e1;
-            font-size: 0.85rem;
-            line-height: 1.5;
-            animation: fadeIn 0.4s;
-        }
-
-        .skill-details ul { padding-left: 1.1rem; margin: 0.5rem 0; }
-        .skill-details li { margin-bottom: 0.5rem; font-style: italic; color: #1e40af; font-weight: 500; }
-
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        /* Footer 版權宣告樣式 (H 版格式) */
-        .footer {
-            text-align: center;
-            padding: 2rem 0;
-            margin-top: 3rem;
-            border-top: 1px solid #e2e8f0;
-            color: #64748b;
-            font-size: 0.85rem;
-        }
-    </style>
+    @media (max-width: 900px) {
+      .content-wrapper { flex-direction: column; }
+      .exam-points { grid-template-columns: 1fr; }
+      .skills-grid { grid-template-columns: 1fr; }
+    }
+  </style>
 </head>
+
 <body>
 
-    <div class="sidebar">
-        <div class="brand-container">
-            <i class="fas fa-paper-plane plane-icon"></i>
-            <span class="brand-text">ADI Ascent</span>
-            <img src="images/logo.png" alt="Logo" class="brand-logo">
-        </div>
-
-        <a href="index.html"><i class="fas fa-home"></i> Home</a>
-        <a href="philosophy.html"><i class="fas fa-user-tie"></i> Our Philosophy</a>
-        <a href="professionalism.html"><i class="fas fa-file-contract"></i> Professionalism</a>
-        <a href="ccl-opening.html"><i class="fas fa-comment-dots"></i> CCL Opening</a>
-        <a href="basic-skills.html"><i class="fas fa-cogs"></i> Basic Skills</a>
-        <a href="street-driving.html"><i class="fas fa-road"></i> Street Driving</a>
-        <a href="parking.html" class="active"><i class="fas fa-parking"></i> Parking</a>
-        <a href="risk-motorway.html"><i class="fas fa-exclamation-triangle"></i> Risk & Motorway</a>
-        <a href="scenarios.html"><i class="fas fa-tasks"></i> Scenarios</a>
-        <a href="business.html"><i class="fas fa-briefcase"></i> Business Services</a>
-
-        <div class="profile">
-            <strong>Roy Li</strong>
-            Approved Driving Instructor<br>
-            Beans Driving School x AA Franchise
-        </div>
+  <div class="sidebar">
+    <div class="brand-container">
+      <i class="fas fa-paper-plane plane-icon"></i>
+      <span class="brand-text">ADI Ascent</span>
+      <img src="images/logo.png" alt="Logo" class="brand-logo">
     </div>
 
-    <div class="main-content">
-        <div class="container">
-            <h1 class="hero-title">Parking & Manoeuvres</h1>
-            <p class="hero-subtitle">Click on a technique to reveal simple open-ended questions.</p>
+    <a href="index.html"><i class="fas fa-home"></i> Home</a>
+    <a href="philosophy.html"><i class="fas fa-user-tie"></i> Our Philosophy</a>
+    <a href="professionalism.html"><i class="fas fa-file-contract"></i> Professionalism</a>
+    <a href="ccl-opening.html"><i class="fas fa-comment-dots"></i> CCL Opening</a>
+    <a href="basic-skills.html"><i class="fas fa-cogs"></i> Basic Skills</a>
+    <a href="street-driving.html"><i class="fas fa-road"></i> Street Driving</a>
+    <a href="parking.html" class="active"><i class="fas fa-parking"></i> Parking</a>
+    <a href="risk-motorway.html"><i class="fas fa-exclamation-triangle"></i> Risk & Motorway</a>
+    <a href="scenarios.html"><i class="fas fa-tasks"></i> Scenarios</a>
+    <a href="business.html"><i class="fas fa-briefcase"></i> Business Services</a>
 
-            <div class="card">
-                <h2><i class="fas fa-parking"></i> Parking Techniques</h2>
-
-                <div class="content-wrapper">
-                    <div class="image-side">
-                        <img src="images/parking.png" alt="Parking Technique Illustration">
-                    </div>
-
-                    <div class="text-side">
-                        <div class="importance-box">
-                            <strong>Why Parking Skills Matter?</strong><br>
-                            Precision parking is essential for navigating tight urban spaces safely. It demonstrates high-level car control, spatial awareness, and observation, reducing the risk of minor collisions during daily use.
-                        </div>
-
-                        <div class="errors-box">
-                            <h4><i class="fas fa-exclamation-circle"></i> Common Learner Errors</h4>
-                            <ul>
-                                <li><strong>Poor Spatial Awareness:</strong> Hitting curbs or surrounding cars due to inaccurate reference points.</li>
-                                <li><strong>Inadequate Observation:</strong> Not checking mirrors or blind spots during the entire reversing manoeuvre.</li>
-                                <li><strong>Loss of Control:</strong> Reversing too quickly or failing to make necessary steering adjustments in time.</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="skills-grid">
-
-                    <div class="skill-item" onclick="toggleDetails(this)">
-                        <h3><i class="fas fa-square"></i> Bay Parking <i class="fas fa-chevron-down chevron-icon"></i></h3>
-                        <span class="click-hint">Click for simple questions</span>
-                        <p>Parking into a designated space (forward or reverse).</p>
-
-                        <div class="skill-details">
-                            <strong>Simple Open Questions:</strong>
-                            <ul>
-                                <li>"What reference points do you use to start turning?"</li>
-                                <li>"How do you check it's safe to reverse into the bay?"</li>
-                                <li>"What clues tell you that you are centered in the bay?"</li>
-                            </ul>
-                        </div>
-                    </div>
-
-                    <div class="skill-item" onclick="toggleDetails(this)">
-                        <h3><i class="fas fa-equals"></i> Parallel Parking <i class="fas fa-chevron-down chevron-icon"></i></h3>
-                        <span class="click-hint">Click for simple questions</span>
-                        <p>Parking behind another vehicle on the street.</p>
-
-                        <div class="skill-details">
-                            <strong>Simple Open Questions:</strong>
-                            <ul>
-                                <li>"How do you judge if the space is big enough?"</li>
-                                <li>"What do you need to look for while reversing?"</li>
-                                <li>"What reference points tell you to steer away from the curb?"</li>
-                            </ul>
-                        </div>
-                    </div>
-
-                    <div class="skill-item" onclick="toggleDetails(this)">
-                        <h3><i class="fas fa-arrow-right"></i> Pull up on the right <i class="fas fa-chevron-down chevron-icon"></i></h3>
-                        <span class="click-hint">Click for simple questions</span>
-                        <p>Safe stop and reverse for two car lengths.</p>
-
-                        <div class="skill-details">
-                            <strong>Simple Open Questions:</strong>
-                            <ul>
-                                <li>"What hazards do you look for before pulling up?"</li>
-                                <li>"How do you check for traffic behind while reversing?"</li>
-                                <li>"Why is steering control important in reverse?"</li>
-                            </ul>
-                        </div>
-                    </div>
-
-                    <div class="skill-item" onclick="toggleDetails(this)">
-                        <h3><i class="fas fa-undo"></i> Turn in the Road <i class="fas fa-chevron-down chevron-icon"></i></h3>
-                        <span class="click-hint">Click for simple questions</span>
-                        <p>Three-point turn to change direction.</p>
-
-                        <div class="skill-details">
-                            <strong>Simple Open Questions:</strong>
-                            <ul>
-                                <li>"What do you check before starting the turn?"</li>
-                                <li>"How can you check for traffic in both directions?"</li>
-                                <li>"Why should you make the turn as quickly as safe?"</li>
-                            </ul>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-
-            <div class="footer">
-                &copy; 2026 ADI Ascent. Developed by Roy Li. All rights reserved.
-            </div>
-        </div>
+    <div class="profile">
+      <strong>Roy Li</strong>
+      Approved Driving Instructor<br>
+      Beans Driving School x AA Franchise
     </div>
+  </div>
 
-    <script>
-        function toggleDetails(element) {
-            var details = element.querySelector('.skill-details');
-            var icon = element.querySelector('.chevron-icon');
-            var hint = element.querySelector('.click-hint');
+  <div class="main-content">
+    <div class="container">
 
-            if (details.style.display === "block") {
-                details.style.display = "none";
-                icon.style.transform = "rotate(0deg)";
-                hint.textContent = "Click for simple questions";
-            } else {
-                details.style.display = "block";
-                icon.style.transform = "rotate(180deg)";
-                hint.textContent = "Click to hide";
-            }
-        }
-    </script>
+      <h1 class="hero-title">Parking & Manoeuvres</h1>
+      <p class="hero-subtitle">Click a manoeuvre to reveal simple open questions + coaching prompts.</p>
+
+      <div class="card">
+        <h2><i class="fas fa-parking"></i> Parking Techniques</h2>
+
+        <div class="content-wrapper">
+          <div class="image-side">
+            <img src="images/parking.png" alt="Parking Technique Illustration">
+          </div>
+
+          <div class="text-side">
+            <div class="importance-box">
+              <strong>Why Parking Matters?</strong><br>
+              Manoeuvres are not “tricks”. They are slow-speed risk management:
+              observation, planning, control, and safe decision-making.
+            </div>
+
+            <div class="errors-box">
+              <h4><i class="fas fa-exclamation-circle"></i> Common Learner Errors</h4>
+              <ul>
+                <li><strong>Late Observation:</strong> checking only at the start, not during the whole manoeuvre.</li>
+                <li><strong>Too Fast:</strong> rushing the reverse, losing time to correct.</li>
+                <li><strong>Poor Plan:</strong> no pause points, no “stop-and-look” habit.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="skills-grid">
+
+          <div class="skill-item" onclick="toggleDetails(this)">
+            <h3><i class="fas fa-square"></i> Bay Parking <i class="fas fa-chevron-down chevron-icon"></i></h3>
+            <span class="click-hint">Click for questions + coaching prompts</span>
+            <p>Forward or reverse into a bay (planning + accuracy).</p>
+
+            <div class="skill-details">
+              <span class="mini-title">Simple Open Questions</span>
+              <ul>
+                <li>"What is your plan before you start?"</li>
+                <li>"Where is your main risk right now?"</li>
+                <li>"What will you do if you are not happy with the angle?"</li>
+              </ul>
+
+              <div class="coach-box">
+                <strong>Coaching prompt (Part 3):</strong><br>
+                “Slow speed gives you time. Pause, observe, then move.”
+              </div>
+            </div>
+          </div>
+
+          <div class="skill-item" onclick="toggleDetails(this)">
+            <h3><i class="fas fa-equals"></i> Parallel Parking <i class="fas fa-chevron-down chevron-icon"></i></h3>
+            <span class="click-hint">Click for questions + coaching prompts</span>
+            <p>Behind a parked vehicle (control + reference + observation).</p>
+
+            <div class="skill-details">
+              <span class="mini-title">Simple Open Questions</span>
+              <ul>
+                <li>"Is the space big enough? How do you know?"</li>
+                <li>"What are you checking while you reverse?"</li>
+                <li>"When will you stop and re-check?"</li>
+              </ul>
+
+              <div class="coach-box">
+                <strong>Coaching prompt (Part 3):</strong><br>
+                “If you feel busy, STOP. Safety first, then continue.”
+              </div>
+            </div>
+          </div>
+
+          <div class="skill-item" onclick="toggleDetails(this)">
+            <h3><i class="fas fa-arrow-right"></i> Pull Up on the Right <i class="fas fa-chevron-down chevron-icon"></i></h3>
+            <span class="click-hint">Click for questions + coaching prompts</span>
+            <p>Safe stop + reverse two car lengths (control + scanning).</p>
+
+            <div class="skill-details">
+              <span class="mini-title">Simple Open Questions</span>
+              <ul>
+                <li>"What hazards do you expect behind you?"</li>
+                <li>"How do you keep the car straight in reverse?"</li>
+                <li>"What will make you stop early?"</li>
+              </ul>
+
+              <div class="coach-box">
+                <strong>Coaching prompt (Part 3):</strong><br>
+                “Reverse is slow. Observation is continuous.”
+              </div>
+            </div>
+          </div>
+
+          <div class="skill-item" onclick="toggleDetails(this)">
+            <h3><i class="fas fa-undo"></i> Turn in the Road <i class="fas fa-chevron-down chevron-icon"></i></h3>
+            <span class="click-hint">Click for questions + coaching prompts</span>
+            <p>Change direction safely (planning + space + awareness).</p>
+
+            <div class="skill-details">
+              <span class="mini-title">Simple Open Questions</span>
+              <ul>
+                <li>"Why is this place safe for the turn?"</li>
+                <li>"What are you checking before each move?"</li>
+                <li>"How do you keep it smooth and controlled?"</li>
+              </ul>
+
+              <div class="coach-box">
+                <strong>Coaching prompt (Part 3):</strong><br>
+                “Every move is a mini ‘move off’. Check first.”
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="card exam-card">
+        <h2><i class="fas fa-clipboard-check"></i> Examiner Lens (Standards Check)</h2>
+        <p>
+          Manoeuvres are a perfect place to show CCL. The examiner is not scoring your “reference point”.
+          They are scoring your teaching quality: risk, clarity, pupil thinking, and calm control.
+        </p>
+
+        <div class="exam-points">
+          <div class="exam-point">
+            <h4><i class="fas fa-eye"></i> Observation Strategy</h4>
+            <p>
+              Not “Did you check once?” — but “Did you keep checking and stop when needed?”
+            </p>
+          </div>
+
+          <div class="exam-point">
+            <h4><i class="fas fa-comments"></i> Pupil Thinking</h4>
+            <p>
+              Use questions, not commands. Let pupil explain the plan. You guide with prompts.
+            </p>
+          </div>
+
+          <div class="exam-point">
+            <h4><i class="fas fa-shield-alt"></i> Shared Responsibility</h4>
+            <p>
+              Agree the support level: “I will watch the rear. You focus on control.”
+            </p>
+          </div>
+
+          <div class="exam-point">
+            <h4><i class="fas fa-hand-paper"></i> Stop is a Skill</h4>
+            <p>
+              A safe stop is not failure. It shows judgement. Encourage “stop-and-reset”.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer">
+        &copy; 2026 ADI Ascent. Developed by Roy Li. All rights reserved.
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+    function toggleDetails(element) {
+      var details = element.querySelector('.skill-details');
+      var icon = element.querySelector('.chevron-icon');
+      var hint = element.querySelector('.click-hint');
+
+      if (details.style.display === "block") {
+        details.style.display = "none";
+        if (icon) icon.style.transform = "rotate(0deg)";
+        if (hint) hint.textContent = "Click for questions + coaching prompts";
+      } else {
+        details.style.display = "block";
+        if (icon) icon.style.transform = "rotate(180deg)";
+        if (hint) hint.textContent = "Click to hide";
+      }
+    }
+  </script>
+
 </body>
 </html>

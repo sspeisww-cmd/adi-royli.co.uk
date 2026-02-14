@@ -1,272 +1,294 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CCL Opening | ADI Ascent</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <style>
-        /* --- 黃金模板 CSS 結構 (請勿修改) --- */
-        :root {
-            --sidebar-bg: #10172a;
-            --main-bg: #f8fafc;
-            --text-dark: #1e293b;
-            --text-light: #f1f5f9;
-            --accent-blue: #2563eb;
-            --accent-green: #10b981;
-            --font-main: 'Poppins', sans-serif;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CCL Opening | ADI Ascent</title>
 
-        body { font-family: var(--font-main); margin: 0; display: flex; height: 100vh; overflow: hidden; }
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
-        /* 左側導航欄 (H 版格式) */
-        .sidebar {
-            width: 300px;
-            background-color: var(--sidebar-bg);
-            color: var(--text-light);
-            padding: 1.5rem;
-            display: flex;
-            flex-direction: column;
-            box-shadow: 2px 0 10px rgba(0,0,0,0.1);
-            overflow-y: auto;
-            flex-shrink: 0;
-        }
+  <!-- ✅ Global styles (desktop + mobile) -->
+  <link rel="stylesheet" href="styles.css">
 
-        /* 🔴 品牌容器結構 (跟 H 版一致：含 logo、矮身、左對齊) */
-        .brand-container {
-            display: flex;
-            align-items: center;
-            justify-content: flex-start;
-            gap: 10px;
-            color: white;
-            margin-bottom: 2.5rem;
-            padding-bottom: 1rem;
-            border-bottom: 1px solid #334155;
-            height: 60px;
-        }
+  <!-- ✅ Page-only styles (CCL Opening 專用) -->
+  <style>
+    /* 保持內容不變：subtitle */
+    .hero-subtitle { color: #64748b; font-size: 1.2rem; margin-bottom: 2rem; }
 
-        /* 飛機圖示 (H 版) */
-        .plane-icon {
-            font-size: 1.8rem;
-            color: white;
-            transform: rotate(35deg);
-            flex-shrink: 0;
-        }
+    /* 特殊內容樣式（你原本嘅視覺語言保留） */
+    .mission-box {
+      background-color: #dbeafe;
+      padding: 1.5rem;
+      border-radius: 12px;
+      border-left: 5px solid var(--accent-blue);
+      color: #1e40af;
+      margin-top: 1.5rem;
+    }
+    .mission-box h3 { margin-top: 0; display: flex; align-items: center; gap: 10px; }
 
-        /* 文字 ADI Ascent (H 版) */
-        .brand-text {
-            font-size: 1.5rem;
-            font-weight: 700;
-            white-space: nowrap;
-        }
+    .image-container { text-align: center; margin: 2rem 0; }
+    .image-container img { max-width: 100%; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
 
-        /* 公司 Logo（H 版同款 class，方便全站一致） */
-        .brand-logo {
-            max-height: 120px;
-            width: auto;
-            object-fit: contain;
-        }
+    .steps-list { counter-reset: step; list-style: none; padding: 0; margin: 1rem 0 0 0; }
+    .steps-list li { position: relative; padding-left: 50px; margin-bottom: 1.5rem; }
+    .steps-list li::before {
+      content: counter(step);
+      counter-increment: step;
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 35px;
+      height: 35px;
+      background: var(--accent-blue);
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+    }
+    .steps-list strong { color: var(--text-dark); display: block; margin-bottom: 0.3rem; }
 
-        .sidebar a {
-            color: #cbd5e1;
-            text-decoration: none;
-            padding: 0.8rem 1rem;
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            margin-bottom: 0.5rem;
-            transition: all 0.2s;
-            font-weight: 500;
-        }
+    .phrases-box {
+      background-color: #f0fdf4;
+      padding: 1.5rem;
+      border-radius: 12px;
+      border: 1px solid #bbf7d0;
+      color: #065f46;
+      margin-top: 1rem;
+    }
+    .phrases-box h4 { margin-top: 0; color: #059669; }
+    .phrases-box ul { padding-left: 1.2rem; margin: 0.5rem 0 0 0; }
+    .phrases-box li { margin-bottom: 0.5rem; }
 
-        .sidebar a:hover { background-color: #1e293b; color: white; }
-        .sidebar a.active { background-color: var(--accent-blue); color: white; font-weight: bold; }
+    /* ✅ 新增：Exam Insight 工具書卡（30秒開場） */
+    .exam-card {
+      background: linear-gradient(135deg, #ffffff 60%, #eef2ff 100%);
+      border-left: 5px solid var(--accent-green);
+      position: relative;
+      overflow: hidden;
+    }
+    .exam-card::after{
+      content: "\f0e7"; /* FontAwesome: bolt */
+      font-family: "Font Awesome 6 Free";
+      font-weight: 900;
+      position: absolute;
+      font-size: 140px;
+      color: rgba(16, 185, 129, 0.06);
+      bottom: -35px;
+      right: 18px;
+      pointer-events: none;
+    }
 
-        .profile {
-            margin-top: auto;
-            border-top: 1px solid #334155;
-            padding-top: 1.5rem;
-            font-size: 0.9rem;
-            line-height: 1.5;
-            color: #94a3b8;
-        }
+    .script-box{
+      background: #0f172a;
+      color: #f8fafc;
+      border-radius: 12px;
+      padding: 1.2rem 1.2rem;
+      margin-top: 1rem;
+      border: 1px solid rgba(148,163,184,0.25);
+    }
+    .script-box p{
+      margin: 0.6rem 0;
+      line-height: 1.7;
+      font-size: 0.98rem;
+    }
+    .script-tag{
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 700;
+      color: #0f172a;
+      background: #e2e8f0;
+      padding: 6px 10px;
+      border-radius: 999px;
+      font-size: 0.85rem;
+      margin-top: 0.2rem;
+    }
 
-        .profile strong {
-            color: white;
-            font-size: 1rem;
-            display: block;
-            margin-bottom: 0.3rem;
-        }
+    .score-grid{
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0.8rem;
+      margin-top: 1rem;
+    }
+    .score-item{
+      background: white;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 1rem;
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+    }
+    .score-badge{
+      flex-shrink: 0;
+      width: 34px;
+      height: 34px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      color: white;
+      background: var(--accent-blue);
+    }
+    .score-item p{ margin: 0; line-height: 1.6; }
+    .score-item strong{ color: var(--text-dark); }
 
-        /* 右側內容區 (H 版格式) */
-        .main-content {
-            flex: 1;
-            background-color: var(--main-bg);
-            padding: 3rem;
-            overflow-y: auto;
-            color: var(--text-dark);
-            position: relative;
-        }
-
-        .container {
-            max-width: 1000px;
-            margin: 0 auto;
-            position: relative;
-        }
-
-        .hero-title {
-            color: var(--text-dark);
-            font-size: 2.5rem;
-            margin-top: 0;
-            font-weight: 700;
-            line-height: 1.2;
-            position: relative;
-        }
-
-        /* 保持內容不變：subtitle 仍用你原本 class */
-        .hero-subtitle { color: #64748b; font-size: 1.2rem; margin-bottom: 2rem; }
-
-        .card {
-            background: white;
-            padding: 2.5rem;
-            border-radius: 16px;
-            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06);
-            margin-bottom: 2rem;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .card h2 { color: var(--accent-blue); margin-top: 0; display: flex; align-items: center; gap: 10px; }
-        .card p { line-height: 1.7; }
-
-        /* 特殊內容樣式（保持你原本內容與視覺） */
-        .mission-box {
-            background-color: #dbeafe;
-            padding: 1.5rem;
-            border-radius: 12px;
-            border-left: 5px solid var(--accent-blue);
-            color: #1e40af;
-            margin-top: 1.5rem;
-        }
-
-        .mission-box h3 { margin-top: 0; display: flex; align-items: center; gap: 10px; }
-
-        .image-container { text-align: center; margin: 2rem 0; }
-        .image-container img { max-width: 100%; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
-
-        .steps-list { counter-reset: step; list-style: none; padding: 0; }
-        .steps-list li { position: relative; padding-left: 50px; margin-bottom: 1.5rem; }
-        .steps-list li::before {
-            content: counter(step);
-            counter-increment: step;
-            position: absolute;
-            left: 0;
-            top: 0;
-            width: 35px;
-            height: 35px;
-            background: var(--accent-blue);
-            color: white;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-        }
-
-        .steps-list strong { color: var(--text-dark); display: block; margin-bottom: 0.3rem; }
-
-        .phrases-box {
-            background-color: #f0fdf4;
-            padding: 1.5rem;
-            border-radius: 12px;
-            border: 1px solid #bbf7d0;
-            color: #065f46;
-            margin-top: 1rem;
-        }
-
-        .phrases-box h4 { margin-top: 0; color: #059669; }
-        .phrases-box ul { padding-left: 1.2rem; }
-        .phrases-box li { margin-bottom: 0.5rem; }
-    </style>
+    .one-line{
+      margin-top: 1rem;
+      padding: 1rem;
+      border-radius: 12px;
+      background: #fff7ed;
+      border: 1px solid #fed7aa;
+      color: #9a3412;
+    }
+    .one-line i{ margin-right: 8px; color: #f97316; }
+  </style>
 </head>
+
 <body>
 
-    <div class="sidebar">
-        <div class="brand-container">
-            <i class="fas fa-paper-plane plane-icon"></i>
-            <span class="brand-text">ADI Ascent</span>
-            <img src="images/logo.png" alt="Logo" class="brand-logo">
-        </div>
-
-        <a href="index.html"><i class="fas fa-home"></i> Home</a>
-        <a href="philosophy.html"><i class="fas fa-user-tie"></i> Our Philosophy</a>
-        <a href="professionalism.html"><i class="fas fa-file-contract"></i> Professionalism</a>
-        <a href="ccl-opening.html" class="active"><i class="fas fa-comment-dots"></i> CCL Opening</a>
-        <a href="basic-skills.html"><i class="fas fa-cogs"></i> Basic Skills</a>
-        <a href="street-driving.html"><i class="fas fa-road"></i> Street Driving</a>
-        <a href="parking.html"><i class="fas fa-parking"></i> Parking</a>
-        <a href="risk-motorway.html"><i class="fas fa-exclamation-triangle"></i> Risk & Motorway</a>
-        <a href="scenarios.html"><i class="fas fa-tasks"></i> Scenarios</a>
-        <a href="business.html"><i class="fas fa-briefcase"></i> Business Services</a>
-
-        <div class="profile">
-            <strong>Roy Li</strong>
-            Approved Driving Instructor<br>
-            Beans Driving School x AA Franchise
-        </div>
+  <div class="sidebar">
+    <div class="brand-container">
+      <i class="fas fa-paper-plane plane-icon"></i>
+      <span class="brand-text">ADI Ascent</span>
+      <img src="images/logo.png" alt="Logo" class="brand-logo">
     </div>
 
-    <div class="main-content">
-        <div class="container">
-            <h1 class="hero-title">The Art of the Lesson Opening (CCL)</h1>
-            <p class="hero-subtitle">Setting the stage for a successful, pupil-led learning experience from the very first minute.</p>
+    <a href="index.html"><i class="fas fa-home"></i> Home</a>
+    <a href="philosophy.html"><i class="fas fa-user-tie"></i> Our Philosophy</a>
+    <a href="professionalism.html"><i class="fas fa-file-contract"></i> Professionalism</a>
+    <a href="ccl-opening.html" class="active"><i class="fas fa-comment-dots"></i> CCL Opening</a>
+    <a href="basic-skills.html"><i class="fas fa-cogs"></i> Basic Skills</a>
+    <a href="street-driving.html"><i class="fas fa-road"></i> Street Driving</a>
+    <a href="parking.html"><i class="fas fa-parking"></i> Parking</a>
+    <a href="risk-motorway.html"><i class="fas fa-exclamation-triangle"></i> Risk & Motorway</a>
+    <a href="scenarios.html"><i class="fas fa-tasks"></i> Scenarios</a>
+    <a href="business.html"><i class="fas fa-briefcase"></i> Business Services</a>
 
-            <div class="card">
-                <h2><i class="fas fa-door-open"></i> Why the First 5 Minutes Matter</h2>
-                <p>The lesson opening is not just casual chat; it's the foundation of a Client-Centred Learning (CCL) approach. It's where we shift from "telling" to "collaborating," ensuring the pupil takes ownership of their learning goals and understands the shared responsibility for safety.</p>
-
-                <div class="image-container">
-                    <img src="images/ccl.png" alt="CCL Lesson Opening discussion in car">
-                </div>
-
-                <div class="mission-box">
-                    <h3><i class="fas fa-list-ol"></i> The 3-Step CCL Framework</h3>
-                    <p>Use this structure to ensure a focused and Standards Check-compliant start:</p>
-                    <ol class="steps-list">
-                        <li>
-                            <strong>Recap & Reflect (Checking Understanding)</strong>
-                            "How did you feel about our last session on roundabouts? What went well, and what are you still unsure about?"
-                        </li>
-                        <li>
-                            <strong>Set the Goal (Pupil-Led)</strong>
-                            "Based on that, what would you like to achieve by the end of today's lesson? What do you want to feel more confident doing?"
-                        </li>
-                        <li>
-                            <strong>Agree the Plan & Risk Management</strong>
-                            "Okay, to practice that safely, let's head to [Location]. For the first few junctions, I'll take full responsibility for checking gaps, and you focus on car control. Does that sound like a safe plan?"
-                        </li>
-                    </ol>
-                </div>
-            </div>
-
-            <div class="card">
-                <h2><i class="fas fa-balance-scale-right"></i> Shared Responsibility Strategy</h2>
-                <p>A key part of the opening is explicitly agreeing on the "level of instruction" and who is responsible for what. This prevents confusion and increases safety.</p>
-
-                <div class="phrases-box">
-                    <h4><i class="fas fa-comment-dots"></i> Simple English Phrases to Use:</h4>
-                    <ul>
-                        <li><strong>For Mirrors:</strong> "For this roundabout, I will check the mirrors. You focus on steering and speed."</li>
-                        <li><strong>For Observation:</strong> "I need you to look far ahead. If I don't say anything, you are safe."</li>
-                        <li><strong>For Decision Making:</strong> "At this junction, I want you to decide when to go. If you are unsure, tell me 'Help'."</li>
-                        <li><strong>For Safety:</strong> "I am here to keep us safe. I will use the dual controls if needed, but I want you to try first."</li>
-                    </ul>
-                </div>
-            </div>
-
-        </div>
+    <div class="profile">
+      <strong>Roy Li</strong>
+      Approved Driving Instructor<br>
+      Beans Driving School x AA Franchise
     </div>
+  </div>
+
+  <div class="main-content">
+    <div class="container">
+
+      <h1 class="hero-title">The Art of the Lesson Opening (CCL)</h1>
+      <p class="hero-subtitle">Setting the stage for a successful, pupil-led learning experience from the very first minute.</p>
+
+      <div class="card">
+        <h2><i class="fas fa-door-open"></i> Why the First 5 Minutes Matter</h2>
+        <p>
+          The lesson opening is not just casual chat; it's the foundation of a Client-Centred Learning (CCL) approach.
+          It's where we shift from "telling" to "collaborating," ensuring the pupil takes ownership of their learning goals
+          and understands the shared responsibility for safety.
+        </p>
+
+        <div class="image-container">
+          <img src="images/ccl.png" alt="CCL Lesson Opening discussion in car">
+        </div>
+
+        <div class="mission-box">
+          <h3><i class="fas fa-list-ol"></i> The 3-Step CCL Framework</h3>
+          <p>Use this structure to ensure a focused and Standards Check-compliant start:</p>
+
+          <ol class="steps-list">
+            <li>
+              <strong>Recap & Reflect (Checking Understanding)</strong>
+              "How did you feel about our last session on roundabouts? What went well, and what are you still unsure about?"
+            </li>
+            <li>
+              <strong>Set the Goal (Pupil-Led)</strong>
+              "Based on that, what would you like to achieve by the end of today's lesson? What do you want to feel more confident doing?"
+            </li>
+            <li>
+              <strong>Agree the Plan & Risk Management</strong>
+              "Okay, to practice that safely, let's head to [Location]. For the first few junctions, I'll take full responsibility for checking gaps,
+              and you focus on car control. Does that sound like a safe plan?"
+            </li>
+          </ol>
+        </div>
+      </div>
+
+      <!-- ✅ 新增：30秒開場腳本 + 高分拆解 -->
+      <div class="card exam-card">
+        <h2><i class="fas fa-stopwatch"></i> Exam Insight: 30-Second Opening Script</h2>
+        <p>
+          呢一段唔係「背稿」，而係一個 <strong>高分結構</strong>：用最短時間做齊
+          <strong>反思 → 需要 → 目標 → 安全分工 → 支援語言</strong>。
+        </p>
+
+        <span class="script-tag"><i class="fas fa-bolt"></i> 30-second version (Simple English)</span>
+
+        <div class="script-box" aria-label="30-second opening script">
+          <p><strong>1)</strong> “Quick recap: what was the best part last lesson?”</p>
+          <p><strong>2)</strong> “What was the hardest part?”</p>
+          <p><strong>3)</strong> “So today, what’s your main goal?”</p>
+          <p><strong>4)</strong> “My safety plan: for the first few junctions, I’ll help with gaps/mirrors — you focus on steering and speed.”</p>
+          <p><strong>5)</strong> “If you feel unsure, just say ‘Help’ and we’ll slow it down.”</p>
+        </div>
+
+        <h3 style="margin-top: 1.5rem;"><i class="fas fa-trophy"></i> Why this scores well (5 key factors)</h3>
+
+        <div class="score-grid">
+          <div class="score-item">
+            <div class="score-badge">1</div>
+            <p><strong>Reflection:</strong> 先問「best part」，逼學生講返自己表現 → pupil-led opening。</p>
+          </div>
+          <div class="score-item">
+            <div class="score-badge">2</div>
+            <p><strong>Needs analysis:</strong> 問「hardest part」＝搵學習需要，唔係你預設今日教咩。</p>
+          </div>
+          <div class="score-item">
+            <div class="score-badge">3</div>
+            <p><strong>Agreed objective:</strong> 由學生講「main goal」，你先跟住整理 → 目標清晰、共同同意。</p>
+          </div>
+          <div class="score-item">
+            <div class="score-badge">4</div>
+            <p><strong>Risk management plan:</strong> 明確分工（你幫 gaps/mirrors）＝安全策略，不是放任。</p>
+          </div>
+          <div class="score-item">
+            <div class="score-badge">5</div>
+            <p><strong>Support language:</strong> “Say ‘Help’” 建立安全網同共同語言 → 減壓、提升可控度。</p>
+          </div>
+        </div>
+
+        <div class="one-line">
+          <i class="fas fa-lightbulb"></i>
+          <strong>One-line memory:</strong> “Reflect → Need → Goal → Safety Plan → ‘Help’ word.”
+        </div>
+      </div>
+
+      <div class="card">
+        <h2><i class="fas fa-balance-scale-right"></i> Shared Responsibility Strategy</h2>
+        <p>
+          A key part of the opening is explicitly agreeing on the "level of instruction" and who is responsible for what.
+          This prevents confusion and increases safety.
+        </p>
+
+        <div class="phrases-box">
+          <h4><i class="fas fa-comment-dots"></i> Simple English Phrases to Use:</h4>
+          <ul>
+            <li><strong>For Mirrors:</strong> "For this roundabout, I will check the mirrors. You focus on steering and speed."</li>
+            <li><strong>For Observation:</strong> "I need you to look far ahead. If I don't say anything, you are safe."</li>
+            <li><strong>For Decision Making:</strong> "At this junction, I want you to decide when to go. If you are unsure, tell me 'Help'."</li>
+            <li><strong>For Safety:</strong> "I am here to keep us safe. I will use the dual controls if needed, but I want you to try first."</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer">
+        &copy; 2026 ADI Ascent. Developed by Roy Li. All rights reserved.
+      </div>
+
+    </div>
+  </div>
+
 </body>
 </html>

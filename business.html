@@ -190,11 +190,13 @@
         .service-card p {
             color: #475569;
             font-size: 0.95rem;
+            margin-bottom: 0;
         }
 
         .cta-button {
             display: inline-flex;
             align-items: center;
+            justify-content: center;
             gap: 10px;
             background-color: #25D366;
             color: white;
@@ -202,17 +204,68 @@
             border-radius: 8px;
             text-decoration: none;
             font-weight: 600;
-            margin-top: 1.5rem;
+            margin-top: 1.2rem;
             transition: background 0.3s;
             font-size: 1.1rem;
+            min-width: 260px;
         }
 
         .cta-button:hover {
             background-color: #128C7E;
         }
 
+        /* ✅ NEW: Email button (matches style language) */
+        .email-button{
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            background-color: var(--accent-blue);
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            margin-top: 1rem;
+            transition: background 0.3s;
+            font-size: 1.05rem;
+            min-width: 260px;
+        }
+        .email-button:hover{
+            background-color: #1d4ed8;
+        }
+
+        /* ✅ NEW: Quick enquiry chips */
+        .enquiry-row{
+            display:flex;
+            flex-wrap:wrap;
+            gap: 0.6rem;
+            justify-content:center;
+            margin-top: 1rem;
+        }
+        .chip{
+            background:#eff6ff;
+            border: 1px solid #bfdbfe;
+            color:#1e40af;
+            padding: 0.55rem 0.85rem;
+            border-radius: 999px;
+            font-weight: 600;
+            cursor:pointer;
+            transition: all 0.2s;
+            font-size: 0.92rem;
+        }
+        .chip:hover{
+            background:#dbeafe;
+            transform: translateY(-1px);
+        }
+        .chip.active{
+            background:#2563eb;
+            border-color:#2563eb;
+            color:white;
+        }
+
         .contact-info {
-            margin-top: 1.5rem;
+            margin-top: 1.2rem;
             font-size: 1rem;
             color: #334155;
             font-weight: 500;
@@ -223,6 +276,13 @@
             margin-right: 8px;
         }
 
+        .note{
+            margin-top: 0.9rem;
+            font-size: 0.9rem;
+            color:#64748b;
+            line-height: 1.5;
+        }
+
         .footer {
             text-align: center;
             padding: 2rem 0;
@@ -230,6 +290,13 @@
             border-top: 1px solid #e2e8f0;
             color: #64748b;
             font-size: 0.85rem;
+        }
+
+        @media (max-width: 768px){
+            body{ flex-direction: column; height: auto; overflow: auto; }
+            .sidebar{ width: 100%; box-shadow: none; }
+            .main-content{ padding: 1.5rem; }
+            .cta-button, .email-button{ width: 100%; min-width: 0; }
         }
     </style>
 </head>
@@ -267,43 +334,72 @@
 
             <div class="card">
                 <h2><i class="fas fa-handshake"></i> How I Can Help You</h2>
-                <p>Looking for personalized guidance to pass your Standards Check or improve your coaching skills? I offer tailor-made sessions designed for your needs.</p>
+                <p style="color:#475569; line-height:1.7; margin-top:0;">
+                    Looking for personalised guidance to pass your Standards Check or strengthen Client-Centred Learning?
+                    Sessions are focused, practical, and built around <strong>what the examiner will actually see</strong>.
+                </p>
 
                 <div class="service-grid">
                     <div class="service-card">
                         <i class="fas fa-car-side"></i>
                         <h3>In-Car Training</h3>
-                        <p>One-on-one practical training to boost your coaching techniques and safety awareness.</p>
+                        <p>One-to-one practical coaching to sharpen your lesson structure, risk management, and feedback language.</p>
                     </div>
 
                     <div class="service-card">
                         <i class="fas fa-user-friends"></i>
                         <h3>Sit-In Sessions</h3>
-                        <p>Observe my live lessons to see Client-Centred Learning in action.</p>
+                        <p>Observe live lessons to see Client-Centred Learning in action — questioning, prompts, and debrief rhythm.</p>
                     </div>
 
                     <div class="service-card">
                         <i class="fas fa-video"></i>
                         <h3>Video Commenting</h3>
-                        <p>Send me your recorded lessons for detailed feedback on your performance.</p>
+                        <p>Send recorded lessons for time-stamped feedback on coaching decisions, intervention level, and clarity.</p>
                     </div>
+                </div>
+
+                <!-- ✅ NEW: Small “what to prepare” box (conversion booster, not flashy) -->
+                <div style="margin-top:1.5rem; background:#e0f2fe; border-left:4px solid var(--accent-blue); padding:1rem; border-radius:10px; color:#075985; line-height:1.7;">
+                    <strong>To get the most from a session:</strong>
+                    bring your last Standards Check feedback (if any), one target area, and a short example of a lesson you find difficult to coach.
                 </div>
             </div>
 
             <div class="card" style="text-align: center;">
                 <h2><i class="fas fa-money-bill-wave"></i> Ready to Book?</h2>
-                <p>Invest in your career. Contact me for pricing and availability.</p>
+                <p style="color:#475569; line-height:1.7; margin-top:0;">
+                    Invest in your career. Contact me for pricing and availability.
+                </p>
 
-                <a href="https://wa.me/447548386229" class="cta-button" target="_blank">
+                <!-- ✅ Quick enquiry chips: updates email subject/body -->
+                <div class="enquiry-row" aria-label="quick enquiry">
+                    <button class="chip active" type="button" data-service="General enquiry">General</button>
+                    <button class="chip" type="button" data-service="In-Car Training">In-Car</button>
+                    <button class="chip" type="button" data-service="Sit-In Session">Sit-in</button>
+                    <button class="chip" type="button" data-service="Video Commenting">Video</button>
+                </div>
+
+                <!-- WhatsApp CTA -->
+                <a href="https://wa.me/447548386229" class="cta-button" target="_blank" rel="noopener">
                     <i class="fab fa-whatsapp"></i> Get a quote on WhatsApp
+                </a>
+
+                <!-- ✅ NEW: Email CTA (mailto) -->
+                <a id="emailBtn" href="#" class="email-button">
+                    <i class="fas fa-envelope"></i> Email me for availability
                 </a>
 
                 <div class="contact-info">
                     <i class="fas fa-phone-alt"></i> +44 (0) 7548 386229
                 </div>
 
-                <p style="margin-top: 1rem; font-size: 0.85rem; color: #64748b;">
-                    Or email: roylicc@hotmail.com
+                <p class="note">
+                    Typical response time: 24–48 hours. Please include your area, transmission (manual/auto), and target date.
+                </p>
+
+                <p style="margin-top: 0.4rem; font-size: 0.85rem; color: #64748b;">
+                    Email address: <span style="font-weight:600;">roylicc@hotmail.com</span>
                 </p>
             </div>
 
@@ -312,6 +408,57 @@
             </div>
         </div>
     </div>
+
+    <script>
+        // ✅ Mailto builder (simple + robust)
+        const EMAIL_TO = "roylicc@hotmail.com";
+
+        let activeService = "General enquiry";
+
+        function buildMailto(serviceName){
+            const subject = `ADI Ascent — ${serviceName} booking enquiry`;
+
+            const body =
+`Hi Roy,
+
+I’d like to enquire about: ${serviceName}
+
+My current stage (ADI Part 2 / Part 3 / Standards Check / PDI): 
+Transmission (Manual / Auto):
+Area / postcode:
+Preferred dates & times:
+Main focus (max 2):
+1)
+2)
+
+If relevant, I can share a short clip / lesson plan / recent feedback.
+
+Thanks,
+`;
+
+            const mailto = `mailto:${encodeURIComponent(EMAIL_TO)}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+            return mailto;
+        }
+
+        function setEmailHref(){
+            const btn = document.getElementById("emailBtn");
+            if(!btn) return;
+            btn.href = buildMailto(activeService);
+        }
+
+        // Service chips
+        document.querySelectorAll("[data-service]").forEach(chip=>{
+            chip.addEventListener("click", ()=>{
+                document.querySelectorAll("[data-service]").forEach(c=>c.classList.remove("active"));
+                chip.classList.add("active");
+                activeService = chip.getAttribute("data-service") || "General enquiry";
+                setEmailHref();
+            });
+        });
+
+        // init
+        setEmailHref();
+    </script>
 
 </body>
 </html>

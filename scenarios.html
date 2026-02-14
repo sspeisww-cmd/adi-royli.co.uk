@@ -1,511 +1,965 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Scenarios | ADI Ascent</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <style>
-        /* --- 黃金模板 CSS 結構 --- */
-        :root {
-            --sidebar-bg: #10172a;
-            --main-bg: #f8fafc;
-            --text-dark: #1e293b;
-            --text-light: #f1f5f9;
-            --accent-blue: #2563eb;
-            --accent-green: #10b981;
-            --font-main: 'Poppins', sans-serif;
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Scenarios | ADI Ascent</title>
 
-            /* F.I.S.H. 顏色編碼 */
-            --fish-f: #ef4444; /* Fact - Red */
-            --fish-i: #f59e0b; /* Implication - Amber */
-            --fish-s: #3b82f6; /* Solve - Blue */
-            --fish-h: #10b981; /* Help - Green */
-        }
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
 
-        body {
-            font-family: var(--font-main);
-            margin: 0;
-            display: flex;
-            height: 100vh;
-            overflow: hidden;
-        }
+  <!-- ✅ Global styles (desktop + mobile) -->
+  <link rel="stylesheet" href="styles.css" />
 
-        /* 左側導航欄 (更新為正確樣式) */
-        .sidebar {
-            width: 300px;
-            background-color: var(--sidebar-bg);
-            color: var(--text-light);
-            padding: 1.5rem;
-            display: flex;
-            flex-direction: column;
-            box-shadow: 2px 0 10px rgba(0,0,0,0.1);
-            overflow-y: auto;
-            flex-shrink: 0;
-        }
+  <!-- ✅ Page-only styles -->
+  <style>
+    :root{
+      --fish-f:#ef4444;
+      --fish-i:#f59e0b;
+      --fish-s:#3b82f6;
+      --fish-h:#10b981;
 
-        /* ✅ H 版 brand-container（含 logo） */
-        .brand-container {
-            display: flex;
-            align-items: center;
-            justify-content: flex-start;
-            gap: 10px;
-            color: white;
-            margin-bottom: 2.5rem;
-            padding-bottom: 1rem;
-            border-bottom: 1px solid #334155;
-            height: 60px;
-        }
+      --soft-card:#f8fafc;
+      --line:#e2e8f0;
+      --muted:#64748b;
+    }
 
-        .plane-icon {
-            font-size: 1.8rem;
-            color: white;
-            transform: rotate(35deg);
-            flex-shrink: 0;
-        }
+    .intro-card{ border-left:5px solid var(--accent-blue); }
 
-        .brand-text {
-            font-size: 1.5rem;
-            font-weight: 700;
-            white-space: nowrap;
-        }
+    /* ===== Toolbar (NEW) ===== */
+    .tool-bar{
+      background:white;
+      border:1px solid var(--line);
+      border-radius:16px;
+      padding:1.25rem;
+      box-shadow:0 4px 6px -1px rgba(0,0,0,0.06);
+      margin-bottom:2rem;
+    }
 
-        .brand-logo {
-            max-height: 120px;
-            width: auto;
-            object-fit: contain;
-        }
+    .tool-row{
+      display:flex;
+      gap:12px;
+      flex-wrap:wrap;
+      align-items:center;
+      justify-content:space-between;
+    }
 
-        .sidebar a {
-            color: #cbd5e1;
-            text-decoration: none;
-            padding: 0.8rem 1rem;
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            margin-bottom: 0.5rem;
-            transition: all 0.2s;
-            font-weight: 500;
-        }
+    .tool-left, .tool-right{
+      display:flex;
+      gap:12px;
+      flex-wrap:wrap;
+      align-items:center;
+    }
 
-        .sidebar a:hover {
-            background-color: #1e293b;
-            color: white;
-        }
+    .search-wrap{
+      position:relative;
+      min-width:280px;
+      flex:1;
+    }
 
-        .sidebar a.active {
-            background-color: var(--accent-blue);
-            color: white;
-            font-weight: bold;
-        }
+    .search-wrap i{
+      position:absolute;
+      left:12px;
+      top:50%;
+      transform:translateY(-50%);
+      color:var(--muted);
+      font-size:0.95rem;
+    }
 
-        .profile {
-            margin-top: auto;
-            border-top: 1px solid #334155;
-            padding-top: 1.5rem;
-            font-size: 0.9rem;
-            line-height: 1.5;
-            color: #94a3b8;
-        }
+    .search-input{
+      width:100%;
+      padding:0.8rem 0.9rem 0.8rem 2.4rem;
+      border:1px solid var(--line);
+      border-radius:12px;
+      font-family:inherit;
+      outline:none;
+      transition:all .2s ease;
+      background:#fff;
+    }
 
-        .profile strong {
-            color: white;
-            font-size: 1rem;
-            display: block;
-            margin-bottom: 0.3rem;
-        }
+    .search-input:focus{
+      border-color:#bfdbfe;
+      box-shadow:0 0 0 4px rgba(37,99,235,0.12);
+    }
 
-        /* 右側內容區 */
-        .main-content {
-            flex: 1;
-            background-color: var(--main-bg);
-            padding: 3rem;
-            overflow-y: auto;
-            color: var(--text-dark);
-        }
+    .filter-select{
+      padding:0.8rem 0.9rem;
+      border:1px solid var(--line);
+      border-radius:12px;
+      font-family:inherit;
+      background:#fff;
+      color:#0f172a;
+      outline:none;
+    }
 
-        .container {
-            max-width: 1000px;
-            margin: 0 auto;
-        }
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:0.75rem 0.95rem;
+      border-radius:12px;
+      border:1px solid var(--line);
+      background:#fff;
+      cursor:pointer;
+      transition:all .2s ease;
+      font-weight:700;
+      color:#0f172a;
+      white-space:nowrap;
+    }
 
-        .hero-title {
-            color: var(--text-dark);
-            font-size: 2.5rem;
-            margin-top: 0;
-            font-weight: 700;
-        }
+    .btn:hover{
+      transform:translateY(-1px);
+      box-shadow:0 10px 14px -10px rgba(0,0,0,0.25);
+      border-color:#cbd5e1;
+    }
 
-        .hero-subtitle {
-            color: #64748b;
-            font-size: 1.2rem;
-            margin-bottom: 2rem;
-        }
+    .btn.primary{
+      background:linear-gradient(90deg, var(--accent-blue), #1d4ed8);
+      border-color:transparent;
+      color:white;
+    }
 
-        .card {
-            background: white;
-            padding: 2.5rem;
-            border-radius: 16px;
-            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
-            margin-bottom: 2rem;
-        }
+    .btn.primary:hover{
+      box-shadow:0 14px 18px -12px rgba(37,99,235,0.55);
+    }
 
-        .card h2 {
-            color: var(--accent-blue);
-            margin-top: 0;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
+    .helper-note{
+      margin-top:0.9rem;
+      color:#475569;
+      font-size:0.92rem;
+      line-height:1.6;
+      display:flex;
+      gap:10px;
+      align-items:flex-start;
+    }
 
-        /* FISH 解釋卡片 */
-        .fish-explain-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 1rem;
-            margin-top: 1.5rem;
-            text-align: center;
-        }
+    .helper-note i{
+      color:var(--accent-blue);
+      margin-top:2px;
+    }
 
-        .fish-explain-item {
-            padding: 1rem;
-            border-radius: 8px;
-            color: white;
-            font-weight: 600;
-            font-size: 0.9rem;
-        }
+    /* ===== Framework legend ===== */
+    .fish-explain-grid{
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      gap:1rem;
+      margin-top:1.25rem;
+      text-align:center;
+    }
 
-        /* --- 互動卡片樣式 --- */
-        .scenario-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 1.5rem;
-            margin-top: 1.5rem;
-        }
+    .fish-explain-item{
+      padding:1rem;
+      border-radius:14px;
+      color:white;
+      font-weight:800;
+      font-size:0.95rem;
+      box-shadow:0 6px 12px rgba(0,0,0,0.08);
+    }
+    .fish-explain-item span{
+      display:block;
+      margin-top:0.35rem;
+      font-weight:600;
+      font-size:0.78rem;
+      opacity:0.95;
+    }
+    .fish-explain-item.f{ background:var(--fish-f); }
+    .fish-explain-item.i{ background:var(--fish-i); }
+    .fish-explain-item.s{ background:var(--fish-s); }
+    .fish-explain-item.h{ background:var(--fish-h); }
 
-        .scenario-item {
-            background: white;
-            padding: 1.5rem;
-            border-radius: 12px;
-            border: 1px solid #e2e8f0;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            position: relative;
-        }
+    /* ===== Scenarios ===== */
+    .scenario-grid{
+      display:grid;
+      grid-template-columns:1fr;
+      gap:1.25rem;
+      margin-top:1.25rem;
+    }
 
-        .scenario-item:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1);
-            border-color: #cbd5e1;
-        }
+    .scenario-item{
+      background:var(--soft-card);
+      padding:1.6rem;
+      border-radius:16px;
+      border:1px solid var(--line);
+      cursor:pointer;
+      transition:all .25s ease;
+      position:relative;
+      overflow:hidden;
+    }
 
-        .scenario-item h3 {
-            margin: 0 0 0.5rem 0;
-            font-size: 1.2rem;
-            color: var(--text-dark);
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
+    .scenario-item:hover{
+      background:white;
+      transform:translateY(-3px);
+      box-shadow:0 12px 18px -6px rgba(0,0,0,0.12);
+      border-color:#cbd5e1;
+    }
 
-        .chevron-icon {
-            font-size: 0.9rem;
-            color: #64748b;
-            transition: transform 0.3s ease;
-        }
+    .scenario-item::before{
+      content:"";
+      position:absolute;
+      left:0; top:0; bottom:0;
+      width:6px;
+      background:linear-gradient(180deg, var(--accent-blue), var(--accent-green));
+      opacity:0.95;
+    }
 
-        .click-hint {
-            font-size: 0.75rem;
-            color: var(--accent-blue);
-            font-weight: 600;
-            display: block;
-            margin-bottom: 0.5rem;
-        }
+    .scenario-top{
+      display:flex;
+      gap:12px;
+      align-items:flex-start;
+      justify-content:space-between;
+      margin-bottom:0.25rem;
+      padding-left:0.25rem;
+    }
 
-        .scenario-item p.summary {
-            margin: 0;
-            font-size: 0.95rem;
-            line-height: 1.5;
-            color: #475569;
-        }
+    .scenario-title{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      min-width:0;
+      flex:1;
+    }
 
-        /* F.I.S.H. 詳細內容 */
-        .scenario-details {
-            display: none;
-            margin-top: 1rem;
-            padding-top: 1rem;
-            border-top: 2px dashed #e2e8f0;
-            font-size: 0.9rem;
-            line-height: 1.6;
-            animation: fadeIn 0.4s;
-        }
+    .scenario-title h3{
+      margin:0;
+      font-size:1.2rem;
+      color:var(--text-dark);
+      font-weight:800;
+      white-space:nowrap;
+      overflow:hidden;
+      text-overflow:ellipsis;
+    }
 
-        .fish-box {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 1rem;
-            align-items: flex-start;
-        }
+    .scenario-actions{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      flex-shrink:0;
+    }
 
-        .fish-label {
-            font-weight: bold;
-            color: white;
-            padding: 4px 8px;
-            border-radius: 6px;
-            font-size: 0.75rem;
-            min-width: 50px;
-            text-align: center;
-        }
+    .chevron-icon{
+      font-size:0.95rem;
+      color:var(--muted);
+      transition:transform .25s ease;
+    }
 
-        .fish-f { background-color: var(--fish-f); }
-        .fish-i { background-color: var(--fish-i); }
-        .fish-s { background-color: var(--fish-s); }
-        .fish-h { background-color: var(--fish-h); }
-        .fish-text { color: #334155; }
+    /* Tags (NEW) */
+    .tags{
+      display:flex;
+      gap:8px;
+      flex-wrap:wrap;
+      justify-content:flex-end;
+    }
 
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
+    .tag{
+      font-size:0.75rem;
+      font-weight:800;
+      padding:4px 10px;
+      border-radius:999px;
+      border:1px solid #e2e8f0;
+      background:white;
+      color:#0f172a;
+      line-height:1.2;
+    }
 
-        /* Footer 版權宣告樣式 */
-        .footer {
-            text-align: center;
-            padding: 2rem 0;
-            margin-top: 3rem;
-            border-top: 1px solid #e2e8f0;
-            color: #64748b;
-            font-size: 0.85rem;
-        }
-    </style>
+    .tag.blue{ border-color:#bfdbfe; background:#eff6ff; color:#1d4ed8; }
+    .tag.green{ border-color:#bbf7d0; background:#f0fdf4; color:#047857; }
+    .tag.amber{ border-color:#fde68a; background:#fffbeb; color:#b45309; }
+    .tag.red{ border-color:#fecaca; background:#fef2f2; color:#b91c1c; }
+
+    .click-hint{
+      font-size:0.78rem;
+      color:var(--accent-blue);
+      font-weight:800;
+      display:block;
+      margin:0.35rem 0 0.45rem;
+      padding-left:0.25rem;
+    }
+
+    .scenario-item p.summary{
+      margin:0;
+      font-size:0.98rem;
+      line-height:1.55;
+      color:#475569;
+      padding-left:0.25rem;
+    }
+
+    .scenario-details{
+      display:none;
+      margin-top:1rem;
+      padding-top:1rem;
+      border-top:2px dashed var(--line);
+      animation:fadeIn .22s ease;
+    }
+
+    .scenario-item.is-open{
+      outline:3px solid rgba(37,99,235,0.10);
+      box-shadow:0 16px 24px -12px rgba(0,0,0,0.18);
+      background:white;
+      border-color:#bfdbfe;
+    }
+
+    @keyframes fadeIn{
+      from{ opacity:0; transform:translateY(-2px); }
+      to{ opacity:1; transform:translateY(0); }
+    }
+
+    /* FISH rows (your requirement) */
+    .fish-row{
+      display:flex;
+      align-items:flex-start;
+      gap:12px;
+      padding:0.9rem 1rem;
+      border-radius:12px;
+      margin-bottom:0.65rem;
+      background:white;
+      border:1px solid var(--line);
+      line-height:1.5;
+      color:#1e293b;
+    }
+
+    .fish-tag{
+      font-weight:900;
+      color:white;
+      padding:5px 10px;
+      border-radius:8px;
+      font-size:0.78rem;
+      min-width:34px;
+      text-align:center;
+      flex-shrink:0;
+      box-shadow:0 6px 10px rgba(0,0,0,0.08);
+    }
+    .fish-tag.f{ background:var(--fish-f); }
+    .fish-tag.i{ background:var(--fish-i); }
+    .fish-tag.s{ background:var(--fish-s); }
+    .fish-tag.h{ background:var(--fish-h); }
+
+    .fish-row.f{ background:rgba(239,68,68,0.05); border-color:rgba(239,68,68,0.22); }
+    .fish-row.i{ background:rgba(245,158,11,0.06); border-color:rgba(245,158,11,0.24); }
+    .fish-row.s{ background:rgba(59,130,246,0.06); border-color:rgba(59,130,246,0.22); }
+    .fish-row.h{ background:rgba(16,185,129,0.06); border-color:rgba(16,185,129,0.22); }
+
+    .fish-text strong{ font-weight:900; }
+
+    /* “Practised” (NEW) */
+    .practice{
+      margin-top:0.75rem;
+      display:flex;
+      align-items:center;
+      gap:10px;
+      color:#334155;
+      font-weight:700;
+      font-size:0.9rem;
+    }
+    .practice input{ width:18px; height:18px; }
+
+    .scenario-item.is-done{
+      opacity:0.92;
+    }
+    .scenario-item.is-done::before{
+      background:linear-gradient(180deg, var(--accent-green), #059669);
+    }
+
+    /* Responsive */
+    @media (max-width: 900px){
+      .fish-explain-grid{ grid-template-columns:1fr 1fr; }
+      .search-wrap{ min-width:220px; }
+    }
+    @media (max-width: 520px){
+      .fish-explain-grid{ grid-template-columns:1fr; }
+      .scenario-item{ padding:1.25rem; }
+      .fish-row{ padding:0.8rem 0.85rem; }
+      .tool-row{ gap:10px; }
+      .btn{ width:100%; justify-content:center; }
+      .tool-left, .tool-right{ width:100%; }
+      .filter-select{ width:100%; }
+    }
+  </style>
 </head>
+
 <body>
 
-    <div class="sidebar">
-        <div class="brand-container">
-            <i class="fas fa-paper-plane plane-icon"></i>
-            <span class="brand-text">ADI Ascent</span>
-            <img src="images/logo.png" alt="Logo" class="brand-logo">
-        </div>
-
-        <a href="index.html"><i class="fas fa-home"></i> Home</a>
-        <a href="philosophy.html"><i class="fas fa-user-tie"></i> Our Philosophy</a>
-        <a href="professionalism.html"><i class="fas fa-file-contract"></i> Professionalism</a>
-        <a href="ccl-opening.html"><i class="fas fa-comment-dots"></i> CCL Opening</a>
-        <a href="basic-skills.html"><i class="fas fa-cogs"></i> Basic Skills</a>
-        <a href="street-driving.html"><i class="fas fa-road"></i> Street Driving</a>
-        <a href="parking.html"><i class="fas fa-parking"></i> Parking</a>
-        <a href="risk-motorway.html"><i class="fas fa-exclamation-triangle"></i> Risk & Motorway</a>
-        <a href="scenarios.html" class="active"><i class="fas fa-tasks"></i> Scenarios</a>
-        <a href="business.html"><i class="fas fa-briefcase"></i> Business Services</a>
-
-        <div class="profile">
-            <strong>Roy Li</strong>
-            Approved Driving Instructor<br>
-            Beans Driving School x AA Franchise
-        </div>
+  <div class="sidebar">
+    <div class="brand-container">
+      <i class="fas fa-paper-plane plane-icon"></i>
+      <span class="brand-text">ADI Ascent</span>
+      <img src="images/logo.png" alt="Logo" class="brand-logo" />
     </div>
 
-    <div class="main-content">
-        <div class="container">
-            <h1 class="hero-title">Scenario Handling</h1>
+    <a href="index.html"><i class="fas fa-home"></i> Home</a>
+    <a href="philosophy.html"><i class="fas fa-user-tie"></i> Our Philosophy</a>
+    <a href="professionalism.html"><i class="fas fa-file-contract"></i> Professionalism</a>
+    <a href="ccl-opening.html"><i class="fas fa-comment-dots"></i> CCL Opening</a>
+    <a href="basic-skills.html"><i class="fas fa-cogs"></i> Basic Skills</a>
+    <a href="street-driving.html"><i class="fas fa-road"></i> Street Driving</a>
+    <a href="parking.html"><i class="fas fa-parking"></i> Parking</a>
+    <a href="risk-motorway.html"><i class="fas fa-exclamation-triangle"></i> Risk & Motorway</a>
+    <a href="scenarios.html" class="active"><i class="fas fa-tasks"></i> Scenarios</a>
+    <a href="business.html"><i class="fas fa-briefcase"></i> Business Services</a>
 
-            <div class="card" style="border-left: 5px solid var(--accent-blue);">
-                <p style="margin: 0; font-size: 1rem; line-height: 1.6; color: #475569;">
-                    <i class="fas fa-lightbulb" style="color: var(--accent-blue); margin-right: 8px;"></i>
-                    Welcome to the <strong>Scenario Library</strong>. These are examples based on common driving errors, designed to be coached using the <strong>F.I.S.H.</strong> framework.
-                    Driving is unpredictable, so these are just a starting point.
-                    <strong>Got a unique scenario you’ve faced?</strong> We welcome your input to help us keep this library updated and fill in the gaps in our collective knowledge!
-                </p>
-            </div>
-
-            <div class="card">
-                <h2><i class="fas fa-info-circle"></i> F.I.S.H. Coaching Framework</h2>
-                <p>Use these questions to guide your pupil to identify risks and solutions themselves.</p>
-                <div class="fish-explain-grid">
-                    <div class="fish-explain-item fish-f">Fact<br><span style="font-size:0.75rem; font-weight:normal;">What just happened?</span></div>
-                    <div class="fish-explain-item fish-i">Implication<br><span style="font-size:0.75rem; font-weight:normal;">What is the risk?</span></div>
-                    <div class="fish-explain-item fish-s">Solve<br><span style="font-size:0.75rem; font-weight:normal;">How to fix it?</span></div>
-                    <div class="fish-explain-item fish-h">Help<br><span style="font-size:0.75rem; font-weight:normal;">What support do you need?</span></div>
-                </div>
-            </div>
-
-            <div class="card">
-                <h2><i class="fas fa-microscope"></i> Analysis Tool</h2>
-
-                <div class="scenario-grid">
-
-                    <div class="scenario-item" onclick="toggleDetails(this)">
-                        <h3><i class="fas fa-sync"></i> Roundabout Misjudgment <i class="fas fa-chevron-down chevron-icon"></i></h3>
-                        <span class="click-hint">Click for F.I.S.H. Analysis</span>
-                        <p class="summary">Pupil entered roundabout without checking properly, causing a car to brake hard.</p>
-
-                        <div class="scenario-details">
-                            <div class="fish-box"><span class="fish-label fish-f">F</span><span class="fish-text"><strong>Fact:</strong> "What did you notice about the speed of that car as you entered?"</span></div>
-                            <div class="fish-box"><span class="fish-label fish-i">I</span><span class="fish-text"><strong>Implication:</strong> "What might have happened if they hadn't stopped?"</span></div>
-                            <div class="fish-box"><span class="fish-label fish-s">S</span><span class="fish-text"><strong>Solve:</strong> "How could you check for a safer gap next time?"</span></div>
-                            <div class="fish-box"><span class="fish-label fish-h">H</span><span class="fish-text"><strong>Help:</strong> "Want me to talk you through the next one, or try on your own?"</span></div>
-                        </div>
-                    </div>
-
-                    <div class="scenario-item" onclick="toggleDetails(this)">
-                        <h3><i class="fas fa-columns"></i> Roundabout Lane Drift <i class="fas fa-chevron-down chevron-icon"></i></h3>
-                        <span class="click-hint">Click for F.I.S.H. Analysis</span>
-                        <p class="summary">Pupil drifted out of their lane while turning on a roundabout.</p>
-
-                        <div class="scenario-details">
-                            <div class="fish-box"><span class="fish-label fish-f">F</span><span class="fish-text"><strong>Fact:</strong> "Where did you feel the car go in relation to the lane lines?"</span></div>
-                            <div class="fish-box"><span class="fish-label fish-i">I</span><span class="fish-text"><strong>Implication:</strong> "What is the risk of drifting into that other lane?"</span></div>
-                            <div class="fish-box"><span class="fish-label fish-s">S</span><span class="fish-text"><strong>Solve:</strong> "How can you use your steering to keep the car centered?"</span></div>
-                            <div class="fish-box"><span class="fish-label fish-h">H</span><span class="fish-text"><strong>Help:</strong> "Need a hint on when to start steering, or can you manage it?"</span></div>
-                        </div>
-                    </div>
-
-                    <div class="scenario-item" onclick="toggleDetails(this)">
-                        <h3><i class="fas fa-car-crash"></i> Tailgating <i class="fas fa-chevron-down chevron-icon"></i></h3>
-                        <span class="click-hint">Click for F.I.S.H. Analysis</span>
-                        <p class="summary">Pupil was driving too close to the car in front.</p>
-
-                        <div class="scenario-details">
-                            <div class="fish-box"><span class="fish-label fish-f">F</span><span class="fish-text"><strong>Fact:</strong> "How many seconds gap do you have right now?"</span></div>
-                            <div class="fish-box"><span class="fish-label fish-i">I</span><span class="fish-text"><strong>Implication:</strong> "What will happen if they stop suddenly?"</span></div>
-                            <div class="fish-box"><span class="fish-label fish-s">S</span><span class="fish-text"><strong>Solve:</strong> "How can you adjust your speed to increase the gap?"</span></div>
-                            <div class="fish-box"><span class="fish-label fish-h">H</span><span class="fish-text"><strong>Help:</strong> "Shall we practice counting the gap, or do you feel safe here?"</span></div>
-                        </div>
-                    </div>
-
-                    <div class="scenario-item" onclick="toggleDetails(this)">
-                        <h3><i class="fas fa-car-side"></i> Dangerous Overtaking <i class="fas fa-chevron-down chevron-icon"></i></h3>
-                        <span class="click-hint">Click for F.I.S.H. Analysis</span>
-                        <p class="summary">Pupil decided to overtake on a blind bend.</p>
-
-                        <div class="scenario-details">
-                            <div class="fish-box"><span class="fish-label fish-f">F</span><span class="fish-text"><strong>Fact:</strong> "What can you see coming around this corner?"</span></div>
-                            <div class="fish-box"><span class="fish-label fish-i">I</span><span class="fish-text"><strong>Implication:</strong> "What’s the risk of overtaking right now?"</span></div>
-                            <div class="fish-box"><span class="fish-label fish-s">S</span><span class="fish-text"><strong>Solve:</strong> "When will it be safe to overtake?"</span></div>
-                            <div class="fish-box"><span class="fish-label fish-h">H</span><span class="fish-text"><strong>Help:</strong> "Shall we practice looking for hazards together, or do you want a go alone?"</span></div>
-                        </div>
-                    </div>
-
-                    <div class="scenario-item" onclick="toggleDetails(this)">
-                        <h3><i class="fas fa-sign-out-alt"></i> T-Junction Observation <i class="fas fa-chevron-down chevron-icon"></i></h3>
-                        <span class="click-hint">Click for F.I.S.H. Analysis</span>
-                        <p class="summary">Pupil looked too early and exited without stopping at a restricted view junction.</p>
-
-                        <div class="scenario-details">
-                            <div class="fish-box"><span class="fish-label fish-f">F</span><span class="fish-text"><strong>Fact:</strong> "When did you last check for traffic before moving?"</span></div>
-                            <div class="fish-box"><span class="fish-label fish-i">I</span><span class="fish-text"><strong>Implication:</strong> "What could happen if a car was hidden behind that hedge?"</span></div>
-                            <div class="fish-box"><span class="fish-label fish-s">S</span><span class="fish-text"><strong>Solve:</strong> "Where is the best point to stop to see clearly?"</span></div>
-                            <div class="fish-box"><span class="fish-label fish-h">H</span><span class="fish-text"><strong>Help:</strong> "Need me to guide your eyes, or do you feel ready to spot them?"</span></div>
-                        </div>
-                    </div>
-
-                    <div class="scenario-item" onclick="toggleDetails(this)">
-                        <h3><i class="fas fa-tachometer-alt"></i> Speed & Control <i class="fas fa-chevron-down chevron-icon"></i></h3>
-                        <span class="click-hint">Click for F.I.S.H. Analysis</span>
-                        <p class="summary">Too fast, poor observation and steering control at a junction.</p>
-
-                        <div class="scenario-details">
-                            <div class="fish-box"><span class="fish-label fish-f">F</span><span class="fish-text"><strong>Fact:</strong> "How fast did you take that corner?"</span></div>
-                            <div class="fish-box"><span class="fish-label fish-i">I</span><span class="fish-text"><strong>Implication:</strong> "How did the speed affect your ability to steer?"</span></div>
-                            <div class="fish-box"><span class="fish-label fish-s">S</span><span class="fish-text"><strong>Solve:</strong> "How can you plan your speed better?"</span></div>
-                            <div class="fish-box"><span class="fish-label fish-h">H</span><span class="fish-text"><strong>Help:</strong> "Do you want to practice the approach slowly first?"</span></div>
-                        </div>
-                    </div>
-
-                    <div class="scenario-item" onclick="toggleDetails(this)">
-                        <h3><i class="fas fa-arrows-alt-h"></i> Oncoming Traffic Gap <i class="fas fa-chevron-down chevron-icon"></i></h3>
-                        <span class="click-hint">Click for F.I.S.H. Analysis</span>
-                        <p class="summary">Misjudged gap with oncoming traffic, tight space when passing.</p>
-
-                        <div class="scenario-details">
-                            <div class="fish-box"><span class="fish-label fish-f">F</span><span class="fish-text"><strong>Fact:</strong> "What did you think about the space between us and that truck?"</span></div>
-                            <div class="fish-box"><span class="fish-label fish-i">I</span><span class="fish-text"><strong>Implication:</strong> "What would have happened if they didn't slow down?"</span></div>
-                            <div class="fish-box"><span class="fish-label fish-s">S</span><span class="fish-text"><strong>Solve:</strong> "How can you decide to stop and wait?"</span></div>
-                            <div class="fish-box"><span class="fish-label fish-h">H</span><span class="fish-text"><strong>Help:</strong> "Want me to help you read the traffic for the next one?"</span></div>
-                        </div>
-                    </div>
-
-                    <div class="scenario-item" onclick="toggleDetails(this)">
-                        <h3><i class="fas fa-car"></i> Poor Observation (Moving Off) <i class="fas fa-chevron-down chevron-icon"></i></h3>
-                        <span class="click-hint">Click for F.I.S.H. Analysis</span>
-                        <p class="summary">Pulled away from curb without checking blind spots.</p>
-
-                        <div class="scenario-details">
-                            <div class="fish-box"><span class="fish-label fish-f">F</span><span class="fish-text"><strong>Fact:</strong> "What did you check before moving off?"</span></div>
-                            <div class="fish-box"><span class="fish-label fish-i">I</span><span class="fish-text"><strong>Implication:</strong> "What’s the risk if a cyclist is beside us?"</span></div>
-                            <div class="fish-box"><span class="fish-label fish-s">S</span><span class="fish-text"><strong>Solve:</strong> "How can you make sure it's safe to move?"</span></div>
-                            <div class="fish-box"><span class="fish-label fish-h">H</span><span class="fish-text"><strong>Help:</strong> "Need a prompt, or can you manage the checks?"</span></div>
-                        </div>
-                    </div>
-
-                    <div class="scenario-item" onclick="toggleDetails(this)">
-                        <h3><i class="fas fa-parking"></i> Pull Up - Curb Collision <i class="fas fa-chevron-down chevron-icon"></i></h3>
-                        <span class="click-hint">Click for F.I.S.H. Analysis</span>
-                        <p class="summary">Hit the curb when pulling up due to poor speed/steering control.</p>
-
-                        <div class="scenario-details">
-                            <div class="fish-box"><span class="fish-label fish-f">F</span><span class="fish-text"><strong>Fact:</strong> "Where did the car end up in relation to the curb?"</span></div>
-                            <div class="fish-box"><span class="fish-label fish-i">I</span><span class="fish-text"><strong>Implication:</strong> "What damage might we cause to the tires?"</span></div>
-                            <div class="fish-box"><span class="fish-label fish-s">S</span><span class="fish-text"><strong>Solve:</strong> "How can you manage your speed to stop smoothly?"</span></div>
-                            <div class="fish-box"><span class="fish-label fish-h">H</span><span class="fish-text"><strong>Help:</strong> "Do you want me to talk you through the steering?"</span></div>
-                        </div>
-                    </div>
-
-                    <div class="scenario-item" onclick="toggleDetails(this)">
-                        <h3><i class="fas fa-road"></i> Late Lane Selection <i class="fas fa-chevron-down chevron-icon"></i></h3>
-                        <span class="click-hint">Click for F.I.S.H. Analysis</span>
-                        <p class="summary">Left lane selection too late when road widened.</p>
-
-                        <div class="scenario-details">
-                            <div class="fish-box"><span class="fish-label fish-f">F</span><span class="fish-text"><strong>Fact:</strong> "What do the road signs tell us about the lanes ahead?"</span></div>
-                            <div class="fish-box"><span class="fish-label fish-i">I</span><span class="fish-text"><strong>Implication:</strong> "What happens if we can't change lane safely?"</span></div>
-                            <div class="fish-box"><span class="fish-label fish-s">S</span><span class="fish-text"><strong>Solve:</strong> "How can you use your planning to move earlier?"</span></div>
-                            <div class="fish-box"><span class="fish-label fish-h">H</span><span class="fish-text"><strong>Help:</strong> "Shall we look for the signs together next time?"</span></div>
-                        </div>
-                    </div>
-
-                    <div class="scenario-item" onclick="toggleDetails(this)">
-                        <h3><i class="fas fa-exclamation-triangle"></i> Speeding <i class="fas fa-chevron-down chevron-icon"></i></h3>
-                        <span class="click-hint">Click for F.I.S.H. Analysis</span>
-                        <p class="summary">Driving over the speed limit due to poor sign reading.</p>
-
-                        <div class="scenario-details">
-                            <div class="fish-box"><span class="fish-label fish-f">F</span><span class="fish-text"><strong>Fact:</strong> "What is the speed limit on this road?"</span></div>
-                            <div class="fish-box"><span class="fish-label fish-i">I</span><span class="fish-text"><strong>Implication:</strong> "What’s the risk if we have to brake suddenly?"</span></div>
-                            <div class="fish-box"><span class="fish-label fish-s">S</span><span class="fish-text"><strong>Solve:</strong> "How can you keep aware of the limits?"</span></div>
-                            <div class="fish-box"><span class="fish-label fish-h">H</span><span class="fish-text"><strong>Help:</strong> "Do you want me to ask you for the speed limit often?"</span></div>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-
-            <div class="footer">
-                &copy; 2026 ADI Ascent. Developed by Roy Li. All rights reserved.
-            </div>
-        </div>
+    <div class="profile">
+      <strong>Roy Li</strong>
+      Approved Driving Instructor<br />
+      Beans Driving School x AA Franchise
     </div>
+  </div>
 
-    <script>
-        function toggleDetails(element) {
-            var details = element.querySelector('.scenario-details');
-            var icon = element.querySelector('.chevron-icon');
-            var hint = element.querySelector('.click-hint');
+  <div class="main-content">
+    <div class="container">
 
-            // 切換顯示狀態
-            if (details.style.display === "block") {
-                details.style.display = "none";
-                icon.style.transform = "rotate(0deg)";
-                hint.textContent = "Click for F.I.S.H. Analysis";
-            } else {
-                details.style.display = "block";
-                icon.style.transform = "rotate(180deg)";
-                hint.textContent = "Click to hide";
-            }
-        }
-    </script>
+      <h1 class="hero-title">Scenario Handling</h1>
+      <p class="hero-subtitle">Search, filter, expand and track practice — while keeping F.I.S.H. consistent.</p>
+
+      <div class="card intro-card">
+        <p style="margin:0; font-size:1rem; line-height:1.7; color:#475569;">
+          <i class="fas fa-lightbulb" style="color: var(--accent-blue); margin-right: 8px;"></i>
+          Welcome to the <strong>Scenario Library</strong>. These examples are built around common driving errors and coached using <strong>F.I.S.H.</strong>.
+          Treat them as a toolkit — adapt to road, pupil, and risk level.
+        </p>
+      </div>
+
+      <!-- ✅ NEW: Tool bar -->
+      <div class="tool-bar">
+        <div class="tool-row">
+          <div class="tool-left">
+            <div class="search-wrap">
+              <i class="fas fa-magnifying-glass"></i>
+              <input id="searchInput" class="search-input" type="text" placeholder="Search scenarios (e.g. roundabout, speed, junction, cyclist)..." />
+            </div>
+
+            <select id="filterSelect" class="filter-select" aria-label="Filter scenarios">
+              <option value="all">All categories</option>
+              <option value="roundabout">Roundabouts</option>
+              <option value="junction">Junctions</option>
+              <option value="speed">Speed</option>
+              <option value="observation">Observation</option>
+              <option value="position">Positioning</option>
+              <option value="overtake">Overtaking</option>
+            </select>
+          </div>
+
+          <div class="tool-right">
+            <button class="btn primary" id="expandAllBtn"><i class="fas fa-folder-open"></i> Expand all</button>
+            <button class="btn" id="collapseAllBtn"><i class="fas fa-folder"></i> Collapse all</button>
+            <button class="btn" id="resetProgressBtn"><i class="fas fa-rotate-left"></i> Reset progress</button>
+          </div>
+        </div>
+
+        <div class="helper-note">
+          <i class="fas fa-circle-info"></i>
+          <div>
+            Tip: Use <strong>filter</strong> to match the lesson focus (e.g. “Junctions”), then open one scenario at a time.
+            The <strong>Practised</strong> checkbox is saved on this device.
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2><i class="fas fa-info-circle"></i> F.I.S.H. Coaching Framework</h2>
+        <p style="margin:0; color:#475569; line-height:1.7;">
+          Keep it pupil-led: identify what happened, the risk, the fix, and the support level.
+        </p>
+
+        <div class="fish-explain-grid">
+          <div class="fish-explain-item f">Fact <span>What just happened?</span></div>
+          <div class="fish-explain-item i">Implication <span>What is the risk?</span></div>
+          <div class="fish-explain-item s">Solve <span>How to fix it?</span></div>
+          <div class="fish-explain-item h">Help <span>What support do you need?</span></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2><i class="fas fa-microscope"></i> Analysis Tool</h2>
+
+        <div class="scenario-grid" id="scenarioGrid">
+
+          <!-- 1 -->
+          <div class="scenario-item" data-category="roundabout observation" data-id="s1" onclick="toggleDetails(this)">
+            <div class="scenario-top">
+              <div class="scenario-title">
+                <i class="fas fa-sync"></i>
+                <h3>Roundabout Misjudgment</h3>
+              </div>
+
+              <div class="scenario-actions">
+                <div class="tags">
+                  <span class="tag blue">Roundabout</span>
+                  <span class="tag green">Observation</span>
+                  <span class="tag amber">Level 2</span>
+                </div>
+                <i class="fas fa-chevron-down chevron-icon"></i>
+              </div>
+            </div>
+
+            <span class="click-hint">Click for F.I.S.H. Analysis</span>
+            <p class="summary">Entered without checking properly, causing another car to brake hard.</p>
+
+            <div class="scenario-details">
+              <div class="fish-row f"><span class="fish-tag f">F</span><span class="fish-text"><strong>Fact:</strong> What did you notice about the other car’s speed as you entered?</span></div>
+              <div class="fish-row i"><span class="fish-tag i">I</span><span class="fish-text"><strong>Implication:</strong> If they didn’t brake, what could have happened?</span></div>
+              <div class="fish-row s"><span class="fish-tag s">S</span><span class="fish-text"><strong>Solve:</strong> What would you look for to choose a safer gap next time?</span></div>
+              <div class="fish-row h"><span class="fish-tag h">H</span><span class="fish-text"><strong>Help:</strong> Talk-through on the next one, or independent attempt?</span></div>
+
+              <label class="practice">
+                <input type="checkbox" class="practice-check" />
+                Mark as practised
+              </label>
+            </div>
+          </div>
+
+          <!-- 2 -->
+          <div class="scenario-item" data-category="roundabout position" data-id="s2" onclick="toggleDetails(this)">
+            <div class="scenario-top">
+              <div class="scenario-title">
+                <i class="fas fa-columns"></i>
+                <h3>Roundabout Lane Drift</h3>
+              </div>
+
+              <div class="scenario-actions">
+                <div class="tags">
+                  <span class="tag blue">Roundabout</span>
+                  <span class="tag red">Position</span>
+                  <span class="tag amber">Level 2</span>
+                </div>
+                <i class="fas fa-chevron-down chevron-icon"></i>
+              </div>
+            </div>
+
+            <span class="click-hint">Click for F.I.S.H. Analysis</span>
+            <p class="summary">Drifted out of lane while turning — poor lane discipline.</p>
+
+            <div class="scenario-details">
+              <div class="fish-row f"><span class="fish-tag f">F</span><span class="fish-text"><strong>Fact:</strong> Where did you feel the car go in relation to the lane markings?</span></div>
+              <div class="fish-row i"><span class="fish-tag i">I</span><span class="fish-text"><strong>Implication:</strong> What is the risk if we drift into the other lane?</span></div>
+              <div class="fish-row s"><span class="fish-tag s">S</span><span class="fish-text"><strong>Solve:</strong> What reference can you use to stay centred?</span></div>
+              <div class="fish-row h"><span class="fish-tag h">H</span><span class="fish-text"><strong>Help:</strong> Want a steering timing hint, or try first then review?</span></div>
+
+              <label class="practice">
+                <input type="checkbox" class="practice-check" />
+                Mark as practised
+              </label>
+            </div>
+          </div>
+
+          <!-- 3 -->
+          <div class="scenario-item" data-category="speed observation" data-id="s3" onclick="toggleDetails(this)">
+            <div class="scenario-top">
+              <div class="scenario-title">
+                <i class="fas fa-car-crash"></i>
+                <h3>Tailgating</h3>
+              </div>
+
+              <div class="scenario-actions">
+                <div class="tags">
+                  <span class="tag amber">Speed</span>
+                  <span class="tag green">Observation</span>
+                  <span class="tag amber">Level 1</span>
+                </div>
+                <i class="fas fa-chevron-down chevron-icon"></i>
+              </div>
+            </div>
+
+            <span class="click-hint">Click for F.I.S.H. Analysis</span>
+            <p class="summary">Following distance too small — reduced reaction time.</p>
+
+            <div class="scenario-details">
+              <div class="fish-row f"><span class="fish-tag f">F</span><span class="fish-text"><strong>Fact:</strong> Roughly how many seconds gap do you have right now?</span></div>
+              <div class="fish-row i"><span class="fish-tag i">I</span><span class="fish-text"><strong>Implication:</strong> If they stop suddenly, what problem does a small gap create?</span></div>
+              <div class="fish-row s"><span class="fish-tag s">S</span><span class="fish-text"><strong>Solve:</strong> What will you change to rebuild the gap?</span></div>
+              <div class="fish-row h"><span class="fish-tag h">H</span><span class="fish-text"><strong>Help:</strong> Practise counting the gap together for 2 minutes?</span></div>
+
+              <label class="practice">
+                <input type="checkbox" class="practice-check" />
+                Mark as practised
+              </label>
+            </div>
+          </div>
+
+          <!-- 4 -->
+          <div class="scenario-item" data-category="overtake risk" data-id="s4" onclick="toggleDetails(this)">
+            <div class="scenario-top">
+              <div class="scenario-title">
+                <i class="fas fa-car-side"></i>
+                <h3>Dangerous Overtaking</h3>
+              </div>
+
+              <div class="scenario-actions">
+                <div class="tags">
+                  <span class="tag red">Overtake</span>
+                  <span class="tag amber">Risk</span>
+                  <span class="tag red">Level 3</span>
+                </div>
+                <i class="fas fa-chevron-down chevron-icon"></i>
+              </div>
+            </div>
+
+            <span class="click-hint">Click for F.I.S.H. Analysis</span>
+            <p class="summary">Attempted to overtake near a blind bend.</p>
+
+            <div class="scenario-details">
+              <div class="fish-row f"><span class="fish-tag f">F</span><span class="fish-text"><strong>Fact:</strong> What can you actually see ahead right now?</span></div>
+              <div class="fish-row i"><span class="fish-tag i">I</span><span class="fish-text"><strong>Implication:</strong> What’s the worst-case risk if something appears around the bend?</span></div>
+              <div class="fish-row s"><span class="fish-tag s">S</span><span class="fish-text"><strong>Solve:</strong> What conditions must be true before overtaking is safe?</span></div>
+              <div class="fish-row h"><span class="fish-tag h">H</span><span class="fish-text"><strong>Help:</strong> Want “safe / not safe” examples first, then you decide?</span></div>
+
+              <label class="practice">
+                <input type="checkbox" class="practice-check" />
+                Mark as practised
+              </label>
+            </div>
+          </div>
+
+          <!-- 5 -->
+          <div class="scenario-item" data-category="junction observation" data-id="s5" onclick="toggleDetails(this)">
+            <div class="scenario-top">
+              <div class="scenario-title">
+                <i class="fas fa-sign-out-alt"></i>
+                <h3>T-Junction Observation</h3>
+              </div>
+
+              <div class="scenario-actions">
+                <div class="tags">
+                  <span class="tag blue">Junction</span>
+                  <span class="tag green">Observation</span>
+                  <span class="tag amber">Level 2</span>
+                </div>
+                <i class="fas fa-chevron-down chevron-icon"></i>
+              </div>
+            </div>
+
+            <span class="click-hint">Click for F.I.S.H. Analysis</span>
+            <p class="summary">Looked too early and moved out at a restricted-view junction.</p>
+
+            <div class="scenario-details">
+              <div class="fish-row f"><span class="fish-tag f">F</span><span class="fish-text"><strong>Fact:</strong> When was your final check left/right before you moved?</span></div>
+              <div class="fish-row i"><span class="fish-tag i">I</span><span class="fish-text"><strong>Implication:</strong> If a car is hidden, what happens next?</span></div>
+              <div class="fish-row s"><span class="fish-tag s">S</span><span class="fish-text"><strong>Solve:</strong> Where is the best stop point to gain vision safely?</span></div>
+              <div class="fish-row h"><span class="fish-tag h">H</span><span class="fish-text"><strong>Help:</strong> Want a cue like “stop – creep – check” for the next one?</span></div>
+
+              <label class="practice">
+                <input type="checkbox" class="practice-check" />
+                Mark as practised
+              </label>
+            </div>
+          </div>
+
+          <!-- 6 -->
+          <div class="scenario-item" data-category="speed junction" data-id="s6" onclick="toggleDetails(this)">
+            <div class="scenario-top">
+              <div class="scenario-title">
+                <i class="fas fa-tachometer-alt"></i>
+                <h3>Speed & Control</h3>
+              </div>
+
+              <div class="scenario-actions">
+                <div class="tags">
+                  <span class="tag amber">Speed</span>
+                  <span class="tag blue">Junction</span>
+                  <span class="tag amber">Level 2</span>
+                </div>
+                <i class="fas fa-chevron-down chevron-icon"></i>
+              </div>
+            </div>
+
+            <span class="click-hint">Click for F.I.S.H. Analysis</span>
+            <p class="summary">Too fast into a junction — steering became messy and observation dropped.</p>
+
+            <div class="scenario-details">
+              <div class="fish-row f"><span class="fish-tag f">F</span><span class="fish-text"><strong>Fact:</strong> How did the car feel when you tried to steer at that speed?</span></div>
+              <div class="fish-row i"><span class="fish-tag i">I</span><span class="fish-text"><strong>Implication:</strong> What risk appears when you can’t steer precisely?</span></div>
+              <div class="fish-row s"><span class="fish-tag s">S</span><span class="fish-text"><strong>Solve:</strong> What’s your plan for reducing speed earlier next time?</span></div>
+              <div class="fish-row h"><span class="fish-tag h">H</span><span class="fish-text"><strong>Help:</strong> Demo run slowly first, then you repeat?</span></div>
+
+              <label class="practice">
+                <input type="checkbox" class="practice-check" />
+                Mark as practised
+              </label>
+            </div>
+          </div>
+
+          <!-- 7 -->
+          <div class="scenario-item" data-category="position risk" data-id="s7" onclick="toggleDetails(this)">
+            <div class="scenario-top">
+              <div class="scenario-title">
+                <i class="fas fa-arrows-alt-h"></i>
+                <h3>Oncoming Traffic Gap</h3>
+              </div>
+
+              <div class="scenario-actions">
+                <div class="tags">
+                  <span class="tag red">Position</span>
+                  <span class="tag amber">Risk</span>
+                  <span class="tag amber">Level 2</span>
+                </div>
+                <i class="fas fa-chevron-down chevron-icon"></i>
+              </div>
+            </div>
+
+            <span class="click-hint">Click for F.I.S.H. Analysis</span>
+            <p class="summary">Misjudged the gap with oncoming traffic in a tight passing space.</p>
+
+            <div class="scenario-details">
+              <div class="fish-row f"><span class="fish-tag f">F</span><span class="fish-text"><strong>Fact:</strong> What made you decide “we can fit” there?</span></div>
+              <div class="fish-row i"><span class="fish-tag i">I</span><span class="fish-text"><strong>Implication:</strong> If the oncoming car doesn’t slow, what’s the consequence?</span></div>
+              <div class="fish-row s"><span class="fish-tag s">S</span><span class="fish-text"><strong>Solve:</strong> What would tell you to stop and wait instead?</span></div>
+              <div class="fish-row h"><span class="fish-tag h">H</span><span class="fish-text"><strong>Help:</strong> Want me to help you read priority for the next few, then you take over?</span></div>
+
+              <label class="practice">
+                <input type="checkbox" class="practice-check" />
+                Mark as practised
+              </label>
+            </div>
+          </div>
+
+          <!-- 8 -->
+          <div class="scenario-item" data-category="observation" data-id="s8" onclick="toggleDetails(this)">
+            <div class="scenario-top">
+              <div class="scenario-title">
+                <i class="fas fa-car"></i>
+                <h3>Poor Observation (Moving Off)</h3>
+              </div>
+
+              <div class="scenario-actions">
+                <div class="tags">
+                  <span class="tag green">Observation</span>
+                  <span class="tag red">Risk</span>
+                  <span class="tag amber">Level 2</span>
+                </div>
+                <i class="fas fa-chevron-down chevron-icon"></i>
+              </div>
+            </div>
+
+            <span class="click-hint">Click for F.I.S.H. Analysis</span>
+            <p class="summary">Pulled away without a proper blind spot check (cyclist risk).</p>
+
+            <div class="scenario-details">
+              <div class="fish-row f"><span class="fish-tag f">F</span><span class="fish-text"><strong>Fact:</strong> Talk me through what you checked before you moved off.</span></div>
+              <div class="fish-row i"><span class="fish-tag i">I</span><span class="fish-text"><strong>Implication:</strong> If a cyclist is beside us, what could happen?</span></div>
+              <div class="fish-row s"><span class="fish-tag s">S</span><span class="fish-text"><strong>Solve:</strong> What’s your new moving-off routine from now on?</span></div>
+              <div class="fish-row h"><span class="fish-tag h">H</span><span class="fish-text"><strong>Help:</strong> Want a prompt word like “mirror–shoulder–go” for the next 3 pull-aways?</span></div>
+
+              <label class="practice">
+                <input type="checkbox" class="practice-check" />
+                Mark as practised
+              </label>
+            </div>
+          </div>
+
+          <!-- 9 -->
+          <div class="scenario-item" data-category="position" data-id="s9" onclick="toggleDetails(this)">
+            <div class="scenario-top">
+              <div class="scenario-title">
+                <i class="fas fa-parking"></i>
+                <h3>Pull Up – Kerb Contact</h3>
+              </div>
+
+              <div class="scenario-actions">
+                <div class="tags">
+                  <span class="tag red">Position</span>
+                  <span class="tag amber">Control</span>
+                  <span class="tag amber">Level 1</span>
+                </div>
+                <i class="fas fa-chevron-down chevron-icon"></i>
+              </div>
+            </div>
+
+            <span class="click-hint">Click for F.I.S.H. Analysis</span>
+            <p class="summary">Touched the kerb while pulling up due to speed / steering misjudgement.</p>
+
+            <div class="scenario-details">
+              <div class="fish-row f"><span class="fish-tag f">F</span><span class="fish-text"><strong>Fact:</strong> Where did the wheel end up in relation to the kerb?</span></div>
+              <div class="fish-row i"><span class="fish-tag i">I</span><span class="fish-text"><strong>Implication:</strong> What damage or danger can kerb contact cause?</span></div>
+              <div class="fish-row s"><span class="fish-tag s">S</span><span class="fish-text"><strong>Solve:</strong> What will you change — speed, reference point, or timing?</span></div>
+              <div class="fish-row h"><span class="fish-tag h">H</span><span class="fish-text"><strong>Help:</strong> Want one demo pull-up with commentary, then you copy?</span></div>
+
+              <label class="practice">
+                <input type="checkbox" class="practice-check" />
+                Mark as practised
+              </label>
+            </div>
+          </div>
+
+          <!-- 10 -->
+          <div class="scenario-item" data-category="position planning" data-id="s10" onclick="toggleDetails(this)">
+            <div class="scenario-top">
+              <div class="scenario-title">
+                <i class="fas fa-road"></i>
+                <h3>Late Lane Selection</h3>
+              </div>
+
+              <div class="scenario-actions">
+                <div class="tags">
+                  <span class="tag red">Planning</span>
+                  <span class="tag blue">Signs</span>
+                  <span class="tag amber">Level 2</span>
+                </div>
+                <i class="fas fa-chevron-down chevron-icon"></i>
+              </div>
+            </div>
+
+            <span class="click-hint">Click for F.I.S.H. Analysis</span>
+            <p class="summary">Moved lanes too late when the road widened (poor planning / sign reading).</p>
+
+            <div class="scenario-details">
+              <div class="fish-row f"><span class="fish-tag f">F</span><span class="fish-text"><strong>Fact:</strong> What did the road markings tell you about lanes ahead?</span></div>
+              <div class="fish-row i"><span class="fish-tag i">I</span><span class="fish-text"><strong>Implication:</strong> What’s the risk when lane choice is left too late?</span></div>
+              <div class="fish-row s"><span class="fish-tag s">S</span><span class="fish-text"><strong>Solve:</strong> What’s your plan to move early next time?</span></div>
+              <div class="fish-row h"><span class="fish-tag h">H</span><span class="fish-text"><strong>Help:</strong> Want me to prompt “lane plan?” earlier until it becomes habit?</span></div>
+
+              <label class="practice">
+                <input type="checkbox" class="practice-check" />
+                Mark as practised
+              </label>
+            </div>
+          </div>
+
+          <!-- 11 -->
+          <div class="scenario-item" data-category="speed observation" data-id="s11" onclick="toggleDetails(this)">
+            <div class="scenario-top">
+              <div class="scenario-title">
+                <i class="fas fa-exclamation-triangle"></i>
+                <h3>Speed Limit Miss</h3>
+              </div>
+
+              <div class="scenario-actions">
+                <div class="tags">
+                  <span class="tag amber">Speed</span>
+                  <span class="tag green">Observation</span>
+                  <span class="tag amber">Level 1</span>
+                </div>
+                <i class="fas fa-chevron-down chevron-icon"></i>
+              </div>
+            </div>
+
+            <span class="click-hint">Click for F.I.S.H. Analysis</span>
+            <p class="summary">Went over the speed limit because the sign change wasn’t noticed.</p>
+
+            <div class="scenario-details">
+              <div class="fish-row f"><span class="fish-tag f">F</span><span class="fish-text"><strong>Fact:</strong> What is the speed limit here, and what told you that?</span></div>
+              <div class="fish-row i"><span class="fish-tag i">I</span><span class="fish-text"><strong>Implication:</strong> What risk increases when speed rises in this environment?</span></div>
+              <div class="fish-row s"><span class="fish-tag s">S</span><span class="fish-text"><strong>Solve:</strong> What system can you use to keep checking limits regularly?</span></div>
+              <div class="fish-row h"><span class="fish-tag h">H</span><span class="fish-text"><strong>Help:</strong> Want me to quiz you on speed limits for the next 10 minutes?</span></div>
+
+              <label class="practice">
+                <input type="checkbox" class="practice-check" />
+                Mark as practised
+              </label>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="footer">
+        &copy; 2026 ADI Ascent. Developed by Roy Li. All rights reserved.
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+    // ===== Core open/close =====
+    function toggleDetails(element) {
+      var details = element.querySelector(".scenario-details");
+      var icon = element.querySelector(".chevron-icon");
+      var hint = element.querySelector(".click-hint");
+
+      var isOpen = details.style.display === "block";
+
+      if (isOpen) {
+        details.style.display = "none";
+        icon.style.transform = "rotate(0deg)";
+        if (hint) hint.textContent = "Click for F.I.S.H. Analysis";
+        element.classList.remove("is-open");
+      } else {
+        details.style.display = "block";
+        icon.style.transform = "rotate(180deg)";
+        if (hint) hint.textContent = "Click to hide";
+        element.classList.add("is-open");
+      }
+    }
+
+    // ===== NEW: Expand/Collapse all =====
+    function setAll(open) {
+      var items = document.querySelectorAll(".scenario-item");
+      items.forEach(function (el) {
+        var details = el.querySelector(".scenario-details");
+        var icon = el.querySelector(".chevron-icon");
+        var hint = el.querySelector(".click-hint");
+        if (!details) return;
+
+        details.style.display = open ? "block" : "none";
+        if (icon) icon.style.transform = open ? "rotate(180deg)" : "rotate(0deg)";
+        if (hint) hint.textContent = open ? "Click to hide" : "Click for F.I.S.H. Analysis";
+        el.classList.toggle("is-open", open);
+      });
+    }
+
+    document.getElementById("expandAllBtn").addEventListener("click", function () { setAll(true); });
+    document.getElementById("collapseAllBtn").addEventListener("click", function () { setAll(false); });
+
+    // ===== NEW: Search + Filter =====
+    var searchInput = document.getElementById("searchInput");
+    var filterSelect = document.getElementById("filterSelect");
+
+    function applyFilters() {
+      var q = (searchInput.value || "").toLowerCase().trim();
+      var filter = filterSelect.value;
+
+      document.querySelectorAll(".scenario-item").forEach(function (item) {
+        var text = item.innerText.toLowerCase();
+        var cat = (item.getAttribute("data-category") || "").toLowerCase();
+
+        var matchText = !q || text.includes(q);
+        var matchFilter = (filter === "all") || cat.includes(filter);
+
+        item.style.display = (matchText && matchFilter) ? "block" : "none";
+      });
+    }
+
+    searchInput.addEventListener("input", applyFilters);
+    filterSelect.addEventListener("change", applyFilters);
+
+    // ===== NEW: Practised tracking (localStorage) =====
+    var STORAGE_KEY = "adi_ascent_scenarios_practice";
+
+    function loadProgress(){
+      try { return JSON.parse(localStorage.getItem(STORAGE_KEY) || "{}"); }
+      catch(e){ return {}; }
+    }
+
+    function saveProgress(map){
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(map));
+    }
+
+    function initPractice(){
+      var progress = loadProgress();
+
+      document.querySelectorAll(".scenario-item").forEach(function(item){
+        var id = item.getAttribute("data-id");
+        var check = item.querySelector(".practice-check");
+        if (!id || !check) return;
+
+        check.checked = !!progress[id];
+        item.classList.toggle("is-done", check.checked);
+
+        // prevent toggle scenario when clicking checkbox
+        check.addEventListener("click", function(ev){ ev.stopPropagation(); });
+
+        check.addEventListener("change", function(){
+          var p = loadProgress();
+          p[id] = check.checked;
+          saveProgress(p);
+          item.classList.toggle("is-done", check.checked);
+        });
+      });
+    }
+
+    document.getElementById("resetProgressBtn").addEventListener("click", function(){
+      localStorage.removeItem(STORAGE_KEY);
+      initPractice();
+    });
+
+    initPractice();
+  </script>
 </body>
 </html>

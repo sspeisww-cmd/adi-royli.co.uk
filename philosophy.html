@@ -4,90 +4,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Our Philosophy | ADI Ascent</title>
+
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <!-- ✅ Global styles (desktop + mobile) -->
+    <link rel="stylesheet" href="styles.css">
+
+    <!-- ✅ Page-only style -->
     <style>
-        /* --- 黃金模板 CSS 結構 --- */
-        :root {
-            --sidebar-bg: #10172a;
-            --main-bg: #f8fafc;
-            --text-dark: #1e293b;
-            --text-light: #f1f5f9;
-            --accent-blue: #2563eb;
-            --accent-green: #10b981;
-            --font-main: 'Poppins', sans-serif;
-        }
-
-        body { font-family: var(--font-main); margin: 0; display: flex; height: 100vh; overflow: hidden; }
-
-        /* 左側導航欄 */
-        .sidebar { width: 300px; background-color: var(--sidebar-bg); color: var(--text-light); padding: 1.5rem; display: flex; flex-direction: column; box-shadow: 2px 0 10px rgba(0,0,0,0.1); overflow-y: auto; flex-shrink: 0; }
-        
-        /* 🔴 品牌容器結構 (H版格式) */
-        .brand-container {
-            display: flex;
-            align-items: center;
-            justify-content: flex-start;
-            gap: 10px;
-            color: white;
-            margin-bottom: 2.5rem;
-            padding-bottom: 1rem;
-            border-bottom: 1px solid #334155;
-            height: 60px; /* ✅ 跟 H 版 */
-        }
-        
-        /* 飛機圖示 (H版格式) */
-        .plane-icon {
-            font-size: 1.8rem;
-            color: white;
-            transform: rotate(35deg);
-            flex-shrink: 0;
-        }
-        
-        /* 文字 ADI Ascent (H版格式) */
-        .brand-text {
-            font-size: 1.5rem;
-            font-weight: 700;
-            white-space: nowrap;
-        }
-        
-        /* 公司Logo圖片樣式 */
-        .brand-logo {
-            max-height: 120px;
-            width: auto;
-            object-fit: contain;
-        }
-        
-        .sidebar a { color: #cbd5e1; text-decoration: none; padding: 0.8rem 1rem; border-radius: 8px; display: flex; align-items: center; gap: 12px; margin-bottom: 0.5rem; transition: all 0.2s; font-weight: 500; }
-        .sidebar a:hover { background-color: #1e293b; color: white; }
-        .sidebar a.active { background-color: var(--accent-blue); color: white; font-weight: bold; }
-        
-        .profile { margin-top: auto; border-top: 1px solid #334155; padding-top: 1.5rem; font-size: 0.9rem; line-height: 1.5; color: #94a3b8; }
-        .profile strong { color: white; font-size: 1rem; display: block; margin-bottom: 0.3rem; }
-
-        /* 右側內容區 (H版格式) */
-        .main-content { flex: 1; background-color: var(--main-bg); padding: 3rem; overflow-y: auto; color: var(--text-dark); position: relative; }
-        .container { max-width: 1000px; margin: 0 auto; position: relative; }
-        
-        .hero-title { 
-            color: var(--text-dark); 
-            font-size: 2.5rem; 
-            margin-top: 0; 
-            font-weight: 700; 
-            line-height: 1.2;
-            position: relative;
-        }
-        
-        .card { background: white; padding: 2.5rem; border-radius: 16px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); margin-bottom: 2rem; position: relative; overflow: hidden; }
-        
-        /* 🟣 裝飾風格 (跟 H 版同款：漸層 + watermark) */
         .philosophy-card {
             background: linear-gradient(135deg, #ffffff 60%, #eef2ff 100%);
             border-left: 5px solid var(--accent-green);
+            position: relative;
+            overflow: hidden;
         }
-        
+
         .philosophy-card::after {
-            content: "\f201"; /* ✅ 跟 H 版 watermark icon（chart-line） */
+            content: "\f201";
             font-family: "Font Awesome 6 Free";
             font-weight: 900;
             position: absolute;
@@ -95,72 +29,86 @@
             color: rgba(37, 99, 235, 0.05);
             bottom: -30px;
             right: 20px;
+            pointer-events: none;
         }
-        
-        .card h2 { color: var(--accent-blue); margin-top: 0; display: flex; align-items: center; gap: 10px; }
-        .card h3 { color: var(--text-dark); margin-top: 1.5rem; }
-        
-        .highlight { color: var(--accent-blue); font-weight: 600; }
-        
-        .footer { text-align: center; padding: 2rem 0; margin-top: 3rem; border-top: 1px solid #e2e8f0; color: #64748b; font-size: 0.85rem; }
     </style>
 </head>
+
 <body>
 
-    <div class="sidebar">
-        <div class="brand-container">
-            <i class="fas fa-paper-plane plane-icon"></i>
-            <span class="brand-text">ADI Ascent</span>
-            <img src="images/logo.png" alt="Logo" class="brand-logo">
-        </div>
-        
-        <a href="index.html"><i class="fas fa-home"></i> Home</a>
-        <a href="philosophy.html" class="active"><i class="fas fa-user-tie"></i> Our Philosophy</a>
-        <a href="professionalism.html"><i class="fas fa-file-contract"></i> Professionalism</a>
-        <a href="ccl-opening.html"><i class="fas fa-comment-dots"></i> CCL Opening</a>
-        <a href="basic-skills.html"><i class="fas fa-cogs"></i> Basic Skills</a>
-        <a href="street-driving.html"><i class="fas fa-road"></i> Street Driving</a>
-        <a href="parking.html"><i class="fas fa-parking"></i> Parking</a>
-        <a href="risk-motorway.html"><i class="fas fa-exclamation-triangle"></i> Risk & Motorway</a>
-        <a href="scenarios.html"><i class="fas fa-tasks"></i> Scenarios</a>
-        <a href="business.html"><i class="fas fa-briefcase"></i> Business Services</a>
-        
-        <div class="profile">
-            <strong>Roy Li</strong>
-            Approved Driving Instructor<br>
-            Beans Driving School x AA Franchise
-        </div>
+<div class="sidebar">
+    <div class="brand-container">
+        <i class="fas fa-paper-plane plane-icon"></i>
+        <span class="brand-text">ADI Ascent</span>
+        <img src="images/logo.png" alt="Logo" class="brand-logo">
     </div>
 
-    <div class="main-content">
-        <div class="container">
-            
-            <h1 class="hero-title">Our Teaching Philosophy</h1>
-            <p style="color: #64748b; font-size: 1.1rem; margin-bottom: 2.5rem;">
-                At ADI Ascent, we believe that effective teaching goes beyond just transferring technical knowledge.
+    <a href="index.html"><i class="fas fa-home"></i> Home</a>
+    <a href="philosophy.html" class="active"><i class="fas fa-user-tie"></i> Our Philosophy</a>
+    <a href="professionalism.html"><i class="fas fa-file-contract"></i> Professionalism</a>
+    <a href="ccl-opening.html"><i class="fas fa-comment-dots"></i> CCL Opening</a>
+    <a href="basic-skills.html"><i class="fas fa-cogs"></i> Basic Skills</a>
+    <a href="street-driving.html"><i class="fas fa-road"></i> Street Driving</a>
+    <a href="parking.html"><i class="fas fa-parking"></i> Parking</a>
+    <a href="risk-motorway.html"><i class="fas fa-exclamation-triangle"></i> Risk & Motorway</a>
+    <a href="scenarios.html"><i class="fas fa-tasks"></i> Scenarios</a>
+    <a href="business.html"><i class="fas fa-briefcase"></i> Business Services</a>
+
+    <div class="profile">
+        <strong>Roy Li</strong>
+        Approved Driving Instructor<br>
+        Beans Driving School x AA Franchise
+    </div>
+</div>
+
+<div class="main-content">
+    <div class="container">
+
+        <h1 class="hero-title">Our Teaching Philosophy</h1>
+        <p style="color:#64748b; font-size:1.1rem; margin-bottom:2.5rem;">
+            At ADI Ascent, we believe that effective teaching goes beyond just transferring technical knowledge.
+        </p>
+
+        <div class="card philosophy-card">
+            <h2><i class="fas fa-lightbulb"></i> Client-Centred Learning (CCL)</h2>
+            <p>
+                Our core philosophy is built around <span class="highlight">Client-Centred Learning</span>.
+                We focus on understanding how a pupil thinks, reacts and processes risk —
+                and then structure our coaching accordingly.
             </p>
-            
-            <div class="card philosophy-card">
-                <h2><i class="fas fa-lightbulb"></i> Client-Centred Learning (CCL)</h2>
-                <p>Our core philosophy is built around <span class="highlight">Client-Centred Learning</span>. We believe that understanding how a student thinks, their fears, and their motivations is key to tailoring our teaching methods.</p>
-                
-                <h3><i class="fas fa-user-graduate"></i> Empowering Learners</h3>
-                <p>We don't just tell students what to do; we guide them to find answers themselves. This approach builds confidence, improves problem-solving skills, and ensures safer driving habits that last a lifetime.</p>
-                
-                <h3><i class="fas fa-shield-alt"></i> Safety First, Always</h3>
-                <p>Safety is not just a rule; it's the foundation of everything we do. We teach PDI's to manage risks proactively and create a safe environment for every student.</p>
-            </div>
-            
-            <div class="card">
-                <h2><i class="fas fa-heart"></i> Empathy and Patience</h2>
-                <p>Learning to drive is often stressful. We cultivate an environment of <span class="highlight">patience and empathy</span>, ensuring that every learner feels respected, understood, and motivated to improve, regardless of their starting point.</p>
-            </div>
 
-            <div class="footer">
-                &copy; 2026 ADI Ascent. Developed by Roy Li. All rights reserved.
-            </div>
+            <h3><i class="fas fa-user-graduate"></i> Empowering Learners</h3>
+            <p>
+                Instead of constant instruction, we guide learners with structured questions and reflection.
+                This builds independence, confidence and long-term safe habits.
+            </p>
+
+            <h3><i class="fas fa-shield-alt"></i> Safety Through Structure</h3>
+            <p>
+                Safety is not about reacting — it’s about planning.
+                We train instructors to coach anticipation, decision-making
+                and calm control under pressure.
+            </p>
         </div>
+
+        <div class="card">
+            <h2><i class="fas fa-heart"></i> Empathy & Professional Standards</h2>
+            <p>
+                Learning to drive can be stressful. We believe strong instructors combine
+                patience, clarity and professional standards.
+            </p>
+            <p>
+                ADI Ascent translates key training concepts into practical, accessible English —
+                helping instructors apply theory confidently in real lessons.
+            </p>
+        </div>
+
+        <div class="footer">
+            &copy; 2026 ADI Ascent. Developed by Roy Li. All rights reserved.
+        </div>
+
     </div>
+</div>
 
 </body>
 </html>
