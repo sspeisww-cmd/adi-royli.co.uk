@@ -22,11 +22,8 @@
 
 /* --- Reset-ish --- */
 *{ box-sizing:border-box; }
-
-/* ✅ Key fix:
-   Don’t force html/body to height:100% (mobile Safari scroll issues).
-   Let body grow naturally and allow scrolling. */
 html, body{ height:auto; }
+
 body{
   font-family:var(--font-main);
   margin:0;
@@ -34,7 +31,7 @@ body{
   min-height:100vh;
   background:var(--main-bg);
   color:var(--text-dark);
-  overflow:auto; /* ✅ allow page scrolling */
+  overflow:auto;
 }
 
 /* --- Sidebar --- */
@@ -73,10 +70,10 @@ body{
   white-space:nowrap;
 }
 
-.brand-logo {
-  max-height: 120px;
-  width: auto;
-  margin-left: -35px;
+.brand-logo{
+  max-height:120px;
+  width:auto;
+  margin-left:-35px;
 }
 
 .sidebar a{
@@ -115,15 +112,12 @@ body{
   flex:1;
   background-color:var(--main-bg);
   padding:3rem;
-  overflow-y:auto; /* desktop: keep nice independent scroll */
+  overflow-y:auto;
   color:var(--text-dark);
-  -webkit-overflow-scrolling: touch; /* ✅ smoother iOS scroll */
+  -webkit-overflow-scrolling:touch;
 }
 
-.container{
-  max-width:1000px;
-  margin:0 auto;
-}
+.container{ max-width:1000px; margin:0 auto; }
 
 .hero-title{
   color:var(--text-dark);
@@ -152,10 +146,7 @@ body{
   align-items:center;
   gap:10px;
 }
-.card h3{
-  color:var(--text-dark);
-  margin-top:1.5rem;
-}
+.card h3{ color:var(--text-dark); margin-top:1.5rem; }
 
 .highlight{ color:var(--accent-blue); font-weight:600; }
 
@@ -276,54 +267,98 @@ body{
 }
 
 /* =========================
-   MOBILE RESPONSIVE
+   MOBILE DRAWER NAV
    ========================= */
+
+/* Menu button (needs to exist in HTML) */
+.mobile-menu-btn{
+  display:none;
+  border:none;
+  cursor:pointer;
+}
+
 @media (max-width: 900px){
   .main-content{ padding:2rem; }
   .card{ padding:2rem; }
 }
 
 @media (max-width: 768px){
-  /* ✅ Most important: mobile must scroll naturally */
-  html, body{
-    height:auto !important;
-  }
+  html, body{ height:auto !important; }
   body{
-    flex-direction:column;
+    display:block;            /* ✅ stop “sidebar pushes content down” */
     min-height:auto;
-    overflow:auto !important; /* ✅ force unlock */
+    overflow:auto !important;
   }
 
-  /* Sidebar becomes top section, not a “screen blocker” */
+  /* ✅ Sidebar becomes a drawer */
   .sidebar{
-    width:100%;
-    box-shadow:none;
-    overflow:visible; /* ✅ avoid trapping scroll */
+    position:fixed;
+    top:0;
+    left:-110%;
+    width:280px;
+    height:100dvh;            /* ✅ better for mobile browser UI */
+    max-height:100dvh;
+    overflow-y:auto;
+    box-shadow:2px 0 20px rgba(0,0,0,0.35);
+    z-index:1200;
+    transition:left 0.28s ease;
+  }
+  .sidebar.active{
+    left:0;
   }
 
-  /* Main content should not be an isolated scroll panel on mobile */
-  .main-content{
-    padding:1.5rem;
-    overflow:visible; /* ✅ key: page scroll, not nested scroll */
+  /* Overlay (needs to exist in HTML) */
+  .menu-overlay{
+    position:fixed;
+    inset:0;
+    background:rgba(15,23,42,0.55);
+    z-index:1100;
+    opacity:0;
+    pointer-events:none;
+    transition:opacity 0.2s ease;
   }
+  .menu-overlay.active{
+    opacity:1;
+    pointer-events:auto;
+  }
+
+  /* Main content is normal flow */
+  .main-content{
+    padding:1.25rem;
+    overflow:visible;
+  }
+
+  /* Menu button fixed at top-left */
+  .mobile-menu-btn{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    gap:8px;
+    position:fixed;
+    top:14px;
+    left:14px;
+    z-index:1300;
+    background:var(--accent-blue);
+    color:#fff;
+    padding:10px 12px;
+    border-radius:10px;
+    font-size:18px;
+    box-shadow:0 10px 18px rgba(0,0,0,0.18);
+  }
+
+  /* Give content a little breathing room from the fixed button */
+  .container{ padding-top:52px; }
 
   .hero-title{ font-size:2rem; }
   .hero-subtitle{ font-size:1.05rem; }
 
-  .content-wrapper{
-    flex-direction:column;
-  }
-
-  .skills-grid{
-    grid-template-columns:1fr;
-  }
-
-  .brand-container{
-    margin-bottom:1.5rem;
-  }
+  .content-wrapper{ flex-direction:column; }
+  .skills-grid{ grid-template-columns:1fr; }
+  .brand-container{ margin-bottom:1.5rem; }
 }
 
 @media (max-width: 420px){
-  .main-content{ padding:1.1rem; }
+  .main-content{ padding:1.05rem; }
   .card{ padding:1.5rem; }
+  .sidebar{ width:260px; }
 }
