@@ -111,6 +111,7 @@
       cursor:pointer;
       transition: all 0.2s;
       font-size: 0.92rem;
+      line-height: 1.2;
     }
     .chip:hover{
       background:#dbeafe;
@@ -141,42 +142,103 @@
       line-height: 1.5;
     }
 
+    /* ✅ Make the booking card feel less cramped on mobile */
+    .booking-card{
+      text-align:center;
+    }
+    .booking-card p{
+      margin-bottom: 0.6rem;
+    }
+
+    /* ✅ Comfortable tablet/mobile spacing (keeps design the same, just breathes better) */
+    @media (max-width: 900px){
+      .service-grid{
+        gap: 1rem;
+      }
+    }
+
+    @media (max-width: 600px){
+      .service-grid{
+        grid-template-columns: 1fr;
+        gap: 0.9rem;
+        margin-top: 1.1rem;
+      }
+      .service-card{
+        padding: 1.35rem;
+        border-radius: 12px;
+      }
+      .service-card i{
+        font-size: 2.5rem;
+        margin-bottom: 0.75rem;
+      }
+      .service-card p{
+        font-size: 0.94rem;
+        line-height: 1.65;
+      }
+
+      /* Reduce heavy blocks spacing slightly so it doesn't feel long/packed */
+      .booking-card .contact-info{
+        margin-top: 1rem;
+      }
+      .booking-card .note{
+        margin-top: 0.75rem;
+      }
+    }
+
     /* keep chips tidy on small screens */
     @media (max-width: 520px){
-      .cta-button, .email-button{ width: 100%; min-width: 0; }
-      .chip{ width: 100%; text-align:center; }
+      .cta-button, .email-button{
+        width: 100%;
+        min-width: 0;
+        padding: 0.95rem 1.1rem;
+      }
+      .chip{
+        width: 100%;
+        text-align:center;
+        padding: 0.65rem 0.95rem;
+      }
+      /* Slightly smaller hero subtitle on very small devices (doesn't change layout) */
+      .hero-subtitle{
+        line-height: 1.55;
+      }
     }
   </style>
 </head>
 
 <body>
 
-  <!-- ✅ Mobile Overlay (same pattern as your other pages) -->
-  <div class="menu-overlay" onclick="toggleMenu()"></div>
+  <!-- ✅ Mobile Overlay (match your reference behavior) -->
+  <div class="menu-overlay" onclick="toggleMenu(false)" aria-hidden="true"></div>
 
-  <!-- ✅ Mobile Menu Button (same pattern as your other pages) -->
-  <button class="mobile-menu-btn" onclick="toggleMenu()">
-    <i class="fas fa-bars"></i>
+  <!-- ✅ Mobile Menu Button (match your reference pattern) -->
+  <button
+    class="mobile-menu-btn"
+    onclick="toggleMenu()"
+    aria-label="Open menu"
+    aria-expanded="false"
+    aria-controls="sidebar"
+  >
+    <i class="fas fa-bars" aria-hidden="true"></i>
   </button>
 
   <!-- Sidebar -->
-  <div class="sidebar">
+  <div class="sidebar" id="sidebar" role="navigation" aria-label="Site navigation">
     <div class="brand-container">
-      <i class="fas fa-paper-plane plane-icon"></i>
+      <i class="fas fa-paper-plane plane-icon" aria-hidden="true"></i>
       <span class="brand-text">ADI Ascent</span>
       <img src="images/logo.png" alt="Logo" class="brand-logo">
     </div>
 
-    <a href="index.html"><i class="fas fa-home"></i> Home</a>
-    <a href="philosophy.html"><i class="fas fa-user-tie"></i> Our Philosophy</a>
-    <a href="professionalism.html"><i class="fas fa-file-contract"></i> Professionalism</a>
-    <a href="ccl-opening.html"><i class="fas fa-comment-dots"></i> CCL Opening</a>
-    <a href="basic-skills.html"><i class="fas fa-cogs"></i> Basic Skills</a>
-    <a href="street-driving.html"><i class="fas fa-road"></i> Street Driving</a>
-    <a href="parking.html"><i class="fas fa-parking"></i> Parking</a>
-    <a href="risk-motorway.html"><i class="fas fa-exclamation-triangle"></i> Risk & Motorway</a>
-    <a href="scenarios.html"><i class="fas fa-tasks"></i> Scenarios</a>
-    <a href="business.html" class="active"><i class="fas fa-briefcase"></i> Business Services</a>
+    <a href="index.html"><i class="fas fa-home" aria-hidden="true"></i> Home</a>
+    <a href="philosophy.html"><i class="fas fa-user-tie" aria-hidden="true"></i> Our Philosophy</a>
+    <a href="professionalism.html"><i class="fas fa-file-contract" aria-hidden="true"></i> Professionalism</a>
+    <a href="ccl-opening.html"><i class="fas fa-comment-dots" aria-hidden="true"></i> CCL Opening</a>
+    <a href="basic-skills.html"><i class="fas fa-cogs" aria-hidden="true"></i> Basic Skills</a>
+    <a href="street-driving.html"><i class="fas fa-road" aria-hidden="true"></i> Street Driving</a>
+    <a href="parking.html"><i class="fas fa-parking" aria-hidden="true"></i> Parking</a>
+    <a href="risk-motorway.html"><i class="fas fa-exclamation-triangle" aria-hidden="true"></i> Risk & Motorway</a>
+    <a href="scenarios.html"><i class="fas fa-tasks" aria-hidden="true"></i> Scenarios</a>
+    <a href="business.html" class="active"><i class="fas fa-briefcase" aria-hidden="true"></i> Business Services</a>
 
     <div class="profile">
       <strong>Roy Li</strong>
@@ -193,7 +255,7 @@
       <p class="hero-subtitle">Private training and consultancy for prospective driving instructors.</p>
 
       <div class="card">
-        <h2><i class="fas fa-handshake"></i> How I Can Help You</h2>
+        <h2><i class="fas fa-handshake" aria-hidden="true"></i> How I Can Help You</h2>
         <p style="color:#475569; line-height:1.7; margin-top:0;">
           Looking for personalised guidance to pass your Standards Check or strengthen Client-Centred Learning?
           Sessions are focused, practical, and built around <strong>what the examiner will actually see</strong>.
@@ -201,19 +263,19 @@
 
         <div class="service-grid">
           <div class="service-card">
-            <i class="fas fa-car-side"></i>
+            <i class="fas fa-car-side" aria-hidden="true"></i>
             <h3>In-Car Training</h3>
             <p>One-to-one practical coaching to sharpen your lesson structure, risk management, and feedback language.</p>
           </div>
 
           <div class="service-card">
-            <i class="fas fa-user-friends"></i>
+            <i class="fas fa-user-friends" aria-hidden="true"></i>
             <h3>Sit-In Sessions</h3>
             <p>Observe live lessons to see Client-Centred Learning in action — questioning, prompts, and debrief rhythm.</p>
           </div>
 
           <div class="service-card">
-            <i class="fas fa-video"></i>
+            <i class="fas fa-video" aria-hidden="true"></i>
             <h3>Video Commenting</h3>
             <p>Send recorded lessons for time-stamped feedback on coaching decisions, intervention level, and clarity.</p>
           </div>
@@ -225,8 +287,8 @@
         </div>
       </div>
 
-      <div class="card" style="text-align: center;">
-        <h2><i class="fas fa-money-bill-wave"></i> Ready to Book?</h2>
+      <div class="card booking-card">
+        <h2><i class="fas fa-money-bill-wave" aria-hidden="true"></i> Ready to Book?</h2>
         <p style="color:#475569; line-height:1.7; margin-top:0;">
           Invest in your career. Contact me for pricing and availability.
         </p>
@@ -239,15 +301,15 @@
         </div>
 
         <a href="https://wa.me/447548386229" class="cta-button" target="_blank" rel="noopener">
-          <i class="fab fa-whatsapp"></i> Get a quote on WhatsApp
+          <i class="fab fa-whatsapp" aria-hidden="true"></i> Get a quote on WhatsApp
         </a>
 
         <a id="emailBtn" href="#" class="email-button">
-          <i class="fas fa-envelope"></i> Email me for availability
+          <i class="fas fa-envelope" aria-hidden="true"></i> Email me for availability
         </a>
 
         <div class="contact-info">
-          <i class="fas fa-phone-alt"></i> +44 (0) 7548 386229
+          <i class="fas fa-phone-alt" aria-hidden="true"></i> +44 (0) 7548 386229
         </div>
 
         <p class="note">
@@ -266,12 +328,42 @@
     </div>
   </div>
 
-  <!-- ✅ EXACT same toggle as your other pages (NO body overflow changes) -->
+  <!-- ✅ Reference-style toggle (with aria + close on overlay) -->
   <script>
-    function toggleMenu(){
-      document.querySelector('.sidebar')?.classList.toggle('active');
-      document.querySelector('.menu-overlay')?.classList.toggle('active');
+  (function(){
+    const sidebar = document.querySelector('.sidebar');
+    const overlay = document.querySelector('.menu-overlay');
+    const btn = document.querySelector('.mobile-menu-btn');
+
+    function setOpen(isOpen){
+      sidebar?.classList.toggle('active', isOpen);
+      overlay?.classList.toggle('active', isOpen);
+
+      if(btn){
+        btn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+        btn.setAttribute('aria-label', isOpen ? 'Close menu' : 'Open menu');
+      }
     }
+
+    window.toggleMenu = function(force){
+      const isOpen = sidebar?.classList.contains('active');
+      if(typeof force === 'boolean'){
+        setOpen(force);
+        return;
+      }
+      setOpen(!isOpen);
+    };
+
+    // close menu after clicking any nav link (mobile)
+    document.querySelectorAll('.sidebar a').forEach(a=>{
+      a.addEventListener('click', ()=> setOpen(false));
+    });
+
+    // ESC to close
+    document.addEventListener('keydown', (e)=>{
+      if(e.key === 'Escape') setOpen(false);
+    });
+  })();
   </script>
 
   <!-- ✅ Mailto builder -->
