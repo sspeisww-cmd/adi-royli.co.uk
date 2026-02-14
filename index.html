@@ -1,117 +1,125 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home | ADI Ascent</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Home | ADI Ascent</title>
 
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
-    <!-- ✅ Global styles (desktop + mobile) -->
-    <link rel="stylesheet" href="styles.css">
+<!-- Global Styles -->
+<link rel="stylesheet" href="styles.css?v=999">
 
-    <!-- ✅ Page-only styles: keep your Home special design (about-card) -->
-    <style>
-        .about-card {
-            background: linear-gradient(135deg, #ffffff 60%, #eef2ff 100%);
-            border-left: 5px solid var(--accent-blue);
-            position: relative;
-            overflow: hidden;
-        }
-        .about-card::after {
-            content: "\f201"; /* FontAwesome: chart-line */
-            font-family: "Font Awesome 6 Free";
-            font-weight: 900;
-            position: absolute;
-            font-size: 150px;
-            color: rgba(37, 99, 235, 0.05);
-            bottom: -30px;
-            right: 20px;
-            pointer-events: none;
-        }
-    </style>
+<style>
+.about-card{
+  background: linear-gradient(135deg,#ffffff 60%,#eef2ff 100%);
+  border-left:5px solid var(--accent-blue);
+  position:relative;
+  overflow:hidden;
+}
+.about-card::after{
+  content:"\f201";
+  font-family:"Font Awesome 6 Free";
+  font-weight:900;
+  position:absolute;
+  font-size:150px;
+  color:rgba(37,99,235,0.05);
+  bottom:-30px;
+  right:20px;
+  pointer-events:none;
+}
+</style>
+
 </head>
 
 <body>
 
-    <div class="sidebar">
-        <div class="brand-container">
-            <i class="fas fa-paper-plane plane-icon"></i>
-            <span class="brand-text">ADI Ascent</span>
-            <img src="images/logo.png" alt="Logo" class="brand-logo">
-        </div>
+<!-- Mobile Overlay -->
+<div class="menu-overlay" onclick="toggleMenu()"></div>
 
-        <a href="index.html" class="active"><i class="fas fa-home"></i> Home</a>
-        <a href="philosophy.html"><i class="fas fa-user-tie"></i> Our Philosophy</a>
-        <a href="professionalism.html"><i class="fas fa-file-contract"></i> Professionalism</a>
-        <a href="ccl-opening.html"><i class="fas fa-comment-dots"></i> CCL Opening</a>
-        <a href="basic-skills.html"><i class="fas fa-cogs"></i> Basic Skills</a>
-        <a href="street-driving.html"><i class="fas fa-road"></i> Street Driving</a>
-        <a href="parking.html"><i class="fas fa-parking"></i> Parking</a>
-        <a href="risk-motorway.html"><i class="fas fa-exclamation-triangle"></i> Risk & Motorway</a>
-        <a href="scenarios.html"><i class="fas fa-tasks"></i> Scenarios</a>
-        <a href="business.html"><i class="fas fa-briefcase"></i> Business Services</a>
+<!-- Mobile Menu Button -->
+<button class="mobile-menu-btn" onclick="toggleMenu()">
+  <i class="fas fa-bars"></i>
+</button>
 
-        <div class="profile">
-            <strong>Roy Li</strong>
-            Approved Driving Instructor<br>
-            Beans Driving School x AA Franchise
-        </div>
+<!-- Sidebar -->
+<div class="sidebar">
+  <div class="brand-container">
+    <i class="fas fa-paper-plane plane-icon"></i>
+    <span class="brand-text">ADI Ascent</span>
+    <img src="images/logo.png" alt="Logo" class="brand-logo">
+  </div>
+
+  <a href="index.html" class="active"><i class="fas fa-home"></i> Home</a>
+  <a href="philosophy.html"><i class="fas fa-user-tie"></i> Our Philosophy</a>
+  <a href="professionalism.html"><i class="fas fa-file-contract"></i> Professionalism</a>
+  <a href="ccl-opening.html"><i class="fas fa-comment-dots"></i> CCL Opening</a>
+  <a href="basic-skills.html"><i class="fas fa-cogs"></i> Basic Skills</a>
+  <a href="street-driving.html"><i class="fas fa-road"></i> Street Driving</a>
+  <a href="parking.html"><i class="fas fa-parking"></i> Parking</a>
+  <a href="risk-motorway.html"><i class="fas fa-exclamation-triangle"></i> Risk & Motorway</a>
+  <a href="scenarios.html"><i class="fas fa-tasks"></i> Scenarios</a>
+  <a href="business.html"><i class="fas fa-briefcase"></i> Business Services</a>
+
+  <div class="profile">
+    <strong>Roy Li</strong>
+    Approved Driving Instructor<br>
+    Beans Driving School x AA Franchise
+  </div>
+</div>
+
+<!-- Main Content -->
+<div class="main-content">
+  <div class="container">
+
+    <h1 class="hero-title">Your Path to ADI Excellence Starts Here</h1>
+    <p style="color:#64748b;font-size:1.1rem;margin-bottom:2.5rem;">
+      ADI Ascent is a practical resource hub for PDIs and new instructors—built to make lesson planning,
+      Standards Check prep, and real-world coaching decisions simpler, clearer, and easier to apply.
+    </p>
+
+    <div class="card about-card">
+      <h2><i class="fas fa-award"></i> About Roy Li & Our Mission</h2>
+
+      <p>
+        Hi, I’m <span class="highlight">Roy Li</span>—an ADI teaching under Beans Driving School and the AA franchise.
+        I built ADI Ascent because I remember how hard it is at the start.
+      </p>
+
+      <p>
+        Many ideas here are inspired by existing toolbooks that helped me.
+        I’ve reworked them into simpler, more in-car usable language.
+      </p>
+
+      <h3><i class="fas fa-lightbulb"></i> Our Philosophy</h3>
+      <p>
+        Built around <span class="highlight">Client-Centred Learning</span>—
+        helping pupils think, not just follow instructions.
+      </p>
     </div>
 
-    <div class="main-content">
-        <div class="container">
-
-            <h1 class="hero-title">Your Path to ADI Excellence Starts Here</h1>
-            <p style="color: #64748b; font-size: 1.1rem; margin-bottom: 2.5rem;">
-                ADI Ascent is a practical resource hub for PDIs and new instructors—built to make lesson planning, Standards Check prep,
-                and real-world coaching decisions simpler, clearer, and easier to apply.
-            </p>
-
-            <div class="card about-card">
-                <h2><i class="fas fa-award"></i> About Roy Li & Our Mission</h2>
-
-                <p>
-                    Hi, I’m <span class="highlight">Roy Li</span>—an ADI teaching under Beans Driving School and the AA franchise.
-                    I built ADI Ascent because I remember how hard it is at the start: you’re learning the job, learning the wording,
-                    and trying to stay safe and professional at the same time.
-                </p>
-
-                <p>
-                    A lot of the ideas here are inspired by the toolbooks and resources already out there—many of which helped me.
-                    The difference is: I’ve reworked the language into a simpler, more “in-car usable” style, closer to how many Hong Kong instructors
-                    naturally speak English, so you can actually use it under pressure.
-                </p>
-
-                <h3><i class="fas fa-lightbulb"></i> Our Philosophy</h3>
-                <p>
-                    This platform is built around <span class="highlight">Client-Centred Learning</span>: helping pupils think, not just follow instructions.
-                    You’ll find question prompts, common scenarios, and coaching frameworks designed to help you manage risk,
-                    build pupil ownership, and deliver a calm, structured lesson—even when things go wrong.
-                </p>
-            </div>
-
-            <div class="card" style="border-left: 5px solid var(--accent-green);">
-                <h2><i class="fas fa-map-signs"></i> How to Use This Platform</h2>
-
-                <p>
-                    Use the sidebar like a toolbox. Pick the topic you need, take a few key questions/phrases, and apply them straight away in the car.
-                    If you’re preparing for a Standards Check, work through the sections in order and build your “go-to” structure.
-                </p>
-
-                <p style="margin-top: 1rem; font-style: italic; color: #475569;">
-                    <i class="fas fa-comment-dots" style="color: var(--accent-green);"></i>
-                    <strong>Keep it practical:</strong> every mistake is data. If you’ve got a real scenario that’s not covered,
-                    send it to me—this library will keep evolving to fill the gaps that toolbooks don’t always cover.
-                </p>
-            </div>
-
-            <div class="footer">
-                &copy; 2026 ADI Ascent. Developed by Roy Li. All rights reserved.
-            </div>
-        </div>
+    <div class="card" style="border-left:5px solid var(--accent-green);">
+      <h2><i class="fas fa-map-signs"></i> How to Use This Platform</h2>
+      <p>
+        Use the sidebar like a toolbox. Apply key phrases directly in the car.
+      </p>
     </div>
+
+    <div class="footer">
+      &copy; 2026 ADI Ascent. Developed by Roy Li.
+    </div>
+
+  </div>
+</div>
+
+<!-- Mobile Drawer Script -->
+<script>
+function toggleMenu(){
+  document.querySelector('.sidebar')?.classList.toggle('active');
+  document.querySelector('.menu-overlay')?.classList.toggle('active');
+}
+</script>
 
 </body>
 </html>
