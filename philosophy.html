@@ -1,114 +1,167 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Our Philosophy | ADI Ascent</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Our Philosophy | ADI Ascent</title>
 
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
-    <!-- ✅ Global styles (desktop + mobile) -->
-    <link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="styles.css?v=999">
 
-    <!-- ✅ Page-only style -->
-    <style>
-        .philosophy-card {
-            background: linear-gradient(135deg, #ffffff 60%, #eef2ff 100%);
-            border-left: 5px solid var(--accent-green);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .philosophy-card::after {
-            content: "\f201";
-            font-family: "Font Awesome 6 Free";
-            font-weight: 900;
-            position: absolute;
-            font-size: 150px;
-            color: rgba(37, 99, 235, 0.05);
-            bottom: -30px;
-            right: 20px;
-            pointer-events: none;
-        }
-    </style>
+<style>
+.philosophy-card{
+  background: linear-gradient(135deg,#ffffff 60%,#eef2ff 100%);
+  border-left:5px solid var(--accent-green);
+  position:relative;
+  overflow:hidden;
+}
+.philosophy-card::after{
+  content:"\f201";
+  font-family:"Font Awesome 6 Free";
+  font-weight:900;
+  position:absolute;
+  font-size:150px;
+  color:rgba(37,99,235,0.05);
+  bottom:-30px;
+  right:20px;
+  pointer-events:none;
+}
+</style>
 </head>
 
 <body>
 
-<div class="sidebar">
-    <div class="brand-container">
-        <i class="fas fa-paper-plane plane-icon"></i>
-        <span class="brand-text">ADI Ascent</span>
-        <img src="images/logo.png" alt="Logo" class="brand-logo">
-    </div>
+<!-- Mobile Overlay -->
+<div class="menu-overlay" onclick="toggleMenu(false)" aria-hidden="true"></div>
 
-    <a href="index.html"><i class="fas fa-home"></i> Home</a>
-    <a href="philosophy.html" class="active"><i class="fas fa-user-tie"></i> Our Philosophy</a>
-    <a href="professionalism.html"><i class="fas fa-file-contract"></i> Professionalism</a>
-    <a href="ccl-opening.html"><i class="fas fa-comment-dots"></i> CCL Opening</a>
-    <a href="basic-skills.html"><i class="fas fa-cogs"></i> Basic Skills</a>
-    <a href="street-driving.html"><i class="fas fa-road"></i> Street Driving</a>
-    <a href="parking.html"><i class="fas fa-parking"></i> Parking</a>
-    <a href="risk-motorway.html"><i class="fas fa-exclamation-triangle"></i> Risk & Motorway</a>
-    <a href="scenarios.html"><i class="fas fa-tasks"></i> Scenarios</a>
-    <a href="business.html"><i class="fas fa-briefcase"></i> Business Services</a>
+<!-- Mobile Menu Button -->
+<button
+  class="mobile-menu-btn"
+  onclick="toggleMenu()"
+  aria-label="Open menu"
+  aria-expanded="false"
+  aria-controls="sidebar"
+>
+  <i class="fas fa-bars" aria-hidden="true"></i>
+</button>
 
-    <div class="profile">
-        <strong>Roy Li</strong>
-        Approved Driving Instructor<br>
-        Beans Driving School x AA Franchise
-    </div>
+<!-- Sidebar -->
+<div class="sidebar" id="sidebar" role="navigation" aria-label="Site navigation">
+  <div class="brand-container">
+    <i class="fas fa-paper-plane plane-icon" aria-hidden="true"></i>
+    <span class="brand-text">ADI Ascent</span>
+    <img src="images/logo.png" alt="ADI Ascent Logo" class="brand-logo">
+  </div>
+
+  <a href="index.html"><i class="fas fa-home" aria-hidden="true"></i> Home</a>
+  <a href="philosophy.html" class="active"><i class="fas fa-user-tie" aria-hidden="true"></i> Our Philosophy</a>
+  <a href="professionalism.html"><i class="fas fa-file-contract" aria-hidden="true"></i> Professionalism</a>
+  <a href="ccl-opening.html"><i class="fas fa-comment-dots" aria-hidden="true"></i> CCL Opening</a>
+  <a href="basic-skills.html"><i class="fas fa-cogs" aria-hidden="true"></i> Basic Skills</a>
+  <a href="street-driving.html"><i class="fas fa-road" aria-hidden="true"></i> Street Driving</a>
+  <a href="parking.html"><i class="fas fa-parking" aria-hidden="true"></i> Parking</a>
+  <a href="risk-motorway.html"><i class="fas fa-exclamation-triangle" aria-hidden="true"></i> Risk &amp; Motorway</a>
+  <a href="scenarios.html"><i class="fas fa-tasks" aria-hidden="true"></i> Scenarios</a>
+  <a href="business.html"><i class="fas fa-briefcase" aria-hidden="true"></i> Business Services</a>
+
+  <div class="profile">
+    <strong>Roy Li</strong>
+    Approved Driving Instructor<br>
+    Beans Driving School x AA Franchise
+  </div>
 </div>
 
+<!-- Main Content -->
 <div class="main-content">
-    <div class="container">
+  <div class="container">
 
-        <h1 class="hero-title">Our Teaching Philosophy</h1>
-        <p style="color:#64748b; font-size:1.1rem; margin-bottom:2.5rem;">
-            At ADI Ascent, we believe that effective teaching goes beyond just transferring technical knowledge.
-        </p>
+    <h1 class="hero-title">Our Teaching Philosophy</h1>
+    <p style="color:#64748b;font-size:1.1rem;margin-bottom:2.5rem;">
+      At ADI Ascent, effective teaching goes beyond technical knowledge — it’s about how we shape thinking, decisions, and safety habits.
+    </p>
 
-        <div class="card philosophy-card">
-            <h2><i class="fas fa-lightbulb"></i> Client-Centred Learning (CCL)</h2>
-            <p>
-                Our core philosophy is built around <span class="highlight">Client-Centred Learning</span>.
-                We focus on understanding how a pupil thinks, reacts and processes risk —
-                and then structure our coaching accordingly.
-            </p>
+    <div class="card philosophy-card">
+      <h2><i class="fas fa-lightbulb" aria-hidden="true"></i> Client-Centred Learning (CCL)</h2>
+      <p>
+        Built around <span class="highlight">Client-Centred Learning</span>.
+        We focus on how a pupil thinks, reacts and processes risk — then structure coaching around that.
+      </p>
 
-            <h3><i class="fas fa-user-graduate"></i> Empowering Learners</h3>
-            <p>
-                Instead of constant instruction, we guide learners with structured questions and reflection.
-                This builds independence, confidence and long-term safe habits.
-            </p>
+      <h3><i class="fas fa-user-graduate" aria-hidden="true"></i> Empowering Learners</h3>
+      <p>
+        Instead of constant instruction, we use questions and reflection to build independence, confidence and long-term safe habits.
+      </p>
 
-            <h3><i class="fas fa-shield-alt"></i> Safety Through Structure</h3>
-            <p>
-                Safety is not about reacting — it’s about planning.
-                We train instructors to coach anticipation, decision-making
-                and calm control under pressure.
-            </p>
-        </div>
+      <h3><i class="fas fa-shield-alt" aria-hidden="true"></i> Safety Through Structure</h3>
+      <p>
+        Safety is not about reacting — it’s about planning. We coach anticipation, decision-making and calm control under pressure.
+      </p>
 
-        <div class="card">
-            <h2><i class="fas fa-heart"></i> Empathy & Professional Standards</h2>
-            <p>
-                Learning to drive can be stressful. We believe strong instructors combine
-                patience, clarity and professional standards.
-            </p>
-            <p>
-                ADI Ascent translates key training concepts into practical, accessible English —
-                helping instructors apply theory confidently in real lessons.
-            </p>
-        </div>
-
-        <div class="footer">
-            &copy; 2026 ADI Ascent. Developed by Roy Li. All rights reserved.
-        </div>
-
+      <div class="importance-box" style="margin-top:1.2rem;">
+        <strong>Coaching prompt:</strong> “If you had to drive this route again tomorrow, what would you do earlier — and why?”
+      </div>
     </div>
+
+    <div class="card">
+      <h2><i class="fas fa-heart" aria-hidden="true"></i> Empathy &amp; Professional Standards</h2>
+      <p>
+        Learning to drive can be stressful. Strong instructors combine patience, clarity and professional standards — without rushing the learner.
+      </p>
+      <p>
+        ADI Ascent translates key training concepts into practical, usable English so you can apply theory confidently in real lessons.
+      </p>
+
+      <div class="importance-box" style="margin-top:1.2rem;">
+        <strong>Examiner lens:</strong> Are you helping the pupil <span class="highlight">take responsibility</span> while still keeping the lesson safe and structured?
+      </div>
+    </div>
+
+    <div class="footer">
+      &copy; 2026 ADI Ascent. Developed by Roy Li. All rights reserved.
+    </div>
+
+  </div>
 </div>
+
+<script>
+(function(){
+  const sidebar = document.querySelector('.sidebar');
+  const overlay = document.querySelector('.menu-overlay');
+  const btn = document.querySelector('.mobile-menu-btn');
+
+  function setOpen(isOpen){
+    sidebar?.classList.toggle('active', isOpen);
+    overlay?.classList.toggle('active', isOpen);
+    document.body.style.overflow = isOpen ? 'hidden' : '';
+
+    if(btn){
+      btn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+      btn.setAttribute('aria-label', isOpen ? 'Close menu' : 'Open menu');
+    }
+  }
+
+  window.toggleMenu = function(force){
+    const isOpen = sidebar?.classList.contains('active');
+    if(typeof force === 'boolean'){
+      setOpen(force);
+      return;
+    }
+    setOpen(!isOpen);
+  };
+
+  // Close after clicking a nav link (mobile-friendly)
+  document.querySelectorAll('.sidebar a').forEach(a=>{
+    a.addEventListener('click', ()=> setOpen(false));
+  });
+
+  // ESC to close (handy on desktop)
+  document.addEventListener('keydown', (e)=>{
+    if(e.key === 'Escape') setOpen(false);
+  });
+})();
+</script>
 
 </body>
 </html>
