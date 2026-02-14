@@ -22,7 +22,11 @@
 
 /* --- Reset-ish --- */
 *{ box-sizing:border-box; }
-html, body{ height:100%; }
+
+/* ✅ Key fix:
+   Don’t force html/body to height:100% (mobile Safari scroll issues).
+   Let body grow naturally and allow scrolling. */
+html, body{ height:auto; }
 body{
   font-family:var(--font-main);
   margin:0;
@@ -30,6 +34,7 @@ body{
   min-height:100vh;
   background:var(--main-bg);
   color:var(--text-dark);
+  overflow:auto; /* ✅ allow page scrolling */
 }
 
 /* --- Sidebar --- */
@@ -69,9 +74,9 @@ body{
 }
 
 .brand-logo {
-    max-height: 120px;
-    width: auto;
-    margin-left: -35px;   /* 負數會拉近 */
+  max-height: 120px;
+  width: auto;
+  margin-left: -35px;
 }
 
 .sidebar a{
@@ -110,8 +115,9 @@ body{
   flex:1;
   background-color:var(--main-bg);
   padding:3rem;
-  overflow-y:auto;
+  overflow-y:auto; /* desktop: keep nice independent scroll */
   color:var(--text-dark);
+  -webkit-overflow-scrolling: touch; /* ✅ smoother iOS scroll */
 }
 
 .container{
@@ -278,18 +284,27 @@ body{
 }
 
 @media (max-width: 768px){
+  /* ✅ Most important: mobile must scroll naturally */
+  html, body{
+    height:auto !important;
+  }
   body{
     flex-direction:column;
     min-height:auto;
+    overflow:auto !important; /* ✅ force unlock */
   }
 
+  /* Sidebar becomes top section, not a “screen blocker” */
   .sidebar{
     width:100%;
     box-shadow:none;
+    overflow:visible; /* ✅ avoid trapping scroll */
   }
 
+  /* Main content should not be an isolated scroll panel on mobile */
   .main-content{
     padding:1.5rem;
+    overflow:visible; /* ✅ key: page scroll, not nested scroll */
   }
 
   .hero-title{ font-size:2rem; }
